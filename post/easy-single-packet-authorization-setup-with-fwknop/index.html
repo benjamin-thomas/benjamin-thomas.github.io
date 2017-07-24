@@ -1,27 +1,37 @@
+
 <!DOCTYPE html>
 <html lang="en-us">
 
     <head>
-	<meta name="generator" content="Hugo 0.25.1" />
 
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-        <meta property="og:title" content=" Notes about programming" />
+        <meta property="og:title" content=" Easy Single Packet Authorization Setup With fwknop &middot;  Notes about programming" />
         <meta property="og:site_name" content="Notes about programming" />
-        <meta property="og:url" content="https://benjamin-thomas.github.io/" />
+        <meta property="og:url" content="https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/" />
 
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
+        <meta property="og:article:published_time" content="2017-07-24T17:31:34&#43;02:00" />
+        <meta property="og:article:tag" content="Admin" />
+        
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@" />
+        <meta name="twitter:creator" content="@" />
+        <meta name="twitter:title" content="Easy Single Packet Authorization Setup With fwknop" />
+        <meta name="twitter:description" content="For linux servers" />
+        <meta name="twitter:url" content="https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/" />
     
 
-        <title> Notes about programming</title>
+        <title> Easy Single Packet Authorization Setup With fwknop &middot;  Notes about programming</title>
 
         <link rel="preload" href="https://benjamin-thomas.github.io/js/main.js" as="script" />
         <link rel="preload" href="https://benjamin-thomas.github.io/css/main.css" as="style" />
 
     
-        <meta name="description" content="" />
+        <meta name="description" content="For linux servers" />
     
 
     
@@ -36,12 +46,59 @@
         
 
     
-
-    
         <link href="https://benjamin-thomas.github.io/index.xml" rel="alternate" type="application/rss+xml" title="Notes about programming" />
     
-        <link rel="canonical" href="https://benjamin-thomas.github.io/" />
 
+    
+        <link rel="canonical" href="https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/" />
+
+
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": "https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/"
+        },
+        "headline": "Easy Single Packet Authorization Setup With fwknop",
+        "description": "For linux servers",
+        "author": {
+            "@type": "Person",
+            "name": "Benjamin Thomas",
+            "url": "http://profiles.google.com/?rel=author",
+            "image": {
+              "@type": "ImageObject",
+              "url": "https:",
+              "height": 80,
+              "width": 80
+            }
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://benjamin-thomas.github.io/",
+          "name": "Notes about programming",
+          "url": "https://benjamin-thomas.github.io/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https:",
+            "height": 80,
+            "width": 80
+          }
+        },
+        
+        "image": {
+          "@type": "ImageObject",
+          "url": "",
+          "height": 80,
+          "width": 80
+        },
+        "datePublished": "2017-07-24",
+        "dateModified": "2017-07-24",
+        "wordCount": 344,
+        "keywords": ["Admin"] 
+    }
+    </script>
 
 
     
@@ -49,9 +106,9 @@
     
     
       var disqus_shortname = 'benjamin-thomas-github-io';
-      var disqus_identifier = 'https:\/\/benjamin-thomas.github.io\/';
-      var disqus_title = 'Notes about programming';
-      var disqus_url = 'https:\/\/benjamin-thomas.github.io\/';
+      var disqus_identifier = 'https:\/\/benjamin-thomas.github.io\/post\/easy-single-packet-authorization-setup-with-fwknop\/';
+      var disqus_title = 'Easy Single Packet Authorization Setup With fwknop';
+      var disqus_url = 'https:\/\/benjamin-thomas.github.io\/post\/easy-single-packet-authorization-setup-with-fwknop\/';
     
     </script>
     
@@ -83,116 +140,216 @@ html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-t
               </a>
             </div>
             <div class="nav-menu">
-              <a class="rss" href="https://benjamin-thomas.github.io/index.xml">
+              <a class="rss" href="">
                 <i class="icon-rss"></i>
               </a>
+                
+                <a class="menu" data-action="toc" data-target="toc"><i class="icon-location"></i></a>
                 
                 
             </div>
           </nav>
 
 
-	<header id="header" class="header">
+<main class="content" role="main">
+	<article class="post">
 		<div class="inner">
-			<a class="header-title" href="https://benjamin-thomas.github.io/">
-				<h1 class="header-name">Notes about programming</h1>
-				
-			</a>
-		</div>
-		
-	</header>
 
-	<div id="post-index" class="container">
+			<div id="push">
 
-		<main class="content" role="main">
+  			<header class="post-header">
+  				<span class="post-meta">
+						<span class="post-date">24 Jul 2017</span> <span class="reading-time">| <span class="estimated-reading-time">2 min.</span> (<span class="word-count">344</span> words)</span></span>
+  				</span>
+  				<div class="clear"></div>
+  				<h1 class="post-title">Easy Single Packet Authorization Setup With fwknop</h1>
+  			</header>
 
-			<div class="post-list">
-				<div id="push">
+  			<section class="post-content">
+  				
 
-			
+<h2 id="step-1-install-on-the-client-and-server">Step 1: Install on the client and server</h2>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>apt-get install fwknop-client
+apt-get install fwknop-server
 
-			
-			  
-<article class="post">
+pacman -S fwknop # client + server
+</pre></div>
 
-	<div class="inner">
-		<a class="post-link" href="https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/"></a>
-		
-		<span class="post-meta">
-			<span class="post-date">24 Jul 2017</span>
-		</span>
-		<h2 class="post-title"><a href="https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/">Easy Single Packet Authorization Setup With fwknop</a></h2>
-		<p class="post-excerpt">For linux servers&hellip;</p>
-		<span class="post-more"><a href="https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/">Read More <i class="icon-arrow-right"></i></a></span>
-	</div>
-</article>
+<h2 id="step-2-generate-a-symetric-key-with-the-fwknop-client">Step 2: Generate a symetric key with the fwknop client</h2>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>fwknop --key-gen
+KEY_BASE64: J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU=
+HMAC_KEY_BASE64: UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==
+</pre></div>
 
-			
-			  
-<article class="post">
+<h2 id="step-3-add-the-keys-on-the-server">Step 3: Add the keys on the server</h2>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>grep -B3 HMAC_KEY_BASE64 /etc/fwknop/access.conf
+SOURCE                  ANY
+REQUIRE_SOURCE_ADDRESS  Y
+KEY_BASE64              J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU=
+HMAC_KEY_BASE64         UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==
+</pre></div>
 
-	<div class="inner">
-		<a class="post-link" href="https://benjamin-thomas.github.io/post/generate-passwords/"></a>
-		
-		<span class="post-meta">
-			<span class="post-date">23 Jul 2017</span>
-		</span>
-		<h2 class="post-title"><a href="https://benjamin-thomas.github.io/post/generate-passwords/">Generate Passwords</a></h2>
-		<p class="post-excerpt">Quick way to generate passwords on the command line&hellip;</p>
-		<span class="post-more"><a href="https://benjamin-thomas.github.io/post/generate-passwords/">Read More <i class="icon-arrow-right"></i></a></span>
-	</div>
-</article>
+<h2 id="step-4-add-the-keys-on-the-client">Step 4: Add the keys on the client</h2>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>grep -B5 HMAC_KEY_BASE64 ~/.fwknoprc
+[my_server]
+ALLOW_IP            1.1.1.1
+ACCESS              tcp/22
+SPA_SERVER          2.2.2.2
+KEY_BASE64          J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU=
+HMAC_KEY_BASE64     UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==
+</pre></div>
 
-			
-			  
-<article class="post">
+<h2 id="step-5-test-the-setup">Step 5: Test the setup</h2>
 
-	<div class="inner">
-		<a class="post-link" href="https://benjamin-thomas.github.io/post/currying/"></a>
-		
-		<span class="post-meta">
-			<span class="post-date">20 Jul 2017</span>
-		</span>
-		<h2 class="post-title"><a href="https://benjamin-thomas.github.io/post/currying/">Currying</a></h2>
-		<p class="post-excerpt">Examples in ruby and javascript&hellip;</p>
-		<span class="post-more"><a href="https://benjamin-thomas.github.io/post/currying/">Read More <i class="icon-arrow-right"></i></a></span>
-	</div>
-</article>
+<h3 id="launch-the-server-in-the-foreground">Launch the server in the foreground</h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>fwknopd -f
+</pre></div>
 
-			
-			  
-<article class="post">
+<h3 id="knock-with-the-client">Knock with the client</h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>fwknop -n my_server
+</pre></div>
 
-	<div class="inner">
-		<a class="post-link" href="https://benjamin-thomas.github.io/post/closures/"></a>
-		
-		<span class="post-meta">
-			<span class="post-date">20 Jul 2017</span>
-		</span>
-		<h2 class="post-title"><a href="https://benjamin-thomas.github.io/post/closures/">Closures</a></h2>
-		<p class="post-excerpt">Examples in ruby and javascript&hellip;</p>
-		<span class="post-more"><a href="https://benjamin-thomas.github.io/post/closures/">Read More <i class="icon-arrow-right"></i></a></span>
-	</div>
-</article>
+<h2 id="step-6-setup-the-firewall">Step 6: Setup the firewall</h2>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>apt-get install iptables-persistent
+</pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>cat /etc/iptables/rules.v4
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
 
-			
+# Keep state.
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-				</div>
+# Loop device.
+-A INPUT -i lo -j ACCEPT
+
+# ssh
+-A INPUT -s 1.1.1.1 -p tcp --dport 22 -j ACCEPT # will be removed later
+
+# Allow PING from remote hosts.
+-A INPUT -p icmp --icmp-type echo-request -j ACCEPT
+COMMIT
+</pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>cat /etc/iptables/rules.v6
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT DROP [0:0]
+COMMIT
+</pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>iptables-apply /etc/iptables/rules.v4
+ip6tables-apply /etc/iptables/rules.v6
+</pre></div>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>systemctl restart netfilter-persistent.service
+</pre></div>
+
+<p>Note: <code>netfilter-persistent.service</code> exists before the installation of <code>iptables-persistent</code>, but will not do anything without that package installed.</p>
+
+<h2 id="step-7-test-manually">Step 7: Test manually</h2>
+
+<p>At this point, the knockd server is still running in the foreground&hellip;</p>
+
+<h3 id="on-the-server">On the server</h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>nc -v -l -p 2222
+</pre></div>
+
+<h3 id="on-the-client">On the client</h3>
+
+<h4 id="port-is-closed">Port is closed</h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>nmap -n -Pn 2.2.2.2 -p 2222
+Starting Nmap
+Nmap scan report for 2.2.2.2
+Host is up.
+
+PORT     STATE    SERVICE
+2222/tcp filtered EtherNetIP-1
+</pre></div>
+
+<h4 id="knocking">Knocking&hellip;</h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>fwknop -n my_server -A tcp/2222
+</pre></div>
+
+<h4 id="server-s-port-is-now-open">Server&rsquo;s port is now open</h4>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>nmap -n -Pn 2.2.2.2 -p 2222
+
+Starting Nmap
+Nmap scan report for 2.2.2.2
+Host is up (0.020s latency).
+
+PORT     STATE SERVICE
+2222/tcp open  EtherNetIP-1
+</pre></div>
+
+<h2 id="step-8-restart">Step 8: Restart</h2>
+
+<p>Test manually once more, and if all is good after a restart, go to step 9.</p>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>grep START /etc/default/fwknop-server
+START_DAEMON=&quot;yes&quot;
+</pre></div>
+
+<h2 id="step-9-last-restart">Step 9: Last restart</h2>
+
+<p>Remove the hard coded IP in /etc/iptables/rules.v4 and restart one last time</p>
+
+<h3 id="and-we-re-done">And we&rsquo;re done!</h3>
+<div class="highlight" style="background: #272822"><pre style="line-height: 125%"><span></span>fwknop -n my_server &amp;&amp; ssh 2.2.2.2
+</pre></div>
+
+  			</section>
+
+  			<footer class="post-footer">
+  				<div class="post-tags">
+            
+            
+                <a href="https://benjamin-thomas.github.io/tags/admin/">Admin</a>
+            
+            
+  				</div>
+  				<div class="post-share">
+  					<a class="icon-twitter" href="https://twitter.com/share?text=Easy%20Single%20Packet%20Authorization%20Setup%20With%20fwknop&url=https%3a%2f%2fbenjamin-thomas.github.io%2fpost%2feasy-single-packet-authorization-setup-with-fwknop%2f" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+  						<span>Twitter</span>
+  					</a>
+  					<a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fbenjamin-thomas.github.io%2fpost%2feasy-single-packet-authorization-setup-with-fwknop%2f" onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+  						<span>Facebook</span>
+  					</a>
+  					<a class="icon-gplus" href="https://plus.google.com/share?url=https%3a%2f%2fbenjamin-thomas.github.io%2fpost%2feasy-single-packet-authorization-setup-with-fwknop%2f" onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+  						<span>Google+</span>
+  					</a>
+  				</div>
+  			</footer>
+
+  			<aside class="post-comments">
+    
+    
+    <div id="disqus_thread"></div>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    
+    
+</aside>
+
+
 			</div>
 
-			<nav id="pagination" class="pagination" role="pagination">
-	<div class="inner">
-	
-		<span class="pagination-info">Page 1 of 1</span>
-	
-		<div class="clear"></div>
-	</div>
-</nav>
+			<nav class="post-nav">
+				
+				
+					<a class="post-nav-item post-nav-prev" href="https://benjamin-thomas.github.io/post/generate-passwords/">
+						<section class="post-nav-teaser">
+							<span class="post-nav-icon"><i class="icon-arrow-right"></i></span>
+							<span class="post-nav-info">
+								<h4 class="post-nav-title">Generate Passwords</h4>
+								<p class="post-nav-excerpt">Quick way to generate passwords on the command line&hellip;</p>
+							</span>
+						</section>
+					</a>
+				
+				<div class="clear"></div>
+			</nav>
 
-
-		</main>
-
-	</div>
+		</div>
+	</article>
+</main>
 
 				<div id="body-class" style="display: none;"></div>
 				<footer id="footer">
@@ -203,6 +360,47 @@ html{font-family:sans-serif;line-height:1.15;-ms-text-size-adjust:100%;-webkit-t
 				</footer>
 				
 				
+<div id="tocMenu" data-target="toc">
+    <div class="menu-header">
+        <span class="menu-label">Menu</span>
+        <a class="menu-close" data-action="toc" data-target="toc"></a>
+    </div>
+    <div id="toc" class="menu-list">
+        <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#step-1-install-on-the-client-and-server">Step 1: Install on the client and server</a></li>
+<li><a href="#step-2-generate-a-symetric-key-with-the-fwknop-client">Step 2: Generate a symetric key with the fwknop client</a></li>
+<li><a href="#step-3-add-the-keys-on-the-server">Step 3: Add the keys on the server</a></li>
+<li><a href="#step-4-add-the-keys-on-the-client">Step 4: Add the keys on the client</a></li>
+<li><a href="#step-5-test-the-setup">Step 5: Test the setup</a>
+<ul>
+<li><a href="#launch-the-server-in-the-foreground">Launch the server in the foreground</a></li>
+<li><a href="#knock-with-the-client">Knock with the client</a></li>
+</ul></li>
+<li><a href="#step-6-setup-the-firewall">Step 6: Setup the firewall</a></li>
+<li><a href="#step-7-test-manually">Step 7: Test manually</a>
+<ul>
+<li><a href="#on-the-server">On the server</a></li>
+<li><a href="#on-the-client">On the client</a>
+<ul>
+<li><a href="#port-is-closed">Port is closed</a></li>
+<li><a href="#knocking">Knocking&hellip;</a></li>
+<li><a href="#server-s-port-is-now-open">Server&rsquo;s port is now open</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#step-8-restart">Step 8: Restart</a></li>
+<li><a href="#step-9-last-restart">Step 9: Last restart</a>
+<ul>
+<li><a href="#and-we-re-done">And we&rsquo;re done!</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
 
 				<div class="overlay"></div>
 			</div>
