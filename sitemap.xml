@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://benjamin-thomas.github.io/post/ubuntu-1804-lvm-on-luks/</loc>
+    <lastmod>2019-01-31T00:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/</loc>
     <lastmod>2017-07-24T17:31:34+02:00</lastmod>
   </url>
@@ -40,14 +45,20 @@
   </url>
   
   <url>
-    <loc>https://benjamin-thomas.github.io/</loc>
-    <lastmod>2017-07-24T17:31:34+02:00</lastmod>
+    <loc>https://benjamin-thomas.github.io/tags/os/</loc>
+    <lastmod>2019-01-31T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://benjamin-thomas.github.io/post/</loc>
-    <lastmod>2017-07-24T17:31:34+02:00</lastmod>
+    <lastmod>2019-01-31T00:00:00+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://benjamin-thomas.github.io/</loc>
+    <lastmod>2019-01-31T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -60,6 +71,12 @@
   <url>
     <loc>https://benjamin-thomas.github.io/tags/</loc>
     <lastmod>2017-07-24T17:31:34+02:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://benjamin-thomas.github.io/tags/ubuntu/</loc>
+    <lastmod>2019-01-31T00:00:00+02:00</lastmod>
     <priority>0</priority>
   </url>
   

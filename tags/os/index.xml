@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Os on Programming, etc.</title>
+    <link>https://benjamin-thomas.github.io/tags/os/</link>
+    <description>Recent content in Os on Programming, etc.</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 31 Jan 2019 00:00:00 +0200</lastBuildDate>
+    
+	<atom:link href="https://benjamin-thomas.github.io/tags/os/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>HOWTO: Ubuntu 18.04 install with LVM on LUKS</title>
+      <link>https://benjamin-thomas.github.io/post/ubuntu-1804-lvm-on-luks/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://benjamin-thomas.github.io/post/ubuntu-1804-lvm-on-luks/</guid>
+      <description>Needs cleanup next time, this article put me on the right track!
+1. Launch a live USB Tips  Press F6 to enter the advance GUI mode Activate nomodeset if the graphics card is not well supported Get RAM size with: free -h  2. Partion disk parted /dev/sdX mklabel msdos # Reboot could be necessary here mkpart primary 0% 2GB # For /boot mkpart primary 2GB 100% # For LUKS print # Review layout 3.</description>
+    </item>
+    
+  </channel>
+</rss>

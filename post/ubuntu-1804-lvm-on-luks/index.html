@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+  <head>
+    <title>HOWTO: Ubuntu 18.04 install with LVM on LUKS // Programming, etc.</title>
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.53" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="John Doe" />
+    <meta name="description" content="A Step by step installation" />
+    <base href="https://benjamin-thomas.github.io/" />
+    <link rel="stylesheet" href="https://benjamin-thomas.github.io/css/main.min.89370bfdd636611d7283523dbb885b5a6137cf1749d5503e069b06f5cc55f5bb.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="./avatar.jpg" /></a>
+      <h1>Programming, etc.</h1>
+      <p> </p>
+      <div class="app-header-social">
+        
+          <a target="_blank" href="https://github.com/benjamin-thomas"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">HOWTO: Ubuntu 18.04 install with LVM on LUKS</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Jan 31, 2019
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          2 min read
+        </div><div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+          </div></div>
+    </header>
+    <div class="post-content">
+      
+
+<hr />
+
+<p>Needs cleanup next time, <a href="https://zestedesavoir.com/tutoriels/1653/installer-un-ubuntu-chiffre-avec-luks-lvm-et-un-partitionnement-personnalise">this article</a> put me on the right track!</p>
+
+<hr />
+
+<h2 id="1-launch-a-live-usb">1. Launch a live USB</h2>
+
+<h3 id="tips">Tips</h3>
+
+<ul>
+<li>Press <code>F6</code> to enter the advance GUI mode</li>
+<li>Activate <code>nomodeset</code> if the graphics card is not well supported</li>
+<li>Get RAM size with: <code>free -h</code></li>
+</ul>
+
+<h2 id="2-partion-disk">2. Partion disk</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">parted /dev/sdX
+mklabel msdos                   # Reboot could be necessary here
+mkpart primary 0% 2GB           # For /boot
+mkpart primary 2GB 100%         # For LUKS
+print                           # Review layout</code></pre></div>
+<h2 id="3-luks-setup">3. LUKS setup</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">cryptsetup luksFormat /dev/sdX2
+cryptsetup luksOpen   /dev/sdX2 cryptpart</code></pre></div>
+<h2 id="4-lvm-setup">4. LVM setup</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">pvcreate /dev/mapper/cryptpart                       # Create a physical volume
+vgcreate SysVol /dev/mapper/cryptpart                # Create a volume group
+lvcreate -L 12GB -n CryptSwap SysVol                 # Choose double the RAM
+lvcreate -l 100%FREE -n CryptSys SysVol</code></pre></div>
+<h2 id="5-prepare-the-filesystems">5. Prepare the filesystems</h2>
+
+<p>This is optional, and can be done with the GUI install later instead.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">mkfs.ext4 -L BOOT /dev/sdX1
+mkfs.ext4 -L SYS /dev/mapper/SysVol-CryptSys</code></pre></div>
+<h2 id="6-install-the-base-os">6. Install the base OS</h2>
+
+<p>Launch the ubuntu installer, select custom settings (&ldquo;Something else&rdquo;)</p>
+
+<ul>
+<li>Point /dev/mapper/SysVol-CryptSys to /</li>
+<li>Point /dev/sdX1 to /boot</li>
+<li>Mark /dev/mapper/SysVol-CryptSwap as swap</li>
+</ul>
+
+<p><strong>Do not restart yet!</strong></p>
+
+<h2 id="7-chroot-setup-and-enter">7. Chroot setup and enter</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"># Copy-paste the partition UUID
+blkid /dev/sdX2
+
+# Mounts for chroot
+mount /dev/SysVol/CryptSys /mnt
+mount /dev/sdX1 /mnt/boot
+
+# Mount initramfs and grub-update dependencies
+cd /
+mount -t proc proc /mnt/proc
+mount -t sysfs sys /mnt/sys
+mount -o bind /dev /mnt/dev
+
+# Enter chroot
+chroot /mnt</code></pre></div>
+<h2 id="configuration-inside-chroot">Configuration inside chroot</h2>
+
+<h3 id="install-vim">Install vim</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"># May need to configure DNS to download with apt-get
+# /etc/resolv.conf --&gt; nameserver 8.8.8.8
+apt-get install vim</code></pre></div>
+<h3 id="edit-etc-crypttab">Edit /etc/crypttab</h3>
+
+<p>TODO: I don&rsquo;t think the lvm option is necessary</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-file" data-lang="file"># &lt;target name&gt; &lt;source device&gt;                 &lt;key file&gt;    &lt;options&gt;
+cryptpart       UUID=DEVICE_UID(no quotes!!)    none          luks,lvm</code></pre></div>
+<h3 id="edit-etc-initramfs-tools-conf-d-cryptroot">Edit /etc/initramfs-tools/conf.d/cryptroot</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-file" data-lang="file">CRYPTROOT=target=cryptpart,source=/dev/disk/by-uuid/DEVICE_UID</code></pre></div>
+<h3 id="create-update-initramfs">Create/update initramfs</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console"># -c for create
+# -k for kernel
+# -d for delete
+# -u for update an existing initramfs
+update-initramfs -k all -c
+#update-initramfs -k all -d
+#update-initramfs -c -k $(uname -r) # all did not work after delete all
+#update-initramfs -u</code></pre></div>
+<h3 id="edit-etc-default-grub">Edit /etc/default/grub</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-file" data-lang="file"># Remove &#34;quiet splash&#34; to display boot data, GRUB_CMDLINE_LINUX_DEFAULT options won&#39;t be applied in rescue mode
+
+GRUB_CMDLINE_LINUX=&#34;nomodeset cryptopts=target=cryptpart,source=/dev/disk/by-uuid/DEVICE_UID,lvm=SysVol&#34;</code></pre></div>
+<h3 id="update-grub">Update grub</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">update-grub</code></pre></div>
+<h2 id="8-finally">8. Finally</h2>
+
+<p>Make sure <code>/etc/default/keyboard</code> is coherent.</p>
+
+<p>Exit chroot, then reboot!</p>
+
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

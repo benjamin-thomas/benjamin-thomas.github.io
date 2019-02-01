@@ -1,15 +1,25 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Notes about programming</title>
+    <title>Posts on Programming, etc.</title>
     <link>https://benjamin-thomas.github.io/post/</link>
-    <description>Recent content in Posts on Notes about programming</description>
+    <description>Recent content in Posts on Programming, etc.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 24 Jul 2017 17:31:34 +0200</lastBuildDate>
+    <lastBuildDate>Thu, 31 Jan 2019 00:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://benjamin-thomas.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>HOWTO: Ubuntu 18.04 install with LVM on LUKS</title>
+      <link>https://benjamin-thomas.github.io/post/ubuntu-1804-lvm-on-luks/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://benjamin-thomas.github.io/post/ubuntu-1804-lvm-on-luks/</guid>
+      <description>Needs cleanup next time, this article put me on the right track!
+1. Launch a live USB Tips  Press F6 to enter the advance GUI mode Activate nomodeset if the graphics card is not well supported Get RAM size with: free -h  2. Partion disk parted /dev/sdX mklabel msdos # Reboot could be necessary here mkpart primary 0% 2GB # For /boot mkpart primary 2GB 100% # For LUKS print # Review layout 3.</description>
+    </item>
     
     <item>
       <title>Easy Single Packet Authorization Setup With fwknop</title>
@@ -17,7 +27,7 @@
       <pubDate>Mon, 24 Jul 2017 17:31:34 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/</guid>
-      <description>Step 1: Install on the client and server apt-get install fwknop-client apt-get install fwknop-server pacman -S fwknop # client + server  Step 2: Generate a symetric key with the fwknop client fwknop --key-gen KEY_BASE64: J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64: UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==  Step 3: Add the keys on the server grep -B3 HMAC_KEY_BASE64 /etc/fwknop/access.conf SOURCE ANY REQUIRE_SOURCE_ADDRESS Y KEY_BASE64 J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64 UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==  Step 4: Add the keys on the client grep -B5 HMAC_KEY_BASE64 ~/.</description>
+      <description>Step 1: Install on the client and server apt-get install fwknop-client apt-get install fwknop-server pacman -S fwknop # client + server Step 2: Generate a symetric key with the fwknop client fwknop --key-gen KEY_BASE64: J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64: UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ== Step 3: Add the keys on the server grep -B3 HMAC_KEY_BASE64 /etc/fwknop/access.conf SOURCE ANY REQUIRE_SOURCE_ADDRESS Y KEY_BASE64 J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64 UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ== Step 4: Add the keys on the client grep -B5 HMAC_KEY_BASE64 ~/.fwknoprc [my_server] ALLOW_IP 1.</description>
     </item>
     
     <item>
@@ -26,7 +36,7 @@
       <pubDate>Sun, 23 Jul 2017 14:24:57 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/generate-passwords/</guid>
-      <description> Generate an alpha numeric password $ pwgen -s 20 1 # =&amp;gt; 66jTuJXUYOrnqoOpfOWE $ &amp;lt;/dev/urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; Zg0OFvg0wOEc4hdEwawZ  Generate an numeric only password $ &amp;lt;/dev/urandom tr -dc [:digit:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 91331194034454954513 $ &amp;lt;/dev/urandom tr -dc 0-9 | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 00166785542509259371  Generate an alpha only password $ pwgen -s0 20 1 # =&amp;gt; JqNGGWcaJyamSAyXkqnG $ &amp;lt;/dev/urandom tr -dc a-zA-Z | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; PAnRPpXuPuYNrNpGtKrN $ &amp;lt;/dev/urandom tr -dc [:alpha:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; QlSBFAAmqTXjJLDyBZoN  </description>
+      <description> Generate an alpha numeric password $ pwgen -s 20 1 # =&amp;gt; 66jTuJXUYOrnqoOpfOWE $ &amp;lt;/dev/urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; Zg0OFvg0wOEc4hdEwawZ Generate an numeric only password $ &amp;lt;/dev/urandom tr -dc [:digit:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 91331194034454954513 $ &amp;lt;/dev/urandom tr -dc 0-9 | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 00166785542509259371 Generate an alpha only password $ pwgen -s0 20 1 # =&amp;gt; JqNGGWcaJyamSAyXkqnG $ &amp;lt;/dev/urandom tr -dc a-zA-Z | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; PAnRPpXuPuYNrNpGtKrN $ &amp;lt;/dev/urandom tr -dc [:alpha:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; QlSBFAAmqTXjJLDyBZoN</description>
     </item>
     
     <item>
@@ -44,7 +54,7 @@
       <pubDate>Thu, 20 Jul 2017 12:18:25 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/closures/</guid>
-      <description> Ruby def cycle(collection) index = -1 lambda do index += 1 collection[index % collection.size] end end c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) 4.times.map do c.call end # =&amp;gt; =&amp;gt; [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;]  Javascript function cycle(coll) { var idx = -1; return function() { idx += 1; return coll[idx % coll.length]; } } c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) Array(4).fill(null).map(function() { return c(); }) // =&amp;gt; [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;]  </description>
+      <description> Ruby def cycle(collection) index = -1 lambda do index += 1 collection[index % collection.size]  end end c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) 4.times.map do c.call end # =&amp;gt; =&amp;gt; [&amp;#34;red&amp;#34;, &amp;#34;green&amp;#34;, &amp;#34;blue&amp;#34;, &amp;#34;red&amp;#34;] Javascript function cycle(coll) { var idx = -1; return function() { idx += 1; return coll[idx % coll.length]; } } c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) Array(4).fill(null).map(function() { return c(); }) // =&amp;gt; [&amp;#34;red&amp;#34;, &amp;#34;green&amp;#34;, &amp;#34;blue&amp;#34;, &amp;#34;red&amp;#34;] </description>
     </item>
     
   </channel>

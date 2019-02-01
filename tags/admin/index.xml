@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Admin on Notes about programming</title>
+    <title>Admin on Programming, etc.</title>
     <link>https://benjamin-thomas.github.io/tags/admin/</link>
-    <description>Recent content in Admin on Notes about programming</description>
+    <description>Recent content in Admin on Programming, etc.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 24 Jul 2017 17:31:34 +0200</lastBuildDate>
@@ -17,7 +17,7 @@
       <pubDate>Mon, 24 Jul 2017 17:31:34 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/easy-single-packet-authorization-setup-with-fwknop/</guid>
-      <description>Step 1: Install on the client and server apt-get install fwknop-client apt-get install fwknop-server pacman -S fwknop # client + server  Step 2: Generate a symetric key with the fwknop client fwknop --key-gen KEY_BASE64: J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64: UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==  Step 3: Add the keys on the server grep -B3 HMAC_KEY_BASE64 /etc/fwknop/access.conf SOURCE ANY REQUIRE_SOURCE_ADDRESS Y KEY_BASE64 J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64 UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ==  Step 4: Add the keys on the client grep -B5 HMAC_KEY_BASE64 ~/.</description>
+      <description>Step 1: Install on the client and server apt-get install fwknop-client apt-get install fwknop-server pacman -S fwknop # client + server Step 2: Generate a symetric key with the fwknop client fwknop --key-gen KEY_BASE64: J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64: UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ== Step 3: Add the keys on the server grep -B3 HMAC_KEY_BASE64 /etc/fwknop/access.conf SOURCE ANY REQUIRE_SOURCE_ADDRESS Y KEY_BASE64 J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU= HMAC_KEY_BASE64 UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99/JAp8Krw3hQ== Step 4: Add the keys on the client grep -B5 HMAC_KEY_BASE64 ~/.fwknoprc [my_server] ALLOW_IP 1.</description>
     </item>
     
     <item>
@@ -26,7 +26,7 @@
       <pubDate>Sun, 23 Jul 2017 14:24:57 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/generate-passwords/</guid>
-      <description> Generate an alpha numeric password $ pwgen -s 20 1 # =&amp;gt; 66jTuJXUYOrnqoOpfOWE $ &amp;lt;/dev/urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; Zg0OFvg0wOEc4hdEwawZ  Generate an numeric only password $ &amp;lt;/dev/urandom tr -dc [:digit:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 91331194034454954513 $ &amp;lt;/dev/urandom tr -dc 0-9 | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 00166785542509259371  Generate an alpha only password $ pwgen -s0 20 1 # =&amp;gt; JqNGGWcaJyamSAyXkqnG $ &amp;lt;/dev/urandom tr -dc a-zA-Z | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; PAnRPpXuPuYNrNpGtKrN $ &amp;lt;/dev/urandom tr -dc [:alpha:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; QlSBFAAmqTXjJLDyBZoN  </description>
+      <description> Generate an alpha numeric password $ pwgen -s 20 1 # =&amp;gt; 66jTuJXUYOrnqoOpfOWE $ &amp;lt;/dev/urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; Zg0OFvg0wOEc4hdEwawZ Generate an numeric only password $ &amp;lt;/dev/urandom tr -dc [:digit:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 91331194034454954513 $ &amp;lt;/dev/urandom tr -dc 0-9 | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; 00166785542509259371 Generate an alpha only password $ pwgen -s0 20 1 # =&amp;gt; JqNGGWcaJyamSAyXkqnG $ &amp;lt;/dev/urandom tr -dc a-zA-Z | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; PAnRPpXuPuYNrNpGtKrN $ &amp;lt;/dev/urandom tr -dc [:alpha:] | head -c20 &amp;amp;&amp;amp; echo # =&amp;gt; QlSBFAAmqTXjJLDyBZoN</description>
     </item>
     
   </channel>

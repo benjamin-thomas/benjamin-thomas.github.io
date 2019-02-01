@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tags on Notes about programming</title>
+    <title>Tags on Programming, etc.</title>
     <link>https://benjamin-thomas.github.io/tags/</link>
-    <description>Recent content in Tags on Notes about programming</description>
+    <description>Recent content in Tags on Programming, etc.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 24 Jul 2017 17:31:34 +0200</lastBuildDate>
@@ -30,11 +30,29 @@
     </item>
     
     <item>
+      <title>Os</title>
+      <link>https://benjamin-thomas.github.io/tags/os/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://benjamin-thomas.github.io/tags/os/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Ruby</title>
       <link>https://benjamin-thomas.github.io/tags/ruby/</link>
       <pubDate>Thu, 20 Jul 2017 13:28:46 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/tags/ruby/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ubuntu</title>
+      <link>https://benjamin-thomas.github.io/tags/ubuntu/</link>
+      <pubDate>Thu, 31 Jan 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://benjamin-thomas.github.io/tags/ubuntu/</guid>
       <description></description>
     </item>
     

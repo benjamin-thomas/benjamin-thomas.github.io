@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Javascript on Notes about programming</title>
+    <title>Javascript on Programming, etc.</title>
     <link>https://benjamin-thomas.github.io/tags/javascript/</link>
-    <description>Recent content in Javascript on Notes about programming</description>
+    <description>Recent content in Javascript on Programming, etc.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 20 Jul 2017 13:28:46 +0200</lastBuildDate>
@@ -26,7 +26,7 @@
       <pubDate>Thu, 20 Jul 2017 12:18:25 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/closures/</guid>
-      <description> Ruby def cycle(collection) index = -1 lambda do index += 1 collection[index % collection.size] end end c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) 4.times.map do c.call end # =&amp;gt; =&amp;gt; [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;]  Javascript function cycle(coll) { var idx = -1; return function() { idx += 1; return coll[idx % coll.length]; } } c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) Array(4).fill(null).map(function() { return c(); }) // =&amp;gt; [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;]  </description>
+      <description> Ruby def cycle(collection) index = -1 lambda do index += 1 collection[index % collection.size]  end end c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) 4.times.map do c.call end # =&amp;gt; =&amp;gt; [&amp;#34;red&amp;#34;, &amp;#34;green&amp;#34;, &amp;#34;blue&amp;#34;, &amp;#34;red&amp;#34;] Javascript function cycle(coll) { var idx = -1; return function() { idx += 1; return coll[idx % coll.length]; } } c = cycle([&amp;#39;red&amp;#39;, &amp;#39;green&amp;#39;, &amp;#39;blue&amp;#39;]) Array(4).fill(null).map(function() { return c(); }) // =&amp;gt; [&amp;#34;red&amp;#34;, &amp;#34;green&amp;#34;, &amp;#34;blue&amp;#34;, &amp;#34;red&amp;#34;] </description>
     </item>
     
   </channel>
