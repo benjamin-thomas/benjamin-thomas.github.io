@@ -6,10 +6,25 @@
     <description>Recent content on Programming, etc.</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 31 Jan 2019 00:00:00 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 01 Feb 2019 00:00:00 +0200</lastBuildDate>
     
 	<atom:link href="https://benjamin-thomas.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>I3 dev setup on Ubuntu 18.04</title>
+      <link>https://benjamin-thomas.github.io/post/i3-dev-setup-on-ubuntu-1804/</link>
+      <pubDate>Fri, 01 Feb 2019 00:00:00 +0200</pubDate>
+      
+      <guid>https://benjamin-thomas.github.io/post/i3-dev-setup-on-ubuntu-1804/</guid>
+      <description>Just a note to self, nothing interestring
+1. Install LVM on LUKS Follow instructions here
+2. Setup dropbox No support for filesystems other than ext4. No support for eCryptfs on ext4.
+3. Install and mount gocryptfs volume Keep versions in sync, just in case
+https://github.com/rfjakob/gocryptfs/releases
+4. Generate ssh keys Store passphrase in synced password store
+ssh-keygen Use the cryptfs volume to transfer the pub keys, then add them to github, bitbucket.</description>
+    </item>
     
     <item>
       <title>HOWTO: Ubuntu 18.04 install with LVM on LUKS</title>
