@@ -88,6 +88,11 @@ graphical.target has run level 5</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">systemctl set-default graphical.target
 # or once
 systemctl start gdm3.service</code></pre></div>
+<h2 id="9-unlock-gnome-keyring-on-login-see-xinitrc">9. Unlock gnome-keyring on login (see ~/.xinitrc)</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-file" data-lang="file"># /etc/pam.d/login
+# Add those 2 lines below  pam_group.so
+auth      optional     pam_gnome_keyring.so
+session   optional     pam_gnome_keyring.so auto_start</code></pre></div>
     </div>
   </article>
 
