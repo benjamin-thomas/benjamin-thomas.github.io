@@ -33,7 +33,7 @@
         </div>
         <div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          1 min read
+          2 min read
         </div><div>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
           </div></div>
@@ -74,7 +74,17 @@
 git clone git@github.com:benjamin-thomas/dotfiles.git &amp;&amp; cd dotfiles
 ./create_symlinks.rb
 
-apt-get install rofi dunst thunderbird rxvt-unicode</code></pre></div>
+apt-get install rofi dunst thunderbird rxvt-unicode
+
+# for utt
+apt-get install python-pip
+
+apt-get install xsel # clipboard gem dependency
+gem install --user clipboard
+
+apt-get install scrot shutter # screenshots
+apt-get install feh
+apt-get install thunderbird-locale-fr # then download dictionary manually (via right clic &gt; add dict &gt; modules)</code></pre></div>
 <h2 id="7-install-dev-scripts">7. Install dev scripts</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">git clone git@bitbucket.org:inklusive/manage.git</code></pre></div>
 <p>Follow the README.md and README_DEV instructions</p>
@@ -93,6 +103,29 @@ systemctl start gdm3.service</code></pre></div>
 # Add those 2 lines below  pam_group.so
 auth      optional     pam_gnome_keyring.so
 session   optional     pam_gnome_keyring.so auto_start</code></pre></div>
+<h2 id="10-thunderbird-setup">10. Thunderbird setup</h2>
+
+<ul>
+<li>Add sigs via Dropbox</li>
+<li>disable TB spam detection (too many false positives, let the server handle it)</li>
+<li>select marked spam goes to the spam folder</li>
+<li>change default file explorer (which one??)</li>
+</ul>
+
+<h2 id="11-utt-log-in-dropbox">11. Utt log in Dropbox</h2>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">ln -s ~/Dropbox/PrivSync/Documents/Logs/utt.log -T ~/.local/share/utt/utt.log</code></pre></div>
+<h2 id="12-disable-default-pdf-for-surfing-keys-extension">12. Disable default PDF for surfing keys extension</h2>
+
+<p>Type</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">;s</code></pre></div>
+<h1 id="disable-screen-saver">Disable screen saver</h1>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">xset -dpms s off</code></pre></div>
+<p>lxappearance to change default font size (first tab &ldquo;widget/interface&rdquo;)
+gnome-tweaks &gt; fonts &gt; change 4th/last font param for gedit, etc. (others don&rsquo;t seem to do anything)</p>
+
+<p>apt install thunar
+apt remove nautilus</p>
+
     </div>
   </article>
 
