@@ -41,7 +41,7 @@
     <div class="post-content">
       
 
-<p>Just a note to self, nothing interestring</p>
+<p>Just a note to self, nothing interesting</p>
 
 <h2 id="1-install-lvm-on-luks">1. Install LVM on LUKS</h2>
 
@@ -67,7 +67,7 @@
 
 <p><a href="https://github.com/junegunn/fzf-bin/releases">https://github.com/junegunn/fzf-bin/releases</a></p>
 
-<p>Dowload and untar the <mark>bin release</mark>, mv into ~/.local/bin</p>
+<p>Download and untar the <mark>bin release</mark>, mv into ~/.local/bin</p>
 
 <h2 id="6-install-dotfiles">6. Install dotfiles</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">mkdir -p ~/code/github.com/benjamin-thomas &amp;&amp; cd !$
@@ -98,7 +98,7 @@ graphical.target has run level 5</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-console" data-lang="console">systemctl set-default graphical.target
 # or once
 systemctl start gdm3.service</code></pre></div>
-<h2 id="9-unlock-gnome-keyring-on-login-see-xinitrc">9. Unlock gnome-keyring on login (see ~/.xinitrc)</h2>
+<h2 id="9-unlock-gnome-keyring-upon-login-see-xinitrc">9. Unlock gnome-keyring upon login (see ~/.xinitrc)</h2>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-file" data-lang="file"># /etc/pam.d/login
 # Add those 2 lines below  pam_group.so
 auth      optional     pam_gnome_keyring.so
@@ -123,8 +123,20 @@ session   optional     pam_gnome_keyring.so auto_start</code></pre></div>
 <p>lxappearance to change default font size (first tab &ldquo;widget/interface&rdquo;)
 gnome-tweaks &gt; fonts &gt; change 4th/last font param for gedit, etc. (others don&rsquo;t seem to do anything)</p>
 
-<p>apt install thunar
-apt remove nautilus</p>
+<pre><code>apt install thunar
+apt remove nautilus
+</code></pre>
+
+<hr />
+
+<h2 id="next-update-these-steps-on-reinstall">Next: update these steps on reinstall</h2>
+
+<h3 id="install-pass">Install pass</h3>
+
+<pre><code>apt install pass
+ln -s ~/mysyncfolder
+pass ls
+</code></pre>
 
     </div>
   </article>

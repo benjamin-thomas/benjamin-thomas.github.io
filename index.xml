@@ -17,7 +17,7 @@
       <pubDate>Fri, 01 Feb 2019 00:00:00 +0200</pubDate>
       
       <guid>https://benjamin-thomas.github.io/post/i3-dev-setup-on-ubuntu-1804/</guid>
-      <description>Just a note to self, nothing interestring
+      <description>Just a note to self, nothing interesting
 1. Install LVM on LUKS Follow instructions here
 2. Setup dropbox No support for filesystems other than ext4. No support for eCryptfs on ext4.
 3. Install and mount gocryptfs volume Keep versions in sync, just in case
