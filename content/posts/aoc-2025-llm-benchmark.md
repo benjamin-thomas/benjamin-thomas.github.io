@@ -339,7 +339,7 @@ The surviving 7 models went on a perfect streak through Days 1–5, all producin
 
 **Early casualties** — The four ejected models all failed on the very first day. `mistral/devstral-2512` was actually the _fastest_ on D1P1 (33s!) but got Part 2 wrong. `qwen3-max` was the most frustrating: it computed the correct answer and then stopped generating before writing it to disk.
 
-**Haskell competency** — All surviving models demonstrated solid Haskell knowledge. They correctly used standard libraries, handled I/O, parsed input, and produced clean, compilable code.
+**Haskell** — All surviving models were able to produce compilable Haskell code that solved the puzzles correctly. I did not review the code quality itself.
 
 ## Methodology
 
@@ -374,7 +374,7 @@ The orchestrator never reads puzzle descriptions itself and never solves anythin
 ### Caveats
 
 - This is a single run, not averaged over multiple attempts. Results may vary on repeated runs
-- Network latency to different API providers may contribute to timing differences
+- Wall-clock times could be heavily influenced by the inference platform. The same model served on different infrastructure (e.g. [Cerebras](https://cloud.cerebras.ai/) vs a standard API endpoint) could produce dramatically different timings. This is why measuring **solution complexity** (see future ideas below) would be a more meaningful model-to-model comparison than raw elapsed time
 
 ### Future ideas
 
