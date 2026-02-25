@@ -339,7 +339,7 @@ The surviving 7 models went on a perfect streak through Days 1–5, all producin
 
 **Early casualties** — The four ejected models all failed on the very first day. `mistral/devstral-2512` was actually the _fastest_ on D1P1 (33s!) but got Part 2 wrong. `qwen3-max` was the most frustrating: it computed the correct answer and then stopped generating before writing it to disk.
 
-**Haskell competency** — All surviving models demonstrated solid Haskell knowledge. They correctly used standard libraries, handled I/O, parsed input, and produced clean, compilable code. The early AoC puzzles are not algorithmically complex, so the real test will come with later days.
+**Haskell competency** — All surviving models demonstrated solid Haskell knowledge. They correctly used standard libraries, handled I/O, parsed input, and produced clean, compilable code.
 
 ## Methodology
 
@@ -374,16 +374,21 @@ The orchestrator never reads puzzle descriptions itself and never solves anythin
 ### Caveats
 
 - This is a single run, not averaged over multiple attempts. Results may vary on repeated runs
-- Day 1 Part 1 ran without the `--thinking off` flag and without stagger offset correction (those improvements were introduced mid-session)
-- Day 1 used a 10s execution timeout; this was reduced to 5s from Day 2 onward
-- The benchmark is ongoing — results will be updated as we progress through more days
 - Network latency to different API providers may contribute to timing differences
+
+### Future ideas
+
+- **Measure solution complexity** — count the number of output lines or tool invocations each model produces. A model that solves a puzzle in 3 steps vs. 30 tells a very different story, even if wall-clock times are similar
+- **Post-mortem reflections** — have each agent write a `CONCLUSION.txt` summarizing what went well, what went wrong, and how many attempts it took. This would give qualitative insight into each model's problem-solving approach
+- **Cross-model code review** — have different LLMs rate each other's code for quality, readability, and idiomatic style. This raises interesting questions: would models be biased toward their own output? Should the code directories be anonymized before review? What rubric produces the most useful signal for "code quality"?
+- **Language comparison** — run the same benchmark in different languages (e.g. Haskell vs Python vs Go) to see which models are language-specialists vs generalists
+- **Average over multiple runs** — reduce variance from network latency and non-deterministic generation
 
 *Benchmarked on 2025-02-24 using [pi](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) as the agent harness.*
 
 ## The full orchestration prompt
 
-The prompt below is what drives the entire benchmark. It's a pi "skill" — a markdown file that turns the agent into a benchmark controller. I paste puzzle descriptions into the chat, and the orchestrator handles everything else.
+The prompt below is what drives the entire benchmark. It's a pi prompt — a markdown file that turns the agent into a benchmark controller. I paste puzzle descriptions into the chat, and the orchestrator handles everything else.
 
 <details>
 <summary>Click to expand the full prompt (~280 lines of markdown)</summary>
@@ -408,7 +413,7 @@ Example invocations: `/benchmark-aoc 2025 Haskell high`, `/benchmark-aoc 2025 Ru
 
 ## Required filesystem layout
 
-The inputs base is: `/home/benjamin/benchmark/aoc-inputs/<year>/inputs/`
+The inputs base is: `~/benchmark/aoc-inputs/<year>/inputs/`
 
 Each day has a subdirectory:
 
@@ -431,7 +436,7 @@ Zero-pad the day number: `Day01`, `Day02`, ..., `Day09`, `Day10`, etc.
 - `windows`: map of `model → tmux window name`
 - `subdirs`: map of `model → absolute path of its work subdirectory`
 - `work_dir`: the directory the prompt was launched from (captured at setup)
-- `inputs_base`: `/home/benjamin/benchmark/aoc-inputs/<year>/inputs`
+- `inputs_base`: `~/benchmark/aoc-inputs/<year>/inputs`
 - `language`: target language
 - `thinking`: thinking level (e.g. `high`)
 - `current_day`: integer, starts at 1
@@ -593,6 +598,6 @@ showing times for passing cells and ✗ for failing cells.
 
 <br>
 
-## Disclaimer
+## Transparency
 
 *This post was written with AI assistance to maximize efficiency given my time constraints.*
