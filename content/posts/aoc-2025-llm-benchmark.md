@@ -1,6 +1,6 @@
 +++
 title = "Benchmarking LLMs on Advent of Code 2025 (Haskell)"
-date = 2025-02-24T19:30:00+01:00
+date = 2026-02-24T19:30:00+01:00
 description = "Pitting 11 LLMs against each other on AoC 2025 puzzles, solved in Haskell — tracking correctness and speed"
 
 [taxonomies]
@@ -384,7 +384,7 @@ The orchestrator never reads puzzle descriptions itself and never solves anythin
 - **Language comparison** — run the same benchmark in different languages (e.g. Haskell vs Python vs Go) to see which models are language-specialists vs generalists
 - **Average over multiple runs** — reduce variance from network latency and non-deterministic generation
 
-*Benchmarked on 2025-02-24 using [pi](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) as the agent harness.*
+*Benchmarked on 2026-02-24 using [pi](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) as the agent harness.*
 
 ## The full orchestration prompt
 
