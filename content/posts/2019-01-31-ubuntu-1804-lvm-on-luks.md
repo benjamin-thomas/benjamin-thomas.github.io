@@ -1,6 +1,5 @@
 +++
 title = "HOWTO: Ubuntu 18.04 install with LVM on LUKS"
-date = 2019-01-31T00:00:00+02:00
 description = "A Step by step installation"
 
 [taxonomies]

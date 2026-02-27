@@ -1,6 +1,5 @@
 +++
 title = "I3 dev setup on Ubuntu 18.04"
-date = 2019-02-01T00:00:00+02:00
 description = "A note to self about setting up i3 on Ubuntu 18.04"
 
 [taxonomies]
@@ -11,7 +10,7 @@ Just a note to self, nothing interesting
 
 ## 1. Install LVM on LUKS
 
-Follow instructions [here](@/posts/ubuntu-1804-lvm-on-luks.md)
+Follow instructions [here](@/posts/2019-01-31-ubuntu-1804-lvm-on-luks.md)
 
 ## 2. Setup dropbox
 

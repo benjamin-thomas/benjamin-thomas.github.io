@@ -1,13 +1,12 @@
 +++
 title = "Benchmarking LLMs on Advent of Code 2025 (Haskell)"
-date = 2026-02-24T19:30:00+01:00
 description = "Pitting 11 LLMs against each other on AoC 2025 puzzles, solved in Haskell — tracking correctness and speed"
 
 [taxonomies]
 tags = ["Haskell", "AI", "Advent of Code"]
 +++
 
-I benchmarked 11 LLMs on [Advent of Code 2025](https://adventofcode.com/2025) Days 1–5, each solving independently in **Haskell**. The goal: see which models can reliably produce correct, working solutions — and how fast.
+I benchmarked 11 LLMs on [Advent of Code 2025](https://adventofcode.com/2025) Days 1–5, each solving independently in **Haskell**. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional model (`claude-haiku-4-5`) was tested retroactively and has been added to the results.
 
 <!-- more -->
 
@@ -34,6 +33,7 @@ All 11 models came from my enabled model list:
 | 9 | `alibaba/qwen3-max-2026-01-23` |
 | 10 | `alibaba/qwen3-coder-next` |
 | 11 | `alibaba/qwen3-coder-plus` |
+| 12 | `anthropic/claude-haiku-4-5` |
 
 ## Ejections
 
@@ -45,8 +45,9 @@ Models that failed a puzzle were offered for ejection. Four models didn't surviv
 | `mistral/devstral-2512` | D1P2 | Wrong answer |
 | `alibaba/qwen3-coder-next` | D1P2 | Wrong answer |
 | `alibaba/qwen3-max-2026-01-23` | D1P2 | No answer (got the right answer but stopped before writing the file!) |
+| `anthropic/claude-haiku-4-5` ★ | D1P2 | Wrong answer |
 
-The `qwen3-max` case was particularly painful — the model computed the correct answer, said "Now I'll write the answer to ANSWER.txt:" and then... just stopped generating. The answer was right there. 😩
+The `qwen3-max` case was notable — the model computed the correct answer, said "Now I'll write the answer to ANSWER.txt:" and then stopped generating before writing the file.
 
 ## Results (Days 1–5)
 
@@ -62,6 +63,7 @@ The surviving 7 models went on a perfect streak through Days 1–5, all producin
 
 | Model | Time |
 | ------:| ----:|
+| anthropic/claude-haiku-4-5 | 12s |
 | mistral/devstral-2512 | 33s |
 | anthropic/claude-opus-4-6 | 40s |
 | anthropic/claude-sonnet-4-6 | 41s |
@@ -302,6 +304,12 @@ The surviving 7 models went on a perfect streak through Days 1–5, all producin
     </tr>
     <tr><td colspan="11" style="text-align: center; font-style: italic; opacity: 0.6">— ejected —</td></tr>
     <tr>
+      <td>anthropic/claude-haiku-4-5 ★</td>
+      <td style="text-align: right">12s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
       <td>mistral/devstral-2512</td>
       <td style="text-align: right">33s</td>
       <td style="text-align: right">✗</td>
@@ -329,15 +337,17 @@ The surviving 7 models went on a perfect streak through Days 1–5, all producin
 
 ## Observations
 
-**The top tier** — `openai-codex/gpt-5.3-codex`, `anthropic/claude-sonnet-4-6`, and `anthropic/claude-opus-4-6` were consistently fast and correct. GPT-5.3-Codex was often the fastest, with the Anthropic models close behind.
+**Fastest group** — `openai-codex/gpt-5.3-codex`, `anthropic/claude-sonnet-4-6`, and `anthropic/claude-opus-4-6` were consistently fast and correct.
 
-**Solid mid-pack** — `kimi-coding/k2p5` and `alibaba/qwen3.5-plus` were reliable and reasonably quick, occasionally matching the top performers.
+**Mid-pack** — `kimi-coding/k2p5` and `alibaba/qwen3.5-plus` were reliable and reasonably quick.
 
-**Consistent but slow** — `zai/glm-5` always got the right answer but typically took 2–3x longer than the leaders.
+**Slow but correct** — `zai/glm-5` got the right answer each time but typically took 2–3x longer.
 
-**The outlier** — `minimax/MiniMax-M2.5` always got the right answer eventually, but with wildly inconsistent timing. It ranged from 38s (competitive) to 1078s (18 minutes!) for puzzles others solved in under a minute. Something about its approach leads to very expensive wrong turns before converging.
+**`minimax/MiniMax-M2.5`** got the right answer each time, but with variable timing — from 38s to 1078s (18 minutes).
 
-**Early casualties** — The four ejected models all failed on the very first day. `mistral/devstral-2512` was actually the _fastest_ on D1P1 (33s!) but got Part 2 wrong. `qwen3-max` was the most frustrating: it computed the correct answer and then stopped generating before writing it to disk.
+**Ejected models** — The four ejected models all failed on the very first day. `mistral/devstral-2512` was the fastest on D1P1 (33s) but got Part 2 wrong. `qwen3-max` computed the correct answer but stopped generating before writing it to disk.
+
+**`claude-haiku-4-5` (added retroactively)** — Tested after the main run, solo. Fastest on Day 1 Part 1 (12s vs 33s for the next), but got Part 2 wrong — ejected under the same rule as everyone else. It completed the [OCaml run](@/posts/2026-02-25-aoc-2025-llm-benchmark-ocaml.md) without issues.
 
 **Haskell** — All surviving models were able to produce compilable Haskell code that solved the puzzles correctly. I did not review the code quality itself.
 
@@ -374,6 +384,7 @@ The orchestrator never reads puzzle descriptions itself and never solves anythin
 ### Caveats
 
 - This is a single run, not averaged over multiple attempts. Results may vary on repeated runs
+- All costs mentioned are rough approximations based on published per-token pricing. I use subscription plans, so my actual spending is capped regardless
 - Wall-clock times could be heavily influenced by the inference platform. The same model served on different infrastructure (e.g. [Cerebras](https://cloud.cerebras.ai/) vs a standard API endpoint) could produce dramatically different timings. This is why measuring **solution complexity** (see future ideas below) would be a more meaningful model-to-model comparison than raw elapsed time
 
 ### Future ideas
@@ -594,10 +605,10 @@ showing times for passing cells and ✗ for failing cells.
 
 </details>
 
+## Discussion
+
+Join the conversation on the [Haskell Discourse](https://discourse.haskell.org/t/benchmarking-haskell-llm-proficiency-with-aoc-puzzles/13736/4).
+
 ---
 
-<br>
-
-## Transparency
-
-*This post was written with AI assistance to maximize efficiency given my time constraints.*
+*This post was written with AI assistance.*

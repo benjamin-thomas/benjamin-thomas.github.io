@@ -27,6 +27,7 @@ menu = [{ url = "/about", name = "About" }, { url = "/tags", name = "Tags" }]
 language_code = "en-US"
 opengraph = true
 timezone = "Europe/Paris"
+timeformat = "%B %e, %Y"
 
 social_links = [
   { platform = "github", user_id = "benjamin-thomas" },

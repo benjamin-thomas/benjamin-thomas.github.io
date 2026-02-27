@@ -1,6 +1,5 @@
 +++
 title = "Generate Passwords"
-date = 2017-07-23T14:24:57+02:00
 description = "Quick way to generate passwords on the command line"
 
 [taxonomies]
