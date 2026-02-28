@@ -192,6 +192,41 @@ The surviving 7 models went on a perfect streak through Days 1–5, all producin
 | minimax/MiniMax-M2.5 | 44s |
 | zai/glm-5 | 54s |
 
+### Speed vs accuracy
+
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  { name: 'codex',      t: 299,  s: 10, cost: 0 },
+  { name: 'sonnet',     t: 322,  s: 10, cost: 0 },
+  { name: 'opus',       t: 346,  s: 10, cost: 0 },
+  { name: 'qwen3.5+',   t: 373,  s: 10, cost: 0 },
+  { name: 'k2p5',       t: 402,  s: 10, cost: 0 },
+  { name: 'glm-5',      t: 646,  s: 10, cost: 0 },
+  { name: 'MiniMax',    t: 3842, s: 10, cost: 0 },
+  { name: 'haiku',      t: 12,   s:  1, cost: 0 },
+  { name: 'devstral',   t: 33,   s:  1, cost: 0 },
+  { name: 'coder-next', t: 74,   s:  1, cost: 0 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 6 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${(m.t/m.s).toFixed(1)}s/part`; } } }
+    }
+  }
+});
+</script>
+
+No cost data was tracked for this benchmark run.
+
 ### Summary table
 
 <table>

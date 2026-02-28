@@ -174,6 +174,64 @@ on Day 1 only — not included in the cross-language results.
 "Failure incidents" counts retry and ejection events. It does **not** count every
 subsequent part forfeited after an ejection.
 
+#### Speed vs accuracy
+
+Bubble size reflects typical cost per language run. Top-left is the sweet spot (fast + accurate).
+X axis is mean time per clean language run (10 parts, no retries needed).
+
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  //                    mean_clean_time  perfect_langs  cost_per_run
+  { name: 'opus',       t: 312.8, s: 12, cost: 1.00 },
+  { name: 'sonnet',     t: 321.1, s: 12, cost: 0.44 },
+  { name: 'codex',      t: 232.9, s:  8, cost: 0.25 },
+  { name: 'k2p5',       t: 303.1, s:  8, cost: 0.10 },
+  { name: 'glm-5',      t: 841.8, s:  8, cost: 0.20 },
+  { name: 'qwen3.5+',   t: 734.1, s:  8, cost: 0.30 },
+  { name: 'haiku',      t: 214.3, s:  7, cost: 0.30 },
+  { name: 'devstral',   t: 301.4, s:  5, cost: 0.25 },
+  { name: 'MiniMax',    t: 1392.5,s:  4, cost: 0.50 },
+  { name: 'coder-next', t: 536.0, s:  3, cost: 0.80 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: {
+    datasets: models.map(m => ({
+      label: m.name,
+      data: [{ x: m.t, y: m.s, r: 3 + Math.sqrt(m.cost) * 4 }],
+    })),
+  },
+  options: {
+    maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: 'Mean time per clean language run (s) — lower is better' }},
+      y: { title: { display: true, text: 'Perfect languages (strict, /12)' }, min: 0, max: 13 },
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 1,
+        font: { size: 11 },
+        formatter: (_, ctx) => models[ctx.datasetIndex].name,
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const m = models[ctx.datasetIndex];
+            return `${m.name}: ${m.s}/12 langs, ${m.t}s/run, $${m.cost}/run`;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+
 ---
 
 ### The two flawless models

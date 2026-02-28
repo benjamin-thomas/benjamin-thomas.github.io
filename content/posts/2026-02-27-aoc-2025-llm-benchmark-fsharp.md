@@ -228,6 +228,69 @@ solve across the board.
 
 <br>
 
+### Speed vs accuracy
+
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  { name: 'sonnet',     t: 216,  s: 10, cost: 0.36 },
+  { name: 'haiku',      t: 239,  s: 10, cost: 0.31 },
+  { name: 'opus',       t: 270,  s: 10, cost: 1.13 },
+  { name: 'qwen3.5+',   t: 420,  s: 10, cost: 0.43 },
+  { name: 'k2p5',       t: 470,  s: 10, cost: 0.11 },
+  { name: 'codex',      t: 493,  s: 10, cost: 0.26 },
+  { name: 'glm-5',      t: 495,  s: 10, cost: 0.28 },
+  { name: 'devstral',   t: 616,  s: 10, cost: 0.38 },
+  { name: 'coder-next', t: 888,  s: 10, cost: 2.01 },
+  { name: 'MiniMax',    t: 1078, s: 10, cost: 0.47 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${(m.t/m.s).toFixed(1)}s/part, $${m.cost}`; } } }
+    }
+  }
+});
+</script>
+
+<div style="height:480px"><canvas id="token-efficiency"></canvas></div>
+<script>
+{
+const models = [
+  { name: 'codex',      tok: 7416,   s: 10, cost: 0.26 },
+  { name: 'glm-5',      tok: 10231,  s: 10, cost: 0.28 },
+  { name: 'sonnet',     tok: 10334,  s: 10, cost: 0.36 },
+  { name: 'opus',       tok: 11490,  s: 10, cost: 1.13 },
+  { name: 'k2p5',       tok: 15878,  s: 10, cost: 0.11 },
+  { name: 'haiku',      tok: 19815,  s: 10, cost: 0.31 },
+  { name: 'devstral',   tok: 27210,  s: 10, cost: 0.38 },
+  { name: 'qwen3.5+',   tok: 30447,  s: 10, cost: 0.43 },
+  { name: 'MiniMax',    tok: 33484,  s: 10, cost: 0.47 },
+  { name: 'coder-next', tok: 49452,  s: 10, cost: 2.01 },
+];
+new Chart(document.getElementById('token-efficiency'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.tok/m.s).toFixed(0), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Tokens per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.tok} tokens, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+
 ### Summary tables
 
 #### Wall-clock time (seconds)

@@ -267,6 +267,69 @@ and its earlier self-correction, it overflowed here and was ejected.
 
 ---
 
+<div style="height:480px"><canvas id="speed-accuracy-run2"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+{
+const models = [
+  { name: 'opus',       t:  509, s: 10, cost: 2.01 },
+  { name: 'k2p5',       t: 2015, s: 10, cost: 0.46 },
+  { name: 'qwen3.5+',   t: 3459, s:  9, cost: 8.49 },
+  { name: 'coder-next', t: 3641, s:  2, cost: 11.36 },
+  { name: 'MiniMax',    t: 1850, s:  1, cost: 1.01 },
+  { name: 'haiku',      t:  229, s:  1, cost: 0.47 },
+  { name: 'sonnet',     t:  125, s:  1, cost: 0.37 },
+  { name: 'glm-5',      t:  172, s:  1, cost: 0.13 },
+  { name: 'devstral',   t:  300, s:  0, cost: 3.46 },
+  { name: 'codex',      t:  300, s:  0, cost: 0.22 },
+];
+new Chart(document.getElementById('speed-accuracy-run2'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: m.s > 0 ? +(m.t/m.s).toFixed(1) : m.t, y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: -1, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.t}s total, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+
+<div style="height:480px"><canvas id="token-efficiency-run2"></canvas></div>
+<script>
+{
+const models = [
+  { name: 'opus',       tok: 26281,  s: 10, cost: 2.01 },
+  { name: 'k2p5',       tok: 33547,  s: 10, cost: 0.46 },
+  { name: 'qwen3.5+',   tok: 130252, s:  9, cost: 8.49 },
+  { name: 'coder-next', tok: 139533, s:  2, cost: 11.36 },
+  { name: 'MiniMax',    tok: 31111,  s:  1, cost: 1.01 },
+  { name: 'haiku',      tok: 21332,  s:  1, cost: 0.47 },
+  { name: 'sonnet',     tok: 8453,   s:  1, cost: 0.37 },
+  { name: 'glm-5',      tok: 4818,   s:  1, cost: 0.13 },
+  { name: 'devstral',   tok: 50158,  s:  0, cost: 3.46 },
+  { name: 'codex',      tok: 3599,   s:  0, cost: 0.22 },
+];
+new Chart(document.getElementById('token-efficiency-run2'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: m.s > 0 ? +(m.tok/m.s).toFixed(0) : m.tok, y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Tokens per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: -1, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.tok} tokens, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+
 ## Full summary (Run 2) — all 10 models
 
 Wall-clock seconds. `✗` = ejected at that part.
@@ -924,6 +987,69 @@ the system prompt documenting that `int` is 32-bit and `bigint` exists, it used 
 from the start and answered correctly. No explicit warning needed.
 
 ---
+
+<div style="height:480px"><canvas id="speed-accuracy-run3"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+{
+const models = [
+  { name: 'sonnet',     t:  464, s: 10, cost: 0.72 },
+  { name: 'opus',       t:  511, s: 10, cost: 1.20 },
+  { name: 'haiku',      t:  887, s: 10, cost: 0.74 },
+  { name: 'k2p5',       t: 1079, s: 10, cost: 0.24 },
+  { name: 'MiniMax',    t: 2087, s: 10, cost: 1.28 },
+  { name: 'glm-5',      t: 2428, s: 10, cost: 1.06 },
+  { name: 'qwen3.5+',   t: 2623, s: 10, cost: 3.50 },
+  { name: 'coder-next', t: 2431, s:  8, cost: 3.30 },
+  { name: 'devstral',   t:   59, s:  1, cost: 0.61 },
+  { name: 'codex',      t:   88, s:  2, cost: 0.17 },
+];
+new Chart(document.getElementById('speed-accuracy-run3'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.t}s total, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+
+<div style="height:480px"><canvas id="token-efficiency-run3"></canvas></div>
+<script>
+{
+const models = [
+  { name: 'opus',       tok: 19270,  s: 10, cost: 1.20 },
+  { name: 'sonnet',     tok: 19683,  s: 10, cost: 0.72 },
+  { name: 'k2p5',       tok: 19572,  s: 10, cost: 0.24 },
+  { name: 'haiku',      tok: 60316,  s: 10, cost: 0.74 },
+  { name: 'glm-5',      tok: 45006,  s: 10, cost: 1.06 },
+  { name: 'MiniMax',    tok: 63296,  s: 10, cost: 1.28 },
+  { name: 'qwen3.5+',   tok: 102877, s: 10, cost: 3.50 },
+  { name: 'coder-next', tok: 71791,  s:  8, cost: 3.30 },
+  { name: 'devstral',   tok: 25892,  s:  1, cost: 0.61 },
+  { name: 'codex',      tok: 3638,   s:  2, cost: 0.17 },
+];
+new Chart(document.getElementById('token-efficiency-run3'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.tok/m.s).toFixed(0), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Tokens per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.tok} tokens, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
 
 ## Full summary (Run 3) — all 10 models
 

@@ -93,6 +93,65 @@ slots at a combined API cost of **$24.50**.
 | 9 | qwen3-coder-next | 23/120 | 1/12 | 683s | $1.39 |
 | 10 | MiniMax-M2.5 | 9/120 | 0/12 | 470s | $0.31 |
 
+#### Speed vs accuracy
+
+Bubble size reflects total cost. Top-left is the sweet spot (fast + accurate).
+X axis is seconds per passed part (total time / score), so ejected models are not
+rewarded for doing less work.
+
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  //                      total_time  score  cost
+  { name: 'opus',       t: 2456, s: 93, cost: 10.20 },
+  { name: 'sonnet',     t: 2299, s: 91, cost:  3.98 },
+  { name: 'haiku',      t: 1234, s: 71, cost:  2.00 },
+  { name: 'codex',      t: 1239, s: 69, cost:  1.74 },
+  { name: 'qwen3.5+',   t: 2792, s: 66, cost:  1.72 },
+  { name: 'devstral',   t: 1383, s: 53, cost:  1.78 },
+  { name: 'k2p5',       t: 1861, s: 52, cost:  0.56 },
+  { name: 'glm-5',      t: 2156, s: 51, cost:  0.82 },
+  { name: 'coder-next', t:  683, s: 23, cost:  1.39 },
+  { name: 'MiniMax',    t:  470, s:  9, cost:  0.31 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: {
+    datasets: models.map(m => ({
+      label: m.name,
+      data: [{ x: +(m.t / m.s).toFixed(1), y: m.s, r: 3 + Math.sqrt(m.cost) * 4 }],
+    })),
+  },
+  options: {
+    maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: 'Seconds per passed part — lower is better' }},
+      y: { title: { display: true, text: 'Score (/120)' }, min: 0, max: 120 },
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 1,
+        font: { size: 11 },
+        formatter: (_, ctx) => models[ctx.datasetIndex].name,
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const m = models[ctx.datasetIndex];
+            return `${m.name}: ${m.s}/120, ${(m.t/m.s).toFixed(1)}s/part, $${m.cost}`;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+
 No model achieved 120/120. In the [previous benchmark's recap](@/posts/2026-02-28-aoc-2025-llm-benchmark-recap.md),
 `claude-opus-4-6` and `claude-sonnet-4-6` both went 120/120 using strict retroactive
 scoring. The difference here is the absence of language-specific scaffolding (the
