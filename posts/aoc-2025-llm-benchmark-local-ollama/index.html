@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking a Local LLM on Advent of Code 2025 (Ollama) | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="The previous benchmarks in this series (Haskell,
+OCaml,
+Python,
+ReScript,
+Ruby,
+Elixir,
+Java,
+Elm) all used cloud API models — big,
+frontier-class LLMs served by Anthropic, OpenAI, and others. But wha…">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking a Local LLM on Advent of Code 2025 (Ollama)">
+  <meta name="twitter:description" content="The previous benchmarks in this series (Haskell,
+OCaml,
+Python,
+ReScript,
+Ruby,
+Elixir,
+Java,
+Elm) all used cloud API models — big,
+frontier-class LLMs served by Anthropic, OpenAI, and others. But wha…">
+  
+  <meta property="og:title" content="Benchmarking a Local LLM on Advent of Code 2025 (Ollama)">
+  <meta property="og:description" content="The previous benchmarks in this series (Haskell,
+OCaml,
+Python,
+ReScript,
+Ruby,
+Elixir,
+Java,
+Elm) all used cloud API models — big,
+frontier-class LLMs served by Anthropic, OpenAI, and others. But wha…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking a Local LLM on Advent of Code 2025 (Ollama)">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-27T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama"
+      },
+      "headline": "Benchmarking a Local LLM on Advent of Code 2025 (Ollama)",
+      "description": "The previous benchmarks in this series (Haskell,
+OCaml,
+Python,
+ReScript,
+Ruby,
+Elixir,
+Java,
+Elm) all used cloud API models — big,
+frontier-class LLMs served by Anthropic, OpenAI, and others. But wha…",
+      "wordcount": "1443",
+      "datePublished": "2026-02-27T00:00:00+00:00",
+      "dateModified": "2026-02-27T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking a Local LLM on Advent of Code 2025 (Ollama)",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking a Local LLM on Advent of Code 2025 (Ollama)</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-27-aoc-2025-llm-benchmark-local-ollama.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/python/" class="page-tag">Python</a>,
+      <a href="https://benjamin-thomas.github.io/tags/haskell/" class="page-tag">Haskell</a>,
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a>,
+      <a href="https://benjamin-thomas.github.io/tags/ollama/" class="page-tag">Ollama</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-27T00:00:00+00:00">
+      Posted on February 27, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>The previous benchmarks in this series (<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">Haskell</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">OCaml</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-python/">Python</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/">ReScript</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ruby/">Ruby</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elixir/">Elixir</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-java/">Java</a>,
+<a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/">Elm</a>) all used cloud API models — big,
+frontier-class LLMs served by Anthropic, OpenAI, and others. But what about a <strong>local
+model</strong>? Can a 14-billion-parameter model running on a single machine solve the same puzzles?</p>
+<p>This post answers that question using <strong><code>qwen2.5-coder:14b</code></strong> via
+<a rel="external" href="https://ollama.com/">Ollama</a>, tested on AoC 2025 Day 1 in both Python and Haskell.</p>
+<span id="continue-reading"></span><h2 id="the-hardware">The hardware</h2>
+<table><thead><tr><th style="text-align: right"></th><th style="text-align: right"></th></tr></thead><tbody>
+<tr><td style="text-align: right">Laptop</td><td style="text-align: right">TUXEDO Pulse 14 Gen4</td></tr>
+<tr><td style="text-align: right">CPU</td><td style="text-align: right">AMD Ryzen 7 8845HS (8 cores / 16 threads, up to 5.1 GHz)</td></tr>
+<tr><td style="text-align: right">RAM</td><td style="text-align: right">26 GB DDR5</td></tr>
+<tr><td style="text-align: right">GPU</td><td style="text-align: right">AMD Radeon 780M (integrated — no dedicated GPU)</td></tr>
+<tr><td style="text-align: right">OS</td><td style="text-align: right">TUXEDO OS 3 (Ubuntu-based), kernel 6.11</td></tr>
+</tbody></table>
+<p>This is a general-purpose laptop — not a machine you'd pick for local AI inference.
+No dedicated GPU means Ollama probably falls back to CPU, which makes generation obviously slow.</p>
+<h2 id="the-model">The model</h2>
+<table><thead><tr><th style="text-align: right"></th><th style="text-align: right"></th></tr></thead><tbody>
+<tr><td style="text-align: right">Model</td><td style="text-align: right"><code>qwen2.5-coder:14b</code></td></tr>
+<tr><td style="text-align: right">Released</td><td style="text-align: right"><a rel="external" href="https://qwenlm.github.io/blog/qwen2.5-coder-family/">November 2024</a></td></tr>
+<tr><td style="text-align: right">Parameters</td><td style="text-align: right">~14B</td></tr>
+<tr><td style="text-align: right">Size on disk</td><td style="text-align: right">~9 GB</td></tr>
+<tr><td style="text-align: right">Runtime</td><td style="text-align: right">Ollama 0.4.1 (CPU inference most likely)</td></tr>
+<tr><td style="text-align: right">Generation speed</td><td style="text-align: right">Very slow (~40–90s per response)</td></tr>
+</tbody></table>
+<p>For comparison, the cloud models in previous benchmarks typically solve Day 1 in 10–50
+seconds <em>total</em> — including reading the puzzle, writing code, running it, verifying, and
+producing the answer. The local model takes that long just to generate a single response.</p>
+<h2 id="why-not-use-pi">Why not use pi?</h2>
+<p>The first thing I tried was running the model through
+<a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a>, the same agent
+harness used for all the other benchmarks. That failed immediately.</p>
+<p>I assumed Ollama's OpenAI-compatible API would let pi drive the model the same way it drives
+cloud models. It didn't work — instead of making actual tool calls, the model output
+JSON-shaped text with placeholder values and immediately said "DONE" — without reading the
+puzzle, writing any code, or running anything. I didn't investigate further.</p>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="plain"><span class="giallo-l"><span>{&quot;name&quot;: &quot;read&quot;, &quot;arguments&quot;: {&quot;path&quot;: &quot;./PART_1.description&quot;}}</span></span>
+<span class="giallo-l"><span>{&quot;name&quot;: &quot;bash&quot;, &quot;arguments&quot;: {&quot;command&quot;: &quot;timeout 5 python solution.py &lt; ...&quot;}}</span></span>
+<span class="giallo-l"><span>{&quot;name&quot;: &quot;write&quot;, &quot;arguments&quot;: {&quot;path&quot;: &quot;./ANSWER.txt&quot;, &quot;content&quot;: &quot;&lt;paste the output here&gt;&quot;}}</span></span>
+<span class="giallo-l"><span>DONE</span></span></code></pre>
+<p>Even if tool calls had worked, pi's background work (reading files, running commands) was
+very slow through Ollama on this hardware. This ruled out using pi as-is and led me to a
+completely different methodology.</p>
+<h2 id="methodology">Methodology</h2>
+<p>Instead of having the local model use pi directly, I used raw Ollama CLI calls orchestrated by
+a separate cloud-hosted pi instance acting as a manual agent loop:</p>
+<ol>
+<li><strong>Write a prompt</strong> containing the full puzzle description, example input, and expected output</li>
+<li><strong>Send it to ollama</strong> via <code>ollama run qwen2.5-coder:14b &lt; prompt.txt</code></li>
+<li><strong>Extract the code</strong> from the response (stripping markdown fences)</li>
+<li><strong>Run it</strong> against the example input, then the real input</li>
+<li><strong>If wrong</strong>: build a new prompt with the puzzle description + the actual error output, retry</li>
+<li><strong>Up to 10 attempts</strong> per part</li>
+</ol>
+<p>Each Ollama call is <strong>stateless</strong> — the model has no memory of previous attempts. Every retry
+includes the full puzzle context plus the error feedback from the previous attempt.</p>
+<h3 id="error-feedback-rules">Error feedback rules</h3>
+<p>The feedback given on retries was deliberately minimal — similar to what a human would see:</p>
+<ul>
+<li><strong>Compile/runtime error</strong> → include the actual error output (traceback, compiler message)</li>
+<li><strong>Wrong answer on example</strong> → "Your code outputs X but the expected answer is Y"</li>
+<li><strong>Wrong answer on real input</strong> → "That's not the right answer"</li>
+</ul>
+<p>No debugging hints, no solution suggestions, no explanation of <em>why</em> the code was wrong.</p>
+<h3 id="timing">Timing</h3>
+<p>Each Ollama call was timed independently (wall-clock, generation only). The reported time is
+for the <strong>successful attempt</strong> — the one that produced the correct answer. Total cumulative
+time across all attempts is also noted.</p>
+<h3 id="key-differences-from-the-cloud-benchmarks">Key differences from the cloud benchmarks</h3>
+<table><thead><tr><th style="text-align: right"></th><th style="text-align: center">Cloud benchmarks</th><th style="text-align: center">This test</th></tr></thead><tbody>
+<tr><td style="text-align: right">Agent harness</td><td style="text-align: center">pi (autonomous)</td><td style="text-align: center">Manual loop (pi as orchestrator)</td></tr>
+<tr><td style="text-align: right">Tool use</td><td style="text-align: center">Full (read, write, bash)</td><td style="text-align: center">None — one-shot code generation</td></tr>
+<tr><td style="text-align: right">Self-correction</td><td style="text-align: center">Model can run &amp; debug its own code</td><td style="text-align: center">Orchestrator runs code, sends error back</td></tr>
+<tr><td style="text-align: right">Memory</td><td style="text-align: center">Full conversation context</td><td style="text-align: center">Stateless (each attempt is fresh)</td></tr>
+<tr><td style="text-align: right">Retries</td><td style="text-align: center">3 max</td><td style="text-align: center">10 max</td></tr>
+<tr><td style="text-align: right">Concurrency</td><td style="text-align: center">Up to 11 models in parallel</td><td style="text-align: center">1 model, sequential</td></tr>
+</tbody></table>
+<h2 id="results">Results</h2>
+<h3 id="python">Python</h3>
+<h4 id="day-1-part-1-dial-rotation-counting">Day 1 Part 1 — Dial rotation counting</h4>
+<table><thead><tr><th style="text-align: right">Attempt</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th><th style="text-align: left">Issue</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right">62s</td><td style="text-align: center">✗</td><td style="text-align: left">Parsing bug</td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right">48s</td><td style="text-align: center">✗</td><td style="text-align: left">Parsing bug</td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right">34s</td><td style="text-align: center">✗</td><td style="text-align: left">Parsing bug</td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right">50s</td><td style="text-align: center">✗</td><td style="text-align: left">Parsing bug</td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right">45s</td><td style="text-align: center">✗</td><td style="text-align: left">Parsing bug</td></tr>
+<tr><td style="text-align: right"><strong>6</strong></td><td style="text-align: right"><strong>41s</strong></td><td style="text-align: center"><strong>✓</strong></td><td style="text-align: left">—</td></tr>
+</tbody></table>
+<br>
+<h4 id="day-1-part-2-counting-zero-crossings-during-dial-rotation">Day 1 Part 2 — Counting zero-crossings during dial rotation</h4>
+<table><thead><tr><th style="text-align: right">Attempt</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th><th style="text-align: left">Issue</th></tr></thead><tbody>
+<tr><td style="text-align: right"><strong>1</strong></td><td style="text-align: right"><strong>59s</strong></td><td style="text-align: center"><strong>✓</strong></td><td style="text-align: left">—</td></tr>
+</tbody></table>
+<br>
+<h3 id="haskell">Haskell</h3>
+<h4 id="day-1-part-1-dial-rotation-counting-1">Day 1 Part 1 — Dial rotation counting</h4>
+<table><thead><tr><th style="text-align: right">Attempt</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th><th style="text-align: left">Issue</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right">78s</td><td style="text-align: center">✗</td><td style="text-align: left">Compiled, ran, wrong answer — <code>normalize</code> only adds 100 once</td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right">69s</td><td style="text-align: center">✗</td><td style="text-align: left">Type error: <code>Int</code> vs <code>String</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right">48s</td><td style="text-align: center">✗</td><td style="text-align: left">Type error: <code>Char</code> vs <code>String</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right">62s</td><td style="text-align: center">✗</td><td style="text-align: left">Non-exhaustive pattern match</td></tr>
+<tr><td style="text-align: right"><strong>5</strong></td><td style="text-align: right"><strong>54s</strong></td><td style="text-align: center"><strong>✓</strong></td><td style="text-align: left">Correct — used <code>mod</code> properly</td></tr>
+</tbody></table>
+<br>
+<h4 id="day-1-part-2-counting-zero-crossings-during-dial-rotation-1">Day 1 Part 2 — Counting zero-crossings during dial rotation</h4>
+<table><thead><tr><th style="text-align: right">Attempt</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th><th style="text-align: left">Issue</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right">68s</td><td style="text-align: center">✗</td><td style="text-align: left">Wrong answer (5) — <code>iterate</code> includes start position</td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right">44s</td><td style="text-align: center">✗</td><td style="text-align: left">Wrong answer (5) — same off-by-one</td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right">60s</td><td style="text-align: center">✗</td><td style="text-align: left">Type error: variable not in scope</td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right">61s</td><td style="text-align: center">✗</td><td style="text-align: left">Wrong answer (5)</td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right">73s</td><td style="text-align: center">✗</td><td style="text-align: left">Type errors: wrong accumulator type in fold</td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: right">96s</td><td style="text-align: center">✗</td><td style="text-align: left">Same type error</td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: right">54s</td><td style="text-align: center">✗</td><td style="text-align: left">Wrong answer (5) — resets position to 50 each rotation</td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: right">62s</td><td style="text-align: center">✗</td><td style="text-align: left">Type error: <code>Int</code> vs <code>String</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: right">59s</td><td style="text-align: center">✗</td><td style="text-align: left">Shadowed <code>lines</code> function</td></tr>
+<tr><td style="text-align: right"><strong>10</strong></td><td style="text-align: right"><strong>66s</strong></td><td style="text-align: center"><strong>✓</strong></td><td style="text-align: left">Correct — on the very last attempt</td></tr>
+</tbody></table>
+<br>
+<h3 id="summary">Summary</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"></th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">Attempts</th>
+      <th style="text-align: right">Total gen time</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Python</strong></td>
+      <td style="text-align: right">✓ (6th try, 41s)</td>
+      <td style="text-align: right">✓ (1st try, 59s)</td>
+      <td style="text-align: right">7</td>
+      <td style="text-align: right">~339s</td>
+    </tr>
+    <tr>
+      <td><strong>Haskell</strong></td>
+      <td style="text-align: right">✓ (5th try, 54s)</td>
+      <td style="text-align: right">✓ (10th try, 66s)</td>
+      <td style="text-align: right">15</td>
+      <td style="text-align: right">~954s</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h2 id="observations">Observations</h2>
+<p><strong>The most visible weakness was input parsing.</strong> In Python, the model kept making the same
+parsing mistake for 5 attempts in a row, despite receiving the error output each time. It
+took 6 attempts to find a correct approach.</p>
+<p><strong>The algorithmic logic seemed mostly sound.</strong> When the code compiled and parsed input correctly,
+the core algorithm was often right. The Part 1 logic (modular arithmetic) and Part 2 logic
+(click-by-click simulation) were correct in most attempts — the model just couldn't always wire
+them up with correct parsing and types.</p>
+<p><strong>Haskell was significantly harder.</strong> 15 attempts vs. 7 for Python. The model struggled with
+Haskell's type system — confusing <code>Char</code> with <code>String</code>, <code>Int</code> with <code>[Char]</code>, shadowing the
+<code>lines</code> function, and getting accumulator types wrong in folds.</p>
+<p><strong>Haskell Part 2 barely made it.</strong> The model solved it on attempt 10 of 10. Four attempts
+compiled and ran but produced the wrong answer (5 instead of 6) — a consistent off-by-one
+error where <code>iterate</code> included the start position in the click list. Five attempts didn't
+compile at all. One attempt out of ten got everything right.</p>
+<p><strong>Python Part 2 worked on the first try.</strong> First-try success on Part 2 — the part that ejected
+4 of 11 cloud models in the Haskell benchmark and 5 of 9 in the OCaml benchmark.</p>
+<p><strong>Cost: $0.</strong> The entire benchmark cost nothing in API fees. The only cost is electricity
+and patience. For a hobbyist or someone learning, being able to get <em>eventual</em> correct answers
+for free is meaningful — even if it takes 10 tries.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>A 14B local model <strong>can</strong> solve AoC Day 1 — but it needs patience. Where cloud models solve
+both parts in under a minute with zero retries, <code>qwen2.5-coder:14b</code> needed 7 attempts for
+Python and 15 for Haskell, with a total generation time of ~22 minutes.</p>
+<p>Whether that's useful depends on your tolerance for iteration. At $0 per attempt, with a
+local setup you control entirely, there's a case to be made — especially for easier puzzles
+or languages the model handles well (Python &gt;&gt; Haskell).</p>
+<p><em>Benchmarked on 2026-02-27 using <a rel="external" href="https://ollama.com/">Ollama</a> 0.4.1 for local inference and
+<a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a> as the
+orchestrator.</em></p>
+<h2 id="discussion">Discussion</h2>
+<p>Join the conversation on the <a rel="external" href="https://discourse.haskell.org/t/benchmarking-haskell-llm-proficiency-with-aoc-puzzles/13736/4">Haskell Discourse</a>.</p>
+<hr />
+<p><em>This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

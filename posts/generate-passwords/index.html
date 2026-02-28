@@ -1,0 +1,141 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Generate Passwords | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="Generate an alpha numeric password$ pwgen -s 20 1                                           # =&amp;gt; 66jTuJXUYOrnqoOpfOWE$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo      # =&amp;gt; Zg0…">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/generate-passwords/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Generate Passwords">
+  <meta name="twitter:description" content="Generate an alpha numeric password$ pwgen -s 20 1                                           # =&amp;gt; 66jTuJXUYOrnqoOpfOWE$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo      # =&amp;gt; Zg0…">
+  
+  <meta property="og:title" content="Generate Passwords">
+  <meta property="og:description" content="Generate an alpha numeric password$ pwgen -s 20 1                                           # =&amp;gt; 66jTuJXUYOrnqoOpfOWE$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo      # =&amp;gt; Zg0…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/generate-passwords/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Generate Passwords">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2017-07-23T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/generate-passwords"
+      },
+      "headline": "Generate Passwords",
+      "description": "Generate an alpha numeric password$ pwgen -s 20 1                                           # =&amp;gt; 66jTuJXUYOrnqoOpfOWE$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:alnum:] | head -c20 &amp;amp;&amp;amp; echo      # =&amp;gt; Zg0…",
+      "wordcount": "15",
+      "datePublished": "2017-07-23T00:00:00+00:00",
+      "dateModified": "2017-07-23T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Generate Passwords",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Generate Passwords</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2017-07-23-generate-passwords.md" title="Help improve page https://benjamin-thomas.github.io/posts/generate-passwords/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/admin/" class="page-tag">Admin</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2017-07-23T00:00:00+00:00">
+      Posted on July 23, 2017
+    </time>
+  </div>
+  <div class="entry">
+    <h2 id="generate-an-alpha-numeric-password">Generate an alpha numeric password</h2>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="shellsession"><span class="giallo-l"><span>$ pwgen -s 20 1</span><span style="color: #6A9955;">                                           # =&gt; 66jTuJXUYOrnqoOpfOWE</span></span>
+<span class="giallo-l"><span>$ &lt;/dev/urandom tr -dc [:alnum:] |</span><span style="color: #DCDCAA;"> head</span><span style="color: #569CD6;"> -c20</span><span> &amp;&amp;</span><span style="color: #DCDCAA;"> echo</span><span style="color: #6A9955;">      # =&gt; Zg0OFvg0wOEc4hdEwawZ</span></span></code></pre><h2 id="generate-an-numeric-only-password">Generate an numeric only password</h2>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="shellsession"><span class="giallo-l"><span>$ &lt;/dev/urandom tr -dc [:digit:] |</span><span style="color: #DCDCAA;"> head</span><span style="color: #569CD6;"> -c20</span><span> &amp;&amp;</span><span style="color: #DCDCAA;"> echo</span><span style="color: #6A9955;">      # =&gt; 91331194034454954513</span></span>
+<span class="giallo-l"><span>$ &lt;/dev/urandom tr -dc 0-9 |</span><span style="color: #DCDCAA;"> head</span><span style="color: #569CD6;"> -c20</span><span> &amp;&amp;</span><span style="color: #DCDCAA;"> echo</span><span style="color: #6A9955;">            # =&gt; 00166785542509259371</span></span></code></pre><h2 id="generate-an-alpha-only-password">Generate an alpha only password</h2>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="shellsession"><span class="giallo-l"><span>$ pwgen -s0 20 1</span><span style="color: #6A9955;">                                          # =&gt; JqNGGWcaJyamSAyXkqnG</span></span>
+<span class="giallo-l"><span>$ &lt;/dev/urandom tr -dc a-zA-Z |</span><span style="color: #DCDCAA;"> head</span><span style="color: #569CD6;"> -c20</span><span> &amp;&amp;</span><span style="color: #DCDCAA;"> echo</span><span style="color: #6A9955;">         # =&gt; PAnRPpXuPuYNrNpGtKrN</span></span>
+<span class="giallo-l"><span>$ &lt;/dev/urandom tr -dc [:alpha:] |</span><span style="color: #DCDCAA;"> head</span><span style="color: #569CD6;"> -c20</span><span> &amp;&amp;</span><span style="color: #DCDCAA;"> echo</span><span style="color: #6A9955;">      # =&gt; QlSBFAAmqTXjJLDyBZoN</span></span></code></pre>
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

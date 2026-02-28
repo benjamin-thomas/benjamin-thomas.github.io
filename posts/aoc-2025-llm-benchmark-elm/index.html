@@ -1,0 +1,923 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking LLMs on Advent of Code 2025 (Elm) | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="Following up on the Haskell benchmark, the OCaml
+benchmark, the Python
+benchmark, the ReScript
+benchmark, the Ruby
+benchmark, the Elixir
+benchmark, and the Java
+benchmark, I ran the same AoC 2025 Days…">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking LLMs on Advent of Code 2025 (Elm)">
+  <meta name="twitter:description" content="Following up on the Haskell benchmark, the OCaml
+benchmark, the Python
+benchmark, the ReScript
+benchmark, the Ruby
+benchmark, the Elixir
+benchmark, and the Java
+benchmark, I ran the same AoC 2025 Days…">
+  
+  <meta property="og:title" content="Benchmarking LLMs on Advent of Code 2025 (Elm)">
+  <meta property="og:description" content="Following up on the Haskell benchmark, the OCaml
+benchmark, the Python
+benchmark, the ReScript
+benchmark, the Ruby
+benchmark, the Elixir
+benchmark, and the Java
+benchmark, I ran the same AoC 2025 Days…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking LLMs on Advent of Code 2025 (Elm)">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-26T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm"
+      },
+      "headline": "Benchmarking LLMs on Advent of Code 2025 (Elm)",
+      "description": "Following up on the Haskell benchmark, the OCaml
+benchmark, the Python
+benchmark, the ReScript
+benchmark, the Ruby
+benchmark, the Elixir
+benchmark, and the Java
+benchmark, I ran the same AoC 2025 Days…",
+      "wordcount": "4588",
+      "datePublished": "2026-02-26T00:00:00+00:00",
+      "dateModified": "2026-02-26T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking LLMs on Advent of Code 2025 (Elm)",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking LLMs on Advent of Code 2025 (Elm)</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-26-aoc-2025-llm-benchmark-elm.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/elm/" class="page-tag">Elm</a>,
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-26T00:00:00+00:00">
+      Posted on February 26, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>Following up on <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">the Haskell benchmark</a>, <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">the OCaml
+benchmark</a>, <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-python/">the Python
+benchmark</a>, <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/">the ReScript
+benchmark</a>, <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ruby/">the Ruby
+benchmark</a>, <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elixir/">the Elixir
+benchmark</a>, and <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-java/">the Java
+benchmark</a>, I ran the same AoC 2025 Days 1–5
+setup in <strong>Elm</strong>.</p>
+<p>Elm is the most niche language in this series. It's a pure functional language that compiles
+to JavaScript, has no native CLI story, and sees relatively little use outside its frontend
+niche. Each model received a pre-built scaffold — <code>run.mjs</code>, <code>elm.json</code>, and a
+<code>Day00.elm</code> template — that compiles and runs Elm modules via Node.js. The question was
+whether models would handle Elm's strict type system, lack of escape hatches, and unfamiliar
+idioms (e.g. <code>Debug.log</code> for output, <code>Platform.worker</code> for headless programs).</p>
+<p>The answer: every single one of them did.</p>
+<span id="continue-reading"></span><h2 id="the-contestants">The contestants</h2>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: right">Model</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right"><code>anthropic/claude-haiku-4-5</code></td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right"><code>anthropic/claude-sonnet-4-6</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right"><code>anthropic/claude-opus-4-6</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right"><code>openai-codex/gpt-5.3-codex</code></td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right"><code>zai/glm-5</code></td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: right"><code>minimax/MiniMax-M2.5</code></td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: right"><code>kimi-coding/k2p5</code></td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: right"><code>mistral/devstral-2512</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: right"><code>alibaba/qwen3.5-plus</code></td></tr>
+<tr><td style="text-align: right">10</td><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td></tr>
+</tbody></table>
+<h2 id="ejections">Ejections</h2>
+<p>None. <strong>All 10 models completed all 10 parts.</strong> This ties Elm with Python and Ruby for the
+best completion rate in the series.</p>
+<p>That said, the path was rocky for some. Several models needed multiple retries, and two
+(<code>devstral-2512</code> on Day 3 Part 1, <code>MiniMax-M2.5</code> on Day 3 Part 2) went through costly
+runaway loops requiring dirty restarts.</p>
+<h2 id="results-days-1-5">Results (Days 1–5)</h2>
+<h3 id="per-task-leaderboards">Per-task leaderboards</h3>
+<br>
+<h4 id="day-1-part-1-dial-rotation-counting">Day 1 Part 1 — Dial rotation counting</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">43s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">52s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">52s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">53s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">54s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">58s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">60s</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">65s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">66s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">97s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-1-part-2-counting-zero-crossings-during-dial-rotation">Day 1 Part 2 — Counting zero-crossings during dial rotation</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">22s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">23s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">41s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">44s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">52s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">86s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">127s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">137s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">239s</td><td style="text-align: center">✓ (2nd try)</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">364s</td><td style="text-align: center">✓ (3rd try)</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-2-part-1-summing-repeated-digit-ids-in-ranges">Day 2 Part 1 — Summing repeated-digit IDs in ranges</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th></tr></thead><tbody>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">32s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">33s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">37s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">39s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">49s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">54s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">61s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">80s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">213s</td><td style="text-align: center">✓ (2nd try)</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">363s</td><td style="text-align: center">✓ (2nd try)</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-2-part-2-repeated-pattern-ids-any-repeat-count">Day 2 Part 2 — Repeated-pattern IDs (any repeat count)</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">11s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">16s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">16s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">19s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">23s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">29s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">48s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">79s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">239s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">260s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-3-part-1-maximizing-2-digit-joltage-from-battery-banks">Day 3 Part 1 — Maximizing 2-digit joltage from battery banks</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">19s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">19s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">22s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">27s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">27s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">30s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">53s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">63s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">67s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">1164s</td><td style="text-align: center">✓ (dirty retry)</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-3-part-2-maximizing-12-digit-joltage-from-battery-banks">Day 3 Part 2 — Maximizing 12-digit joltage from battery banks</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th></tr></thead><tbody>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">16s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">32s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">45s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">45s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">48s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">62s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">163s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">216s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">952s</td><td style="text-align: center">✓ (nudge)</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">—</td><td style="text-align: center">✓ (dirty retry ×3)</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-4-part-1-grid-neighbor-counting-accessible-paper-rolls">Day 4 Part 1 — Grid neighbor counting (accessible paper rolls)</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">15s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">17s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">21s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">22s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">22s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">23s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">28s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">37s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">53s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">—</td><td style="text-align: center">✓ (2nd try)</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-4-part-2-iterative-grid-removal-simulation">Day 4 Part 2 — Iterative grid removal simulation</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center">Result</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">24s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">24s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">38s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">47s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">48s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">58s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">68s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">245s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">272s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">971s</td><td style="text-align: center">✓ (2nd try)</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-5-part-1-range-membership-checking">Day 5 Part 1 — Range membership checking</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">16s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">17s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">19s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">20s</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">20s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">21s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">30s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">44s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">47s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-5-part-2-counting-total-fresh-ids-from-overlapping-ranges">Day 5 Part 2 — Counting total fresh IDs from overlapping ranges</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">9s</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">11s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">13s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">14s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">15s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">22s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">22s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">31s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">108s</td></tr>
+</tbody></table>
+<br>
+<h3 id="speed-vs-accuracy">Speed vs accuracy</h3>
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  { name: 'opus',       t: 369,  s: 10, cost: 1.02 },
+  { name: 'haiku',      t: 508,  s: 10, cost: 0.51 },
+  { name: 'sonnet',     t: 511,  s: 10, cost: 0.81 },
+  { name: 'k2p5',       t: 514,  s: 10, cost: 0.13 },
+  { name: 'glm-5',      t: 564,  s: 10, cost: 0.14 },
+  { name: 'coder-next', t: 766,  s: 10, cost: 1.89 },
+  { name: 'MiniMax',    t: 832,  s: 10, cost: 1.93 },
+  { name: 'qwen3.5+',   t: 969,  s: 10, cost: 0.79 },
+  { name: 'devstral',   t: 1928, s: 10, cost: 2.82 },
+  { name: 'codex',      t: 2105, s: 10, cost: 0.31 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${(m.t/m.s).toFixed(1)}s/part, $${m.cost}`; } } }
+    }
+  }
+});
+</script>
+<div style="height:480px"><canvas id="token-efficiency"></canvas></div>
+<script>
+{
+const models = [
+  { name: 'codex',      tok: 10247,  s: 10, cost: 0.31 },
+  { name: 'glm-5',      tok: 13401,  s: 10, cost: 0.14 },
+  { name: 'k2p5',       tok: 15732,  s: 10, cost: 0.13 },
+  { name: 'opus',       tok: 15785,  s: 10, cost: 1.02 },
+  { name: 'sonnet',     tok: 28892,  s: 10, cost: 0.81 },
+  { name: 'haiku',      tok: 42230,  s: 10, cost: 0.51 },
+  { name: 'coder-next', tok: 68636,  s: 10, cost: 1.89 },
+  { name: 'qwen3.5+',   tok: 71538,  s: 10, cost: 0.79 },
+  { name: 'MiniMax',    tok: 111871, s: 10, cost: 1.93 },
+  { name: 'devstral',   tok: 158759, s: 10, cost: 2.82 },
+];
+new Chart(document.getElementById('token-efficiency'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.tok/m.s).toFixed(0), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Tokens per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.tok} tokens, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+<h3 id="summary-tables">Summary tables</h3>
+<h4 id="wall-clock-time-seconds">Wall-clock time (seconds)</h4>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+      <th style="text-align: right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>anthropic/claude-opus-4-6</td>
+      <td style="text-align: right">53s</td>
+      <td style="text-align: right">41s</td>
+      <td style="text-align: right">80s</td>
+      <td style="text-align: right">29s</td>
+      <td style="text-align: right">27s</td>
+      <td style="text-align: right">48s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">21s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right"><strong>369s</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-haiku-4-5</td>
+      <td style="text-align: right">43s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right">37s</td>
+      <td style="text-align: right">19s</td>
+      <td style="text-align: right">53s</td>
+      <td style="text-align: right">45s</td>
+      <td style="text-align: right">15s</td>
+      <td style="text-align: right">245s</td>
+      <td style="text-align: right">20s</td>
+      <td style="text-align: right">9s</td>
+      <td style="text-align: right"><strong>508s</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-sonnet-4-6</td>
+      <td style="text-align: right">54s</td>
+      <td style="text-align: right">44s</td>
+      <td style="text-align: right">49s</td>
+      <td style="text-align: right">239s</td>
+      <td style="text-align: right">19s</td>
+      <td style="text-align: right">32s</td>
+      <td style="text-align: right">21s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">16s</td>
+      <td style="text-align: right">13s</td>
+      <td style="text-align: right"><strong>511s</strong></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">60s</td>
+      <td style="text-align: right">239s</td>
+      <td style="text-align: right">32s</td>
+      <td style="text-align: right">16s</td>
+      <td style="text-align: right">30s</td>
+      <td style="text-align: right">16s</td>
+      <td style="text-align: right">17s</td>
+      <td style="text-align: right">38s</td>
+      <td style="text-align: right">44s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right"><strong>514s</strong></td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">66s</td>
+      <td style="text-align: right">137s</td>
+      <td style="text-align: right">54s</td>
+      <td style="text-align: right">48s</td>
+      <td style="text-align: right">63s</td>
+      <td style="text-align: right">45s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">68s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">31s</td>
+      <td style="text-align: right"><strong>564s</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">52s</td>
+      <td style="text-align: right">52s</td>
+      <td style="text-align: right">39s</td>
+      <td style="text-align: right">16s</td>
+      <td style="text-align: right">27s</td>
+      <td style="text-align: right">216s</td>
+      <td style="text-align: right">23s</td>
+      <td style="text-align: right">272s</td>
+      <td style="text-align: right">47s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right"><strong>766s</strong></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">97s</td>
+      <td style="text-align: right">127s</td>
+      <td style="text-align: right">213s</td>
+      <td style="text-align: right">79s</td>
+      <td style="text-align: right">67s</td>
+      <td style="text-align: right">—*</td>
+      <td style="text-align: right">53s</td>
+      <td style="text-align: right">58s</td>
+      <td style="text-align: right">30s</td>
+      <td style="text-align: right">108s</td>
+      <td style="text-align: right"><strong>832s*</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">58s</td>
+      <td style="text-align: right">86s</td>
+      <td style="text-align: right">363s</td>
+      <td style="text-align: right">260s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right">62s</td>
+      <td style="text-align: right">37s</td>
+      <td style="text-align: right">48s</td>
+      <td style="text-align: right">19s</td>
+      <td style="text-align: right">14s</td>
+      <td style="text-align: right"><strong>969s</strong></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">65s</td>
+      <td style="text-align: right">364s</td>
+      <td style="text-align: right">61s</td>
+      <td style="text-align: right">11s</td>
+      <td style="text-align: right">1164s</td>
+      <td style="text-align: right">163s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right">47s</td>
+      <td style="text-align: right">20s</td>
+      <td style="text-align: right">11s</td>
+      <td style="text-align: right"><strong>1928s</strong></td>
+    </tr>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">52s</td>
+      <td style="text-align: right">23s</td>
+      <td style="text-align: right">33s</td>
+      <td style="text-align: right">23s</td>
+      <td style="text-align: right">19s</td>
+      <td style="text-align: right">952s</td>
+      <td style="text-align: right">—†</td>
+      <td style="text-align: right">971s</td>
+      <td style="text-align: right">17s</td>
+      <td style="text-align: right">15s</td>
+      <td style="text-align: right"><strong>2105s†</strong></td>
+    </tr>
+  </tbody>
+</table>
+<p>* MiniMax D3P2 required three dirty restarts; wall-clock time not directly comparable.
+Total excludes D3P2.<br>
+† Codex D4P1 needed a retry; time for that part not captured cleanly.</p>
+<br>
+<h4 id="output-tokens-per-part">Output tokens per part</h4>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+      <th style="text-align: right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">750</td>
+      <td style="text-align: right">486</td>
+      <td style="text-align: right">774</td>
+      <td style="text-align: right">1,074</td>
+      <td style="text-align: right">746</td>
+      <td style="text-align: right">1,015</td>
+      <td style="text-align: right">1,039</td>
+      <td style="text-align: right">3,042</td>
+      <td style="text-align: right">779</td>
+      <td style="text-align: right">542</td>
+      <td style="text-align: right"><strong>10,247</strong></td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">853</td>
+      <td style="text-align: right">4,144</td>
+      <td style="text-align: right">970</td>
+      <td style="text-align: right">950</td>
+      <td style="text-align: right">1,442</td>
+      <td style="text-align: right">979</td>
+      <td style="text-align: right">919</td>
+      <td style="text-align: right">1,618</td>
+      <td style="text-align: right">817</td>
+      <td style="text-align: right">709</td>
+      <td style="text-align: right"><strong>13,401</strong></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">978</td>
+      <td style="text-align: right">4,470</td>
+      <td style="text-align: right">923</td>
+      <td style="text-align: right">736</td>
+      <td style="text-align: right">1,904</td>
+      <td style="text-align: right">863</td>
+      <td style="text-align: right">1,009</td>
+      <td style="text-align: right">2,505</td>
+      <td style="text-align: right">1,676</td>
+      <td style="text-align: right">668</td>
+      <td style="text-align: right"><strong>15,732</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-opus-4-6</td>
+      <td style="text-align: right">1,246</td>
+      <td style="text-align: right">1,600</td>
+      <td style="text-align: right">2,627</td>
+      <td style="text-align: right">1,876</td>
+      <td style="text-align: right">1,328</td>
+      <td style="text-align: right">2,061</td>
+      <td style="text-align: right">1,282</td>
+      <td style="text-align: right">1,390</td>
+      <td style="text-align: right">1,024</td>
+      <td style="text-align: right">1,351</td>
+      <td style="text-align: right"><strong>15,785</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-sonnet-4-6</td>
+      <td style="text-align: right">1,325</td>
+      <td style="text-align: right">1,673</td>
+      <td style="text-align: right">2,143</td>
+      <td style="text-align: right">16,394</td>
+      <td style="text-align: right">1,207</td>
+      <td style="text-align: right">1,980</td>
+      <td style="text-align: right">1,393</td>
+      <td style="text-align: right">939</td>
+      <td style="text-align: right">1,068</td>
+      <td style="text-align: right">770</td>
+      <td style="text-align: right"><strong>28,892</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-haiku-4-5</td>
+      <td style="text-align: right">1,299</td>
+      <td style="text-align: right">1,197</td>
+      <td style="text-align: right">1,808</td>
+      <td style="text-align: right">1,964</td>
+      <td style="text-align: right">6,141</td>
+      <td style="text-align: right">5,755</td>
+      <td style="text-align: right">1,764</td>
+      <td style="text-align: right">19,336</td>
+      <td style="text-align: right">2,006</td>
+      <td style="text-align: right">960</td>
+      <td style="text-align: right"><strong>42,230</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">2,224</td>
+      <td style="text-align: right">6,930</td>
+      <td style="text-align: right">1,955</td>
+      <td style="text-align: right">1,855</td>
+      <td style="text-align: right">1,610</td>
+      <td style="text-align: right">22,069</td>
+      <td style="text-align: right">2,055</td>
+      <td style="text-align: right">25,465</td>
+      <td style="text-align: right">3,080</td>
+      <td style="text-align: right">1,393</td>
+      <td style="text-align: right"><strong>68,636</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">2,169</td>
+      <td style="text-align: right">7,427</td>
+      <td style="text-align: right">32,452</td>
+      <td style="text-align: right">14,674</td>
+      <td style="text-align: right">2,194</td>
+      <td style="text-align: right">4,576</td>
+      <td style="text-align: right">2,852</td>
+      <td style="text-align: right">2,267</td>
+      <td style="text-align: right">1,622</td>
+      <td style="text-align: right">1,305</td>
+      <td style="text-align: right"><strong>71,538</strong></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">1,877</td>
+      <td style="text-align: right">4,445</td>
+      <td style="text-align: right">5,885</td>
+      <td style="text-align: right">3,525</td>
+      <td style="text-align: right">2,606</td>
+      <td style="text-align: right">87,094</td>
+      <td style="text-align: right">1,972</td>
+      <td style="text-align: right">2,260</td>
+      <td style="text-align: right">1,063</td>
+      <td style="text-align: right">1,144</td>
+      <td style="text-align: right"><strong>111,871</strong></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">3,825</td>
+      <td style="text-align: right">16,758</td>
+      <td style="text-align: right">1,418</td>
+      <td style="text-align: right">1,074</td>
+      <td style="text-align: right">115,225</td>
+      <td style="text-align: right">13,010</td>
+      <td style="text-align: right">2,255</td>
+      <td style="text-align: right">2,811</td>
+      <td style="text-align: right">1,576</td>
+      <td style="text-align: right">807</td>
+      <td style="text-align: right"><strong>158,759</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<h4 id="api-cost-per-part-approximate-usd">API cost per part (approximate USD)</h4>
+<p><em>Costs are rough approximations based on published per-token pricing. I use subscription plans, so my actual spending is capped regardless.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+      <th style="text-align: right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">.0096</td>
+      <td style="text-align: right">.0273</td>
+      <td style="text-align: right">.0043</td>
+      <td style="text-align: right">.0049</td>
+      <td style="text-align: right">.0164</td>
+      <td style="text-align: right">.0112</td>
+      <td style="text-align: right">.0109</td>
+      <td style="text-align: right">.0178</td>
+      <td style="text-align: right">.0152</td>
+      <td style="text-align: right">.0116</td>
+      <td style="text-align: right"><strong>$0.13</strong></td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">.0196</td>
+      <td style="text-align: right">.0330</td>
+      <td style="text-align: right">.0097</td>
+      <td style="text-align: right">.0104</td>
+      <td style="text-align: right">.0121</td>
+      <td style="text-align: right">.0136</td>
+      <td style="text-align: right">.0083</td>
+      <td style="text-align: right">.0170</td>
+      <td style="text-align: right">.0073</td>
+      <td style="text-align: right">.0096</td>
+      <td style="text-align: right"><strong>$0.14</strong></td>
+    </tr>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">.0300</td>
+      <td style="text-align: right">.0158</td>
+      <td style="text-align: right">.0197</td>
+      <td style="text-align: right">.0389</td>
+      <td style="text-align: right">.0260</td>
+      <td style="text-align: right">.0277</td>
+      <td style="text-align: right">.0296</td>
+      <td style="text-align: right">.0864</td>
+      <td style="text-align: right">.0190</td>
+      <td style="text-align: right">.0199</td>
+      <td style="text-align: right"><strong>$0.31</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-haiku-4-5</td>
+      <td style="text-align: right">.0289</td>
+      <td style="text-align: right">.0119</td>
+      <td style="text-align: right">.0272</td>
+      <td style="text-align: right">.0186</td>
+      <td style="text-align: right">.0650</td>
+      <td style="text-align: right">.0586</td>
+      <td style="text-align: right">.0253</td>
+      <td style="text-align: right">.2179</td>
+      <td style="text-align: right">.0413</td>
+      <td style="text-align: right">.0155</td>
+      <td style="text-align: right"><strong>$0.51</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">.0200</td>
+      <td style="text-align: right">.0603</td>
+      <td style="text-align: right">.2671</td>
+      <td style="text-align: right">.2750</td>
+      <td style="text-align: right">.0138</td>
+      <td style="text-align: right">.0658</td>
+      <td style="text-align: right">.0228</td>
+      <td style="text-align: right">.0339</td>
+      <td style="text-align: right">.0125</td>
+      <td style="text-align: right">.0161</td>
+      <td style="text-align: right"><strong>$0.79</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-sonnet-4-6</td>
+      <td style="text-align: right">.0517</td>
+      <td style="text-align: right">.0512</td>
+      <td style="text-align: right">.0590</td>
+      <td style="text-align: right">.4163</td>
+      <td style="text-align: right">.0406</td>
+      <td style="text-align: right">.0567</td>
+      <td style="text-align: right">.0443</td>
+      <td style="text-align: right">.0325</td>
+      <td style="text-align: right">.0374</td>
+      <td style="text-align: right">.0251</td>
+      <td style="text-align: right"><strong>$0.81</strong></td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-opus-4-6</td>
+      <td style="text-align: right">.0988</td>
+      <td style="text-align: right">.0736</td>
+      <td style="text-align: right">.1614</td>
+      <td style="text-align: right">.0856</td>
+      <td style="text-align: right">.1123</td>
+      <td style="text-align: right">.0998</td>
+      <td style="text-align: right">.1273</td>
+      <td style="text-align: right">.0692</td>
+      <td style="text-align: right">.1338</td>
+      <td style="text-align: right">.0607</td>
+      <td style="text-align: right"><strong>$1.02</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">.0518</td>
+      <td style="text-align: right">.0644</td>
+      <td style="text-align: right">.0302</td>
+      <td style="text-align: right">.0319</td>
+      <td style="text-align: right">.0715</td>
+      <td style="text-align: right">.7594</td>
+      <td style="text-align: right">.0249</td>
+      <td style="text-align: right">.5769</td>
+      <td style="text-align: right">.1729</td>
+      <td style="text-align: right">.1039</td>
+      <td style="text-align: right"><strong>$1.89</strong></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">.0192</td>
+      <td style="text-align: right">.0346</td>
+      <td style="text-align: right">.0445</td>
+      <td style="text-align: right">.0290</td>
+      <td style="text-align: right">.0285</td>
+      <td style="text-align: right">1.6985</td>
+      <td style="text-align: right">.0095</td>
+      <td style="text-align: right">.0160</td>
+      <td style="text-align: right">.0205</td>
+      <td style="text-align: right">.0262</td>
+      <td style="text-align: right"><strong>$1.93</strong></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">.0487</td>
+      <td style="text-align: right">.2439</td>
+      <td style="text-align: right">.0254</td>
+      <td style="text-align: right">.0204</td>
+      <td style="text-align: right">2.0172</td>
+      <td style="text-align: right">.3556</td>
+      <td style="text-align: right">.0190</td>
+      <td style="text-align: right">.0525</td>
+      <td style="text-align: right">.0198</td>
+      <td style="text-align: right">.0131</td>
+      <td style="text-align: right"><strong>$2.82</strong></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="observations">Observations</h2>
+<p><strong>10/10 completers — zero ejections.</strong> Elm joins Python and Ruby as the only languages in
+this series where every model solved every part.</p>
+<p><strong><code>claude-opus-4-6</code></strong> — fastest at 369s total. No single part over 80s, never needed a
+retry. ~$1.02 total.</p>
+<p><strong><code>kimi-coding/k2p5</code></strong> — cheapest at ~$0.13. Fourth fastest at 514s. On 8 of 10 parts
+it was under 44s.</p>
+<p><strong>Day 3 was rough for two models.</strong> <code>devstral-2512</code> on D3P1 (runaway loop, ~$1.91 and
+105K tokens before being killed) and <code>MiniMax-M2.5</code> on D3P2 (three dirty restarts, 87K
+tokens, ~$1.70).</p>
+<p><strong><code>gpt-5.3-codex</code></strong> — fewest tokens: 10,247 total. But also the slowest overall (2,105s),
+due to D3P2 (952s) and D4P2 (971s).</p>
+<p><strong><code>claude-sonnet-4-6</code></strong> — 239s and 16,394 tokens on D2P2. Every other part was 13–54s.</p>
+<p><strong><code>qwen3.5-plus</code></strong> — 32,452 tokens on D2P1 alone. Both Alibaba models completed
+everything but used a lot of tokens getting there.</p>
+<p><strong><code>glm-5</code></strong> — second cheapest at ~$0.14, fifth fastest at 564s, 13,401 tokens. No dirty
+retries needed.</p>
+<h2 id="cross-language-snapshot">Cross-language snapshot</h2>
+<table><thead><tr><th>Language</th><th>Models completing all 10 parts</th></tr></thead><tbody>
+<tr><td>Python</td><td>10/10</td></tr>
+<tr><td>Ruby</td><td>10/10</td></tr>
+<tr><td><strong>Elm</strong></td><td><strong>10/10</strong></td></tr>
+<tr><td>Java</td><td>9/10</td></tr>
+<tr><td>Elixir</td><td>7/10</td></tr>
+<tr><td>Haskell</td><td>7/11</td></tr>
+<tr><td>OCaml</td><td>5/9</td></tr>
+<tr><td>ReScript (run 2)</td><td>2/10</td></tr>
+</tbody></table>
+<p>Elm's 10/10 completion was unexpected — it has a smaller training corpus than any other
+language tested. The provided template (<code>Day00.elm</code> with <code>Platform.worker</code> and <code>Debug.log</code>)
+may have helped by giving every model a clear starting point.</p>
+<p>ReScript (2/10) is also a niche compile-to-JS functional language, but its toolchain gave
+models a much harder time. The scaffold and Elm's stable API may explain the difference.</p>
+<p><em>Benchmarked on 2026-02-26 using <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a> as the agent harness.</em></p>
+<hr />
+<p><em>This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

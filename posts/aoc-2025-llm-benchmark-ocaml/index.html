@@ -1,0 +1,450 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking LLMs on Advent of Code 2025 (OCaml) | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="Following up on the Haskell benchmark, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time requiring solutions in
+OCaml. The methodology is identical: each model gets …">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking LLMs on Advent of Code 2025 (OCaml)">
+  <meta name="twitter:description" content="Following up on the Haskell benchmark, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time requiring solutions in
+OCaml. The methodology is identical: each model gets …">
+  
+  <meta property="og:title" content="Benchmarking LLMs on Advent of Code 2025 (OCaml)">
+  <meta property="og:description" content="Following up on the Haskell benchmark, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time requiring solutions in
+OCaml. The methodology is identical: each model gets …">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking LLMs on Advent of Code 2025 (OCaml)">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-25T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml"
+      },
+      "headline": "Benchmarking LLMs on Advent of Code 2025 (OCaml)",
+      "description": "Following up on the Haskell benchmark, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time requiring solutions in
+OCaml. The methodology is identical: each model gets …",
+      "wordcount": "1764",
+      "datePublished": "2026-02-25T00:00:00+00:00",
+      "dateModified": "2026-02-25T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking LLMs on Advent of Code 2025 (OCaml)",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking LLMs on Advent of Code 2025 (OCaml)</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-25-aoc-2025-llm-benchmark-ocaml.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/ocaml/" class="page-tag">OCaml</a>,
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-25T00:00:00+00:00">
+      Posted on February 25, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>Following up on <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">the Haskell benchmark</a>, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time requiring solutions in
+<strong>OCaml</strong>. The methodology is identical: each model gets an isolated directory, a puzzle
+description, and must write its final answer to <code>ANSWER.txt</code>. Wrong answer or no answer = ejection.</p>
+<span id="continue-reading"></span><h2 id="the-contestants">The contestants</h2>
+<p>9 models from my enabled model list this run, plus one added retroactively:</p>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: right">Model</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right"><code>anthropic/claude-opus-4-6</code></td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right"><code>anthropic/claude-sonnet-4-6</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right"><code>openai-codex/gpt-5.3-codex</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right"><code>zai/glm-5</code></td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right"><code>minimax/MiniMax-M2.5</code></td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: right"><code>kimi-coding/k2p5</code></td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: right"><code>mistral/devstral-2512</code></td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: right"><code>alibaba/qwen3.5-plus</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td></tr>
+<tr><td style="text-align: right">10 ★</td><td style="text-align: right"><code>anthropic/claude-haiku-4-5</code></td></tr>
+</tbody></table>
+<p>★ Added in a separate session after the main benchmark. Since inference is remote, the
+timings are directly comparable.</p>
+<h2 id="ejections">Ejections</h2>
+<p>All 5 casualties happened at Day 1 Part 2:</p>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Ejected at</th></tr></thead><tbody>
+<tr><td style="text-align: right"><code>mistral/devstral-2512</code></td><td style="text-align: right">D1P2</td></tr>
+<tr><td style="text-align: right"><code>alibaba/qwen3.5-plus</code></td><td style="text-align: right">D1P2</td></tr>
+<tr><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td><td style="text-align: right">D1P2</td></tr>
+<tr><td style="text-align: right"><code>kimi-coding/k2p5</code></td><td style="text-align: right">D1P2</td></tr>
+<tr><td style="text-align: right"><code>minimax/MiniMax-M2.5</code></td><td style="text-align: right">D1P2</td></tr>
+</tbody></table>
+<p>Notably, <code>mistral/devstral-2512</code> was the fastest model on Day 1 Part 1 (19s) but
+failed Part 2. Same thing happened in the Haskell run.</p>
+<h2 id="results-days-1-5">Results (Days 1–5)</h2>
+<p>The 4 original survivors, plus <code>claude-haiku-4-5</code> (★), went on a perfect streak. All correct, all 10 parts.</p>
+<br>
+<h3 id="per-task-leaderboards">Per-task leaderboards</h3>
+<br>
+<h4 id="day-1-part-1-dial-rotation-counting">Day 1 Part 1 — Dial rotation counting</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">13s</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">19s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">20s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">26s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">34s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">35s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">50s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">59s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-1-part-2-counting-zero-crossings-during-dial-rotation">Day 1 Part 2 — Counting zero-crossings during dial rotation</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th><th style="text-align: center"></th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">12s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">34s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">35s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">36s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">62s</td><td style="text-align: center">✓</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">51s</td><td style="text-align: center">✗</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">38s</td><td style="text-align: center">✗</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">40s</td><td style="text-align: center">✗</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">68s</td><td style="text-align: center">✗</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">248s</td><td style="text-align: center">✗</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-2-part-1-summing-repeated-digit-ids-in-ranges">Day 2 Part 1 — Summing repeated-digit IDs in ranges</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">11s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">26s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">54s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">56s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">110s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-2-part-2-repeated-pattern-ids-any-repeat-count">Day 2 Part 2 — Repeated-pattern IDs (any repeat count)</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">14s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">20s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">39s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">154s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">236s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-3-part-1-maximizing-2-digit-joltage-from-battery-banks">Day 3 Part 1 — Maximizing 2-digit joltage from battery banks</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">13s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">30s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">37s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">162s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-3-part-2-maximizing-12-digit-joltage-from-battery-banks">Day 3 Part 2 — Maximizing 12-digit joltage from battery banks</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">13s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">18s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">161s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-4-part-1-grid-neighbor-counting-accessible-paper-rolls">Day 4 Part 1 — Grid neighbor counting (accessible paper rolls)</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">12s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">26s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">26s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">31s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">34s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-4-part-2-iterative-grid-removal-simulation">Day 4 Part 2 — Iterative grid removal simulation</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">11s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">18s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">23s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">37s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-5-part-1-range-membership-checking">Day 5 Part 1 — Range membership checking</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">12s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">29s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">32s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">33s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">108s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-5-part-2-counting-total-fresh-ids-from-overlapping-ranges">Day 5 Part 2 — Counting total fresh IDs from overlapping ranges</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5 ★</td><td style="text-align: right">13s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">18s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">23s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">82s</td></tr>
+</tbody></table>
+<h3 id="speed-vs-accuracy">Speed vs accuracy</h3>
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  { name: 'haiku',      t: 124,  s: 10, cost: 0 },
+  { name: 'codex',      t: 241,  s: 10, cost: 0 },
+  { name: 'opus',       t: 357,  s: 10, cost: 0 },
+  { name: 'sonnet',     t: 428,  s: 10, cost: 0 },
+  { name: 'glm-5',      t: 1027, s: 10, cost: 0 },
+  { name: 'devstral',   t: 19,   s:  1, cost: 0 },
+  { name: 'coder-next', t: 20,   s:  1, cost: 0 },
+  { name: 'k2p5',       t: 24,   s:  1, cost: 0 },
+  { name: 'qwen3.5+',   t: 34,   s:  1, cost: 0 },
+  { name: 'MiniMax',    t: 59,   s:  1, cost: 0 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 6 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${(m.t/m.s).toFixed(1)}s/part`; } } }
+    }
+  }
+});
+</script>
+<p>No cost data was tracked for this benchmark run.</p>
+<h3 id="summary-table">Summary table</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>anthropic/claude-haiku-4-5 ★</td>
+      <td style="text-align: right">13s</td>
+      <td style="text-align: right">12s</td>
+      <td style="text-align: right">11s</td>
+      <td style="text-align: right">14s</td>
+      <td style="text-align: right">13s</td>
+      <td style="text-align: right">13s</td>
+      <td style="text-align: right">12s</td>
+      <td style="text-align: right">11s</td>
+      <td style="text-align: right">12s</td>
+      <td style="text-align: right">13s</td>
+    </tr>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">35s</td>
+      <td style="text-align: right">26s</td>
+      <td style="text-align: right">20s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">18s</td>
+      <td style="text-align: right">26s</td>
+      <td style="text-align: right">18s</td>
+      <td style="text-align: right">32s</td>
+      <td style="text-align: right">18s</td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-sonnet-4-6</td>
+      <td style="text-align: right">26s</td>
+      <td style="text-align: right">34s</td>
+      <td style="text-align: right">54s</td>
+      <td style="text-align: right">154s</td>
+      <td style="text-align: right">30s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">26s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">29s</td>
+      <td style="text-align: right">23s</td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-opus-4-6</td>
+      <td style="text-align: right">50s</td>
+      <td style="text-align: right">36s</td>
+      <td style="text-align: right">56s</td>
+      <td style="text-align: right">39s</td>
+      <td style="text-align: right">37s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">31s</td>
+      <td style="text-align: right">23s</td>
+      <td style="text-align: right">33s</td>
+      <td style="text-align: right">24s</td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">35s</td>
+      <td style="text-align: right">62s</td>
+      <td style="text-align: right">110s</td>
+      <td style="text-align: right">236s</td>
+      <td style="text-align: right">162s</td>
+      <td style="text-align: right">161s</td>
+      <td style="text-align: right">34s</td>
+      <td style="text-align: right">37s</td>
+      <td style="text-align: right">108s</td>
+      <td style="text-align: right">82s</td>
+    </tr>
+    <tr><td colspan="11" style="text-align: center; font-style: italic; opacity: 0.6">— ejected at Day 1 Part 2 —</td></tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">19s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">34s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">20s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">59s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="observations">Observations</h2>
+<p><strong>OCaml is harder</strong> — 5 of 9 models failed Part 2 of Day 1, vs. 4 of 11 in the Haskell run.
+The survivors were exactly the same top-tier models: the two Anthropic models, GPT-5.3-Codex,
+and GLM-5.</p>
+<p><strong><code>gpt-5.3-codex</code> led among the original 9 models</strong> — fastest on 7 of
+the 10 parts, with a consistent 18–35s range.</p>
+<p><strong><code>claude-haiku-4-5</code> (★ retroactive)</strong> — fastest on all 10 parts,
+never exceeding 14s.</p>
+<p><strong><code>glm-5</code></strong> — always correct, almost always last. Its times were often
+3–6× those of the leaders, particularly in Days 2 and 3 (110–236s). Later benchmarks
+with token tracking showed <code>glm-5</code> uses roughly 2–3× more output tokens per part.</p>
+<p><strong><code>claude-sonnet-4-6</code></strong> — 154s on D2P2 stands out against its otherwise
+23–54s range. A single run doesn't tell the full story — averaging over multiple runs
+would give a cleaner signal.</p>
+<p><strong><code>mistral/devstral-2512</code></strong> — same pattern as in the Haskell run: fast on Part
+1 (19s), wrong answer on Part 2, ejected.</p>
+<h2 id="what-s-next">What's next</h2>
+<p>Token usage and API cost tracking are now part of the benchmark. Future runs will report
+output token counts and per-part cost alongside wall-clock times — giving a clearer picture
+of solution complexity and value-for-money across models.</p>
+<p><em>Benchmarked on 2026-02-25 using <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a> as the agent harness.</em></p>
+<hr />
+<p><em>This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

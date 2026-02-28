@@ -1,0 +1,719 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="This is a second run of the AoC 2025 LLM benchmark,
+with stricter rules. The same 10 models solved the same 5 days (10 parts) across the same
+12 programming languages, but with two changes:No retries.…">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap-strict-mode/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode">
+  <meta name="twitter:description" content="This is a second run of the AoC 2025 LLM benchmark,
+with stricter rules. The same 10 models solved the same 5 days (10 parts) across the same
+12 programming languages, but with two changes:No retries.…">
+  
+  <meta property="og:title" content="Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode">
+  <meta property="og:description" content="This is a second run of the AoC 2025 LLM benchmark,
+with stricter rules. The same 10 models solved the same 5 days (10 parts) across the same
+12 programming languages, but with two changes:No retries.…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap-strict-mode/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-28T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap-strict-mode"
+      },
+      "headline": "Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode",
+      "description": "This is a second run of the AoC 2025 LLM benchmark,
+with stricter rules. The same 10 models solved the same 5 days (10 parts) across the same
+12 programming languages, but with two changes:No retries.…",
+      "wordcount": "3451",
+      "datePublished": "2026-02-28T00:00:00+00:00",
+      "dateModified": "2026-02-28T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-28-aoc-2025-llm-benchmark-recap-strict-mode.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap-strict-mode/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-28T00:00:00+00:00">
+      Posted on February 28, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>This is a second run of the <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/">AoC 2025 LLM benchmark</a>,
+with stricter rules. The same 10 models solved the same 5 days (10 parts) across the same
+12 programming languages, but with two changes:</p>
+<ol>
+<li><strong>No retries.</strong> A wrong answer or timeout results in immediate ejection from that
+language. No nudges, no second chances.</li>
+<li><strong>No language-specific scaffolding.</strong> No system prompts teaching syntax (as was done
+for ReScript run 3 in the previous benchmark). Every model receives the same prompt
+regardless of language.</li>
+</ol>
+<p>The previous benchmark allowed retries during the run, then applied strict scoring
+retroactively in the recap. This run enforces strict mode at execution time — ejected
+models never get the chance to try again.</p>
+<span id="continue-reading"></span><h2 id="setup">Setup</h2>
+<table><thead><tr><th style="text-align: left">Parameter</th><th style="text-align: left">Value</th></tr></thead><tbody>
+<tr><td style="text-align: left">Puzzles</td><td style="text-align: left">AoC 2025 Days 1–5, Parts 1 and 2</td></tr>
+<tr><td style="text-align: left">Languages</td><td style="text-align: left">12 (see below)</td></tr>
+<tr><td style="text-align: left">Models</td><td style="text-align: left">10 (see below)</td></tr>
+<tr><td style="text-align: left">Per-model timeout</td><td style="text-align: left">120 seconds</td></tr>
+<tr><td style="text-align: left">Extended thinking</td><td style="text-align: left">off</td></tr>
+<tr><td style="text-align: left">Execution timeout</td><td style="text-align: left">5 seconds per solution run</td></tr>
+<tr><td style="text-align: left">Retries</td><td style="text-align: left">none</td></tr>
+<tr><td style="text-align: left">Language-specific prompts</td><td style="text-align: left">none</td></tr>
+</tbody></table>
+<p>Each model faces 10 parts × 12 languages = <strong>120 total parts</strong>.</p>
+<p>Ejection is language-local: failing in Haskell does not affect participation in OCaml.</p>
+<p>The full run took <strong>3 hours wall-clock</strong> (11:49–14:49 CET), processing 1,200 model-part
+slots at a combined API cost of <strong>$24.50</strong>.</p>
+<h2 id="the-models">The models</h2>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: left">Model</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: left"><code>anthropic/claude-opus-4-6</code></td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: left"><code>anthropic/claude-sonnet-4-6</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: left"><code>anthropic/claude-haiku-4-5</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: left"><code>openai-codex/gpt-5.3-codex</code></td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: left"><code>zai/glm-5</code></td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: left"><code>minimax/MiniMax-M2.5</code></td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: left"><code>kimi-coding/k2p5</code></td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: left"><code>mistral/devstral-2512</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: left"><code>alibaba/qwen3.5-plus</code></td></tr>
+<tr><td style="text-align: right">10</td><td style="text-align: left"><code>alibaba/qwen3-coder-next</code></td></tr>
+</tbody></table>
+<h2 id="the-languages">The languages</h2>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: left">Language</th><th style="text-align: left">Paradigm</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: left">Haskell</td><td style="text-align: left">Pure FP, compiled</td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: left">OCaml</td><td style="text-align: left">FP, compiled</td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: left">Python</td><td style="text-align: left">Dynamic, imperative</td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: left">Ruby</td><td style="text-align: left">Dynamic, OO</td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: left">Elixir</td><td style="text-align: left">FP, dynamic (BEAM)</td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: left">Elm</td><td style="text-align: left">Pure FP, compiles to JS</td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: left">Java</td><td style="text-align: left">OO, compiled (JVM)</td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: left">ReScript</td><td style="text-align: left">FP, compiles to JS</td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: left">F#</td><td style="text-align: left">FP-first (.NET)</td></tr>
+<tr><td style="text-align: right">10</td><td style="text-align: left">Rust</td><td style="text-align: left">Systems, compiled</td></tr>
+<tr><td style="text-align: right">11</td><td style="text-align: left">Clojure</td><td style="text-align: left">Lisp (JVM)</td></tr>
+<tr><td style="text-align: right">12</td><td style="text-align: left">Racket</td><td style="text-align: left">Lisp (Scheme family)</td></tr>
+</tbody></table>
+<hr />
+<h2 id="the-results">The results</h2>
+<h3 id="global-ranking">Global ranking</h3>
+<table><thead><tr><th style="text-align: center">Rank</th><th style="text-align: left">Model</th><th style="text-align: right">Score</th><th style="text-align: center">Perfect langs</th><th style="text-align: right">Total time</th><th style="text-align: right">Total cost</th></tr></thead><tbody>
+<tr><td style="text-align: center">1</td><td style="text-align: left">claude-opus-4-6</td><td style="text-align: right">93/120</td><td style="text-align: center">9/12</td><td style="text-align: right">2456s</td><td style="text-align: right">$10.20</td></tr>
+<tr><td style="text-align: center">2</td><td style="text-align: left">claude-sonnet-4-6</td><td style="text-align: right">91/120</td><td style="text-align: center">9/12</td><td style="text-align: right">2299s</td><td style="text-align: right">$3.98</td></tr>
+<tr><td style="text-align: center">3</td><td style="text-align: left">claude-haiku-4-5</td><td style="text-align: right">71/120</td><td style="text-align: center">6/12</td><td style="text-align: right">1234s</td><td style="text-align: right">$2.00</td></tr>
+<tr><td style="text-align: center">4</td><td style="text-align: left">gpt-5.3-codex</td><td style="text-align: right">69/120</td><td style="text-align: center">5/12</td><td style="text-align: right">1239s</td><td style="text-align: right">$1.74</td></tr>
+<tr><td style="text-align: center">5</td><td style="text-align: left">qwen3.5-plus</td><td style="text-align: right">66/120</td><td style="text-align: center">5/12</td><td style="text-align: right">2792s</td><td style="text-align: right">$1.72</td></tr>
+<tr><td style="text-align: center">6</td><td style="text-align: left">devstral-2512</td><td style="text-align: right">53/120</td><td style="text-align: center">4/12</td><td style="text-align: right">1383s</td><td style="text-align: right">$1.78</td></tr>
+<tr><td style="text-align: center">7</td><td style="text-align: left">kimi-coding/k2p5</td><td style="text-align: right">52/120</td><td style="text-align: center">4/12</td><td style="text-align: right">1861s</td><td style="text-align: right">$0.56</td></tr>
+<tr><td style="text-align: center">8</td><td style="text-align: left">zai/glm-5</td><td style="text-align: right">51/120</td><td style="text-align: center">4/12</td><td style="text-align: right">2156s</td><td style="text-align: right">$0.82</td></tr>
+<tr><td style="text-align: center">9</td><td style="text-align: left">qwen3-coder-next</td><td style="text-align: right">23/120</td><td style="text-align: center">1/12</td><td style="text-align: right">683s</td><td style="text-align: right">$1.39</td></tr>
+<tr><td style="text-align: center">10</td><td style="text-align: left">MiniMax-M2.5</td><td style="text-align: right">9/120</td><td style="text-align: center">0/12</td><td style="text-align: right">470s</td><td style="text-align: right">$0.31</td></tr>
+</tbody></table>
+<h4 id="speed-vs-accuracy">Speed vs accuracy</h4>
+<p>Bubble size reflects total cost. Top-left is the sweet spot (fast + accurate).
+X axis is seconds per passed part (total time / score), so ejected models are not
+rewarded for doing less work.</p>
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  //                      total_time  score  cost
+  { name: 'opus',       t: 2456, s: 93, cost: 10.20 },
+  { name: 'sonnet',     t: 2299, s: 91, cost:  3.98 },
+  { name: 'haiku',      t: 1234, s: 71, cost:  2.00 },
+  { name: 'codex',      t: 1239, s: 69, cost:  1.74 },
+  { name: 'qwen3.5+',   t: 2792, s: 66, cost:  1.72 },
+  { name: 'devstral',   t: 1383, s: 53, cost:  1.78 },
+  { name: 'k2p5',       t: 1861, s: 52, cost:  0.56 },
+  { name: 'glm-5',      t: 2156, s: 51, cost:  0.82 },
+  { name: 'coder-next', t:  683, s: 23, cost:  1.39 },
+  { name: 'MiniMax',    t:  470, s:  9, cost:  0.31 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: {
+    datasets: models.map(m => ({
+      label: m.name,
+      data: [{ x: +(m.t / m.s).toFixed(1), y: m.s, r: 3 + Math.sqrt(m.cost) * 4 }],
+    })),
+  },
+  options: {
+    maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: 'Seconds per passed part — lower is better' }},
+      y: { title: { display: true, text: 'Score (/120)' }, min: 0, max: 120 },
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 1,
+        font: { size: 11 },
+        formatter: (_, ctx) => models[ctx.datasetIndex].name,
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const m = models[ctx.datasetIndex];
+            return `${m.name}: ${m.s}/120, ${(m.t/m.s).toFixed(1)}s/part, $${m.cost}`;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+<p>No model achieved 120/120. In the <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/">previous benchmark's recap</a>,
+<code>claude-opus-4-6</code> and <code>claude-sonnet-4-6</code> both went 120/120 using strict retroactive
+scoring. The difference here is the absence of language-specific scaffolding (the
+ReScript system prompt) and the enforcement of ejection at runtime (no recovery from
+near-misses that retries would have caught).</p>
+<hr />
+<h3 id="cross-language-score-matrix">Cross-language score matrix</h3>
+<div style="overflow-x: auto">
+<table><thead><tr><th style="text-align: left">Model</th><th style="text-align: right">HS</th><th style="text-align: right">ML</th><th style="text-align: right">PY</th><th style="text-align: right">RB</th><th style="text-align: right">EX</th><th style="text-align: right">ELM</th><th style="text-align: right">JV</th><th style="text-align: right">RS</th><th style="text-align: right">F#</th><th style="text-align: right">RUST</th><th style="text-align: right">CLJ</th><th style="text-align: right">RKT</th></tr></thead><tbody>
+<tr><td style="text-align: left">claude-opus-4-6</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">10</td><td style="text-align: right">3</td><td style="text-align: right">10</td></tr>
+<tr><td style="text-align: left">claude-sonnet-4-6</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">1</td></tr>
+<tr><td style="text-align: left">claude-haiku-4-5</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">4</td><td style="text-align: right">10</td><td style="text-align: right">0</td><td style="text-align: right">0</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">5</td></tr>
+<tr><td style="text-align: left">gpt-5.3-codex</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">2</td><td style="text-align: right">0</td><td style="text-align: right">4</td><td style="text-align: right">4</td><td style="text-align: right">10</td><td style="text-align: right">4</td><td style="text-align: right">10</td><td style="text-align: right">4</td></tr>
+<tr><td style="text-align: left">qwen3.5-plus</td><td style="text-align: right">5</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">0</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">10</td><td style="text-align: right">3</td><td style="text-align: right">2</td><td style="text-align: right">5</td></tr>
+<tr><td style="text-align: left">devstral-2512</td><td style="text-align: right">3</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">0</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">5</td></tr>
+<tr><td style="text-align: left">kimi-coding/k2p5</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">4</td><td style="text-align: right">1</td><td style="text-align: right">2</td><td style="text-align: right">2</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">10</td></tr>
+<tr><td style="text-align: left">zai/glm-5</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">10</td><td style="text-align: right">0</td><td style="text-align: right">4</td><td style="text-align: right">1</td><td style="text-align: right">3</td><td style="text-align: right">1</td></tr>
+<tr><td style="text-align: left">qwen3-coder-next</td><td style="text-align: right">5</td><td style="text-align: right">0</td><td style="text-align: right">1</td><td style="text-align: right">10</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">2</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">1</td></tr>
+<tr><td style="text-align: left">MiniMax-M2.5</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">1</td><td style="text-align: right">1</td><td style="text-align: right">0</td><td style="text-align: right">1</td></tr>
+</tbody></table>
+</div>
+<p>Legend: HS=Haskell, ML=OCaml, PY=Python, RB=Ruby, EX=Elixir, ELM=Elm, JV=Java,
+RS=ReScript, F#=F#, RUST=Rust, CLJ=Clojure, RKT=Racket.</p>
+<hr />
+<h3 id="language-difficulty">Language difficulty</h3>
+<p>Models achieving a perfect 10/10 per language:</p>
+<table><thead><tr><th style="text-align: left">Language</th><th style="text-align: center">Perfect solvers (out of 10)</th><th style="text-align: left">Which models</th></tr></thead><tbody>
+<tr><td style="text-align: left">Ruby</td><td style="text-align: center">8</td><td style="text-align: left">opus, sonnet, haiku, codex, glm-5, devstral, qwen3.5-plus, qwen3-coder-next</td></tr>
+<tr><td style="text-align: left">Python</td><td style="text-align: center">7</td><td style="text-align: left">opus, sonnet, haiku, codex, glm-5, k2p5, qwen3.5-plus</td></tr>
+<tr><td style="text-align: left">Java</td><td style="text-align: center">5</td><td style="text-align: left">opus, sonnet, haiku, glm-5, devstral</td></tr>
+<tr><td style="text-align: left">Rust</td><td style="text-align: center">5</td><td style="text-align: left">opus, sonnet, haiku, k2p5, devstral</td></tr>
+<tr><td style="text-align: left">Haskell</td><td style="text-align: center">4</td><td style="text-align: left">opus, sonnet, glm-5, k2p5</td></tr>
+<tr><td style="text-align: left">OCaml</td><td style="text-align: center">5</td><td style="text-align: left">opus, sonnet, haiku, codex, qwen3.5-plus</td></tr>
+<tr><td style="text-align: left">Elixir</td><td style="text-align: center">4</td><td style="text-align: left">opus, sonnet, haiku, qwen3.5-plus</td></tr>
+<tr><td style="text-align: left">F#</td><td style="text-align: center">3</td><td style="text-align: left">codex, devstral, qwen3.5-plus</td></tr>
+<tr><td style="text-align: left">Elm</td><td style="text-align: center">2</td><td style="text-align: left">opus, sonnet</td></tr>
+<tr><td style="text-align: left">Clojure</td><td style="text-align: center">2</td><td style="text-align: left">sonnet, codex</td></tr>
+<tr><td style="text-align: left">Racket</td><td style="text-align: center">2</td><td style="text-align: left">opus, k2p5</td></tr>
+<tr><td style="text-align: left">ReScript</td><td style="text-align: center">0</td><td style="text-align: left">(none)</td></tr>
+</tbody></table>
+<p>ReScript was the only language where no model achieved 10/10. The highest score was
+<code>gpt-5.3-codex</code> with 4/10.</p>
+<hr />
+<h3 id="rescript-and-f-total-failure-for-anthropic-models">ReScript and F#: total failure for Anthropic models</h3>
+<p>All three Anthropic models (<code>claude-opus-4-6</code>, <code>claude-sonnet-4-6</code>, <code>claude-haiku-4-5</code>)
+scored <strong>0/10 on both ReScript and F#</strong>. All six failures were timeouts on Day 01
+Part 1 — the models did not produce an answer within 120 seconds on the first puzzle.</p>
+<p>These two languages require specific toolchain setup (<code>dotnet</code> for F#, <code>npm</code>/<code>rescript</code>
+for ReScript). The 120-second timeout includes environment setup time. In the previous
+benchmark, the ReScript run 3 used a system prompt that taught the language syntax,
+which eliminated toolchain friction. No such scaffolding was provided here.</p>
+<p>The models that succeeded on these languages — <code>gpt-5.3-codex</code>, <code>devstral-2512</code>,
+<code>qwen3.5-plus</code>, <code>kimi-coding/k2p5</code> — produced working solutions within the timeout.</p>
+<hr />
+<h3 id="where-each-model-failed">Where each model failed</h3>
+<p><strong>claude-opus-4-6</strong> (93/120) — Scored 0/10 on ReScript and F# (timeout D01P1 on both).
+Wrong answer on Clojure D02P2. Perfect on the remaining 9 languages.</p>
+<p><strong>claude-sonnet-4-6</strong> (91/120) — Scored 0/10 on ReScript and F# (same timeout issue).
+Wrong answer on Racket D01P2. Perfect on the remaining 9 languages.</p>
+<p><strong>claude-haiku-4-5</strong> (71/120) — Scored 0/10 on ReScript and F#. Wrong answers on
+Haskell D01P2, Elm D03P1, and Clojure D01P2. Perfect on OCaml, Python, Ruby, Elixir,
+Java, and Rust.</p>
+<p><strong>gpt-5.3-codex</strong> (69/120) — Scored 0/10 on Elm (timeout D01P1). Failed on Haskell
+D01P2 (timeout), Elixir D02P1 (timeout), Java D03P1 (wrong answer), Rust D03P1
+(wrong answer), Racket D03P1 (wrong answer), ReScript D03P1 (timeout). Perfect on
+OCaml, Python, Ruby, F#, and Clojure.</p>
+<p><strong>qwen3.5-plus</strong> (66/120) — Scored 0/10 on Elm and ReScript (both timeout D01P1).
+Ejected from Haskell D03P2 by code review. Failed on Java D01P2 (timeout), Rust D02P2
+(timeout), Clojure D02P1 (timeout), Racket D03P2 (timeout). Perfect on OCaml, Python,
+Ruby, Elixir, and F#.</p>
+<p><strong>devstral-2512</strong> (53/120) — Scored 0/10 on ReScript (timeout D01P1). Failed on
+Haskell D02P2 (ejected by code review), OCaml D01P2 (wrong answer), Python D01P2
+(timeout), Elixir D01P2 (wrong answer), Elm D01P2 (wrong answer), Clojure D01P2
+(timeout), Racket D03P2 (timeout). Perfect on Ruby, Java, F#, and Rust.</p>
+<p><strong>kimi-coding/k2p5</strong> (52/120) — Scored 0/10 on Elixir (timeout D01P1). Failed on
+OCaml D01P2 (timeout), Ruby D01P2 (timeout), Elm D03P1 (timeout), Java D01P2 (wrong
+answer), ReScript D02P1 (timeout), F# D02P1 (timeout), Clojure D01P2 (wrong answer).
+Perfect on Haskell, Python, Rust, and Racket.</p>
+<p><strong>zai/glm-5</strong> (51/120) — Scored 0/10 on Elm and ReScript (both timeout D01P1). Failed
+on OCaml D01P2 (timeout), Elixir D01P2 (timeout), F# D03P1 (wrong answer — output a
+different day's answer), Rust D01P2 (timeout), Clojure D02P2 (timeout), Racket D01P2
+(timeout). Perfect on Haskell, Python, Ruby, and Java.</p>
+<p><strong>qwen3-coder-next</strong> (23/120) — Scored 0/10 on OCaml, Elm, and ReScript (all timeout
+D01P1). Ejected from Haskell D03P2 by code review. Failed early (D01P2) in Python,
+Elixir, Java, Clojure, and Racket. Perfect only on Ruby.</p>
+<p><strong>MiniMax-M2.5</strong> (9/120) — Scored 0/10 on Elm, ReScript, and Clojure. Failed on D01P2
+in 7 other languages. Scored only 1/10 (D01P1 only) in every other language. Perfect on
+no language.</p>
+<hr />
+<h3 id="cost-per-model">Cost per model</h3>
+<table><thead><tr><th style="text-align: left">Model</th><th style="text-align: right">Total cost</th><th style="text-align: right">Cost per passed part</th></tr></thead><tbody>
+<tr><td style="text-align: left">claude-opus-4-6</td><td style="text-align: right">$10.20</td><td style="text-align: right">$0.110</td></tr>
+<tr><td style="text-align: left">claude-sonnet-4-6</td><td style="text-align: right">$3.98</td><td style="text-align: right">$0.044</td></tr>
+<tr><td style="text-align: left">claude-haiku-4-5</td><td style="text-align: right">$2.00</td><td style="text-align: right">$0.028</td></tr>
+<tr><td style="text-align: left">devstral-2512</td><td style="text-align: right">$1.78</td><td style="text-align: right">$0.034</td></tr>
+<tr><td style="text-align: left">openai-codex/gpt-5.3-codex</td><td style="text-align: right">$1.74</td><td style="text-align: right">$0.025</td></tr>
+<tr><td style="text-align: left">alibaba/qwen3.5-plus</td><td style="text-align: right">$1.72</td><td style="text-align: right">$0.026</td></tr>
+<tr><td style="text-align: left">alibaba/qwen3-coder-next</td><td style="text-align: right">$1.39</td><td style="text-align: right">$0.060</td></tr>
+<tr><td style="text-align: left">zai/glm-5</td><td style="text-align: right">$0.82</td><td style="text-align: right">$0.016</td></tr>
+<tr><td style="text-align: left">kimi-coding/k2p5</td><td style="text-align: right">$0.56</td><td style="text-align: right">$0.011</td></tr>
+<tr><td style="text-align: left">minimax/MiniMax-M2.5</td><td style="text-align: right">$0.31</td><td style="text-align: right">$0.034</td></tr>
+</tbody></table>
+<hr />
+<h3 id="code-review-ejections-flawed">Code review ejections (flawed)</h3>
+<p>The benchmark included a code review phase after each part for the Haskell language.
+Two independent reviewer agents (<code>claude-opus-4-6</code> and <code>gpt-5.3-codex</code>) read the source
+code produced by each model and checked whether it was written in the target language and
+actually solved the stated problem.</p>
+<p>Three models were ejected from Haskell due to code review findings. In all three cases,
+the ejections were <strong>false positives</strong> — the models had produced the correct answer by
+solving the correct problem. The reviewers disagreed, and the reconciliation rule
+(either reviewer flags <code>lang_ok=false</code> → ejection) allowed one reviewer's error to
+override the other's correct assessment.</p>
+<p><strong>devstral-2512</strong> (Haskell D02P2): <code>opus</code> found the correct solution file and rated
+it 5/10. <code>codex</code> looked at leftover Day 1 files in the workspace and concluded the
+model was solving a different problem. Reconciled: 2.5/10, ejected.</p>
+<p><strong>qwen3.5-plus</strong> (Haskell D03P2): <code>opus</code> found the correct greedy-subsequence solution
+and rated it 5/10. <code>codex</code> flagged leftover Day 2 code (invalid-ID ranges) as the
+primary implementation. Reconciled: 2.5/10, ejected.</p>
+<p><strong>qwen3-coder-next</strong> (Haskell D03P2): Same pattern. <code>opus</code> rated the correct solution
+5/10. <code>codex</code> flagged leftover files from earlier days. Reconciled: 2.5/10, ejected.</p>
+<p>The common factor: all three models left <code>.hs</code> files from previous days in their
+workspace. One reviewer evaluated the workspace holistically and misidentified
+leftover code as the primary solution. The other reviewer correctly identified the
+actual solution file.</p>
+<p>Code reviews were not run for languages after Haskell (the streamlined run script did
+not include the review phase). Given the false positive rate observed in Haskell,
+this is not a significant loss.</p>
+<hr />
+<h3 id="comparison-to-the-previous-benchmark">Comparison to the previous benchmark</h3>
+<p>The previous benchmark applied strict scoring retroactively: retries counted as
+failures, but models still had the opportunity to retry during execution, meaning their
+context and code were preserved even after a wrong answer. Additionally, ReScript run 3
+used a 150-line system prompt teaching the language.</p>
+<p>Key differences in outcomes:</p>
+<table><thead><tr><th style="text-align: left">Metric</th><th style="text-align: right">Previous (strict retroactive)</th><th style="text-align: right">This run (strict enforced)</th></tr></thead><tbody>
+<tr><td style="text-align: left">Top score</td><td style="text-align: right">120/120 (opus, sonnet)</td><td style="text-align: right">93/120 (opus)</td></tr>
+<tr><td style="text-align: left">Models with ≥100/120</td><td style="text-align: right">2</td><td style="text-align: right">0</td></tr>
+<tr><td style="text-align: left">ReScript perfect solvers</td><td style="text-align: right">4</td><td style="text-align: right">0</td></tr>
+<tr><td style="text-align: left">F# perfect solvers</td><td style="text-align: right">5</td><td style="text-align: right">3</td></tr>
+<tr><td style="text-align: left">Languages with ≥8 perfect solvers</td><td style="text-align: right">2 (Python, Ruby)</td><td style="text-align: right">2 (Python, Ruby)</td></tr>
+</tbody></table>
+<p>The gap between retroactive strict scoring and enforced strict mode is 27 points for
+opus and 29 for sonnet. Most of the gap comes from ReScript (0 vs 10) and F# (0 vs 10),
+where the absence of scaffolding caused immediate timeout.</p>
+<hr />
+<h3 id="patterns-in-the-data">Patterns in the data</h3>
+<p><strong>Day 01 Part 2 is the most common single-part failure point.</strong> Of the models that
+passed D01P1 in a given language, the D01P2 step was where the majority of ejections
+occurred. In OCaml, 9 models passed D01P1 but only 5 passed D01P2. In Java, all 10
+passed D01P1 but only 6 passed D01P2.</p>
+<p><strong>Once a model passes Day 01, it tends to complete the language.</strong> Models that survived
+both parts of Day 01 had high completion rates for the remaining days. The exceptions
+were Elm (haiku failed D03P1, k2p5 timed out D03P1), Clojure (opus wrong on D02P2,
+glm-5 timed out D02P2), and Racket (several models failed on Day 03).</p>
+<p><strong>Toolchain setup consumes a significant portion of the 120-second timeout.</strong> Languages
+requiring project scaffolding (ReScript, F#, Elm) had higher timeout rates on D01P1 than
+languages with simpler toolchains (Python, Ruby, Java). All three Anthropic models timed
+out on ReScript D01P1 and F# D01P1.</p>
+<p><strong>The same wrong answer for Day 01 Part 2 appeared across multiple models and
+languages.</strong> Haiku (Haskell, Clojure), k2p5 (Java, Clojure), and sonnet (Racket) all
+produced the identical incorrect value. This suggests a common algorithmic error in the
+Day 01 Part 2 solution logic rather than language-specific bugs.</p>
+<hr />
+<h2 id="methodology">Methodology</h2>
+<p>The benchmark was orchestrated by a prompt for
+<a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a>, a CLI coding
+agent. The prompt turns pi into a benchmark controller that:</p>
+<ul>
+<li>Launches one pi agent per model in separate tmux windows</li>
+<li>Feeds puzzle descriptions and input file paths</li>
+<li>Polls for <code>ANSWER.txt</code> completion</li>
+<li>Compares answers against a pre-computed reference table</li>
+<li>Ejects failing models immediately</li>
+<li>Collects timing, token counts, and API costs from session JSONL files</li>
+</ul>
+<p>Each agent works in complete isolation — its own directory, no shared state, no awareness
+of other models. Part 2 reuses the Part 1 session (agents keep their code and context).</p>
+<p>Models were launched with a 3-second stagger to avoid settings-file lock contention.
+Elapsed time is measured from each model's launch time, not the global start. All agents
+ran under <code>nice -n 10</code>.</p>
+<p>The Haskell language included a code review phase after each part, using two independent
+reviewer agents. This was not included for subsequent languages.</p>
+<p>These are single-run results. Wall-clock times are influenced by inference platform load
+and concurrent system activity. The raw CSV data is available in the benchmark working
+directory.</p>
+<hr />
+<h2 id="orchestration-prompt">Orchestration prompt</h2>
+<p>The full prompt used to orchestrate this benchmark is included below for reproducibility.
+This prompt is passed as the initial user message to a pi agent running
+<code>anthropic/claude-sonnet-4-6</code>. It can be reused with different model lists by updating
+<code>~/.pi/agent/settings.json</code>.</p>
+<details>
+<summary>Click to expand the full orchestration prompt (~800 lines)</summary>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="plain"><span class="giallo-l"><span>You are the **Benchmark AOC 2025 (strict)** orchestrator. You run all enabled models in</span></span>
+<span class="giallo-l"><span>parallel across every target language, one language at a time, collecting timing, tokens,</span></span>
+<span class="giallo-l"><span>and cost. No retries, no nudges — one shot per model per part.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Hardcoded defaults</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>- **Year**: `2025` (fixed)</span></span>
+<span class="giallo-l"><span>- **Thinking level**: `off`</span></span>
+<span class="giallo-l"><span>- **Timeout**: `120` seconds</span></span>
+<span class="giallo-l"><span>- **End day**: `5`</span></span>
+<span class="giallo-l"><span>- **Start language**: Haskell (first in list)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Optional arguments</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>The user may have provided overrides:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Parse positionally (all optional):</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. **Thinking level** (`off`, `minimal`, `low`, `medium`, `high`, `xhigh`)</span></span>
+<span class="giallo-l"><span>2. **Timeout** (seconds)</span></span>
+<span class="giallo-l"><span>3. **End day** (e.g. `5`)</span></span>
+<span class="giallo-l"><span>4. **Start language** — allows resuming after a crash (e.g. `Python` to skip Haskell and OCaml)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>If no arguments are provided, use all defaults above and proceed immediately — never ask.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Example invocations:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>- `/benchmark-aoc-2025` — all defaults: thinking:off, 120s timeout, days 1–5, all languages</span></span>
+<span class="giallo-l"><span>- `/benchmark-aoc-2025 off 180 5 OCaml` — resume from OCaml, 180s timeout</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Fixed language set (run in order)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. Haskell</span></span>
+<span class="giallo-l"><span>2. OCaml</span></span>
+<span class="giallo-l"><span>3. Python</span></span>
+<span class="giallo-l"><span>4. Ruby</span></span>
+<span class="giallo-l"><span>5. Elixir</span></span>
+<span class="giallo-l"><span>6. Elm</span></span>
+<span class="giallo-l"><span>7. Java</span></span>
+<span class="giallo-l"><span>8. ReScript</span></span>
+<span class="giallo-l"><span>9. F#</span></span>
+<span class="giallo-l"><span>10. Rust</span></span>
+<span class="giallo-l"><span>11. Clojure</span></span>
+<span class="giallo-l"><span>12. Racket</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Each language is a full independent run (days 1–`end_day`). All models start fresh for each</span></span>
+<span class="giallo-l"><span>language. Ejection is **language-local** — failing in Haskell does not affect Python.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Strict rules</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. **One attempt only** per model per part — no nudges, no retries, no escalation</span></span>
+<span class="giallo-l"><span>2. **Hard timeout** — if ANSWER.txt is not written within `timeout` seconds (measured from</span></span>
+<span class="giallo-l"><span>   that model&#39;s launch/inject time), the model fails immediately</span></span>
+<span class="giallo-l"><span>3. **Wrong answer = immediate ejection** for that language run</span></span>
+<span class="giallo-l"><span>4. **No ANSWER.txt at timeout = immediate ejection** for that language run</span></span>
+<span class="giallo-l"><span>5. **Ejection is language-local** — the model participates in subsequent languages</span></span>
+<span class="giallo-l"><span>6. **No language-specific scaffolding** — no templates, no system prompts, no tutoring</span></span>
+<span class="giallo-l"><span>7. **Part 2 reuses the Part 1 session** — agents keep their Part 1 code and context</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Reference implementation</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Used at setup to pre-populate the correct-answers table, enabling fully autonomous operation.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>**Default path (try automatically before asking):**</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>~/code/github.com/benjamin-thomas/multi-playground/aoc/2025/haskell/</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>If that path exists, use it without asking. If not, ask the user.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>### How to run the Haskell reference implementation</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>The reference lives at `~/code/github.com/benjamin-thomas/multi-playground/aoc/2025/haskell/`</span></span>
+<span class="giallo-l"><span>and inputs at `~/code/github.com/benjamin-thomas/multi-playground/aoc/2025/inputs/`.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Input filenames follow the pattern `DayNN.txt` (e.g. `Day01.txt`, `Day02.txt`).</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Two patterns exist in the codebase — detect per file:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>**Pattern A — file has a `main` function:**</span></span>
+<span class="giallo-l"><span>```bash</span></span>
+<span class="giallo-l"><span>cd ~/code/github.com/benjamin-thomas/multi-playground/aoc/2025/haskell/</span></span>
+<span class="giallo-l"><span>timeout 120 runghc DayNN.hs 2&gt;&amp;1</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>Parse stdout for lines matching `solve1 (real)` / `solve2 (real)`. The answer appears after</span></span>
+<span class="giallo-l"><span>`✓` in the output:</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>solve1 (real)  ✓ 28146997880</span></span>
+<span class="giallo-l"><span>solve2 (real)  ✓ 40028128307</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>Strip any `Right ` prefix.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>**Pattern B — no `main` function:**</span></span>
+<span class="giallo-l"><span>Scan for GHCi-style answer comments:</span></span>
+<span class="giallo-l"><span>```haskell</span></span>
+<span class="giallo-l"><span>{-</span></span>
+<span class="giallo-l"><span>*Main&gt; readFile &quot;../inputs/Day01.txt&quot; &gt;&gt;= print . solve1 . lines</span></span>
+<span class="giallo-l"><span>1064</span></span>
+<span class="giallo-l"><span>-}</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>Extract the answer that follows the `readFile` line inside the comment block.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>**Neither pattern** → inspect more carefully. If still can&#39;t extract, leave blank and ask</span></span>
+<span class="giallo-l"><span>the user when that day is reached.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Display the table before starting:</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>Reference answers extracted:</span></span>
+<span class="giallo-l"><span>  Day01  Part1: 1064              Part2: 6122</span></span>
+<span class="giallo-l"><span>  Day02  Part1: 28146997880       Part2: 40028128307</span></span>
+<span class="giallo-l"><span>  ...</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Required filesystem layout</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Inputs: `/home/benjamin/benchmark/aoc-inputs/2025/inputs/`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>DayNN/</span></span>
+<span class="giallo-l"><span>  input.example</span></span>
+<span class="giallo-l"><span>  input.real</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Description archive: `/home/benjamin/benchmark/aoc-descriptions/2025/`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>DayNN/</span></span>
+<span class="giallo-l"><span>  PART_1.description</span></span>
+<span class="giallo-l"><span>  PART_2.description</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>When the orchestrator needs a description:</span></span>
+<span class="giallo-l"><span>1. Check if it exists in the archive</span></span>
+<span class="giallo-l"><span>2. If yes → copy it to each active model&#39;s subdirectory</span></span>
+<span class="giallo-l"><span>3. If no → ask the user to paste it, then save to the archive for future runs</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Descriptions are never placed in model subdirs until the orchestrator reaches that part.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Zero-pad day numbers everywhere: `Day01`, `Day02`, ..., `Day09`, `Day10`, etc.</span></span>
+<span class="giallo-l"><span>Use `printf &#39;%02d&#39;` (NOT `seq -w`, which doesn&#39;t pad single-digit ranges).</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Directory structure</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"><span>&lt;work_dir&gt;/</span></span>
+<span class="giallo-l"><span>  results/</span></span>
+<span class="giallo-l"><span>    part_results.csv</span></span>
+<span class="giallo-l"><span>    language_summary.csv</span></span>
+<span class="giallo-l"><span>    global_summary.csv</span></span>
+<span class="giallo-l"><span>    reviews.csv</span></span>
+<span class="giallo-l"><span>  reviews/</span></span>
+<span class="giallo-l"><span>    &lt;Language&gt;/</span></span>
+<span class="giallo-l"><span>      Day&lt;NN&gt;P&lt;P&gt;/</span></span>
+<span class="giallo-l"><span>        reviewer-opus/</span></span>
+<span class="giallo-l"><span>          REVIEW.json</span></span>
+<span class="giallo-l"><span>          DONE</span></span>
+<span class="giallo-l"><span>        reviewer-codex/</span></span>
+<span class="giallo-l"><span>          REVIEW.json</span></span>
+<span class="giallo-l"><span>          DONE</span></span>
+<span class="giallo-l"><span>  Haskell/</span></span>
+<span class="giallo-l"><span>    anthropic__claude-opus-4-6/</span></span>
+<span class="giallo-l"><span>    anthropic__claude-sonnet-4-6/</span></span>
+<span class="giallo-l"><span>    ...</span></span>
+<span class="giallo-l"><span>  OCaml/</span></span>
+<span class="giallo-l"><span>    anthropic__claude-opus-4-6/</span></span>
+<span class="giallo-l"><span>    ...</span></span>
+<span class="giallo-l"><span>  ...</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Model subdir naming — sanitize the full model name:</span></span>
+<span class="giallo-l"><span>- `/` → `__`</span></span>
+<span class="giallo-l"><span>- `.` → `_`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Examples:</span></span>
+<span class="giallo-l"><span>- `anthropic/claude-opus-4-6` → `anthropic__claude-opus-4-6`</span></span>
+<span class="giallo-l"><span>- `alibaba/qwen3.5-plus` → `alibaba__qwen3_5-plus`</span></span>
+<span class="giallo-l"><span>- `openai-codex/gpt-5.3-codex` → `openai-codex__gpt-5_3-codex`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Main loop — language iteration</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each language in the fixed set (or starting from `start_language`):</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. Print banner: `═══ Starting language: &lt;Language&gt; ═══`</span></span>
+<span class="giallo-l"><span>2. Reset `active_models` to `all_models`</span></span>
+<span class="giallo-l"><span>3. **Clean previous run data** for this language</span></span>
+<span class="giallo-l"><span>4. Create fresh subdirectories for each model</span></span>
+<span class="giallo-l"><span>5. Run the **day loop** for days 1–`end_day`</span></span>
+<span class="giallo-l"><span>6. After all days: display the **per-language summary tables**</span></span>
+<span class="giallo-l"><span>7. Append rows to `language_summary.csv`</span></span>
+<span class="giallo-l"><span>8. Move to next language</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>After the last language: display **cross-language summary**, write `global_summary.csv`.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Day loop (within a language)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each day, parts 1 then 2.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>### Phase A — Launch Part 1</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. Distribute description to each active model&#39;s subdir</span></span>
+<span class="giallo-l"><span>2. Clear stale ANSWER.txt</span></span>
+<span class="giallo-l"><span>3. Record start time</span></span>
+<span class="giallo-l"><span>4. Launch tmux windows (3-second stagger between models)</span></span>
+<span class="giallo-l"><span>5. Poll for completion every 15 seconds</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>### Phase B — Collect and eject</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>1. Read ANSWER.txt (or note absence)</span></span>
+<span class="giallo-l"><span>2. Collect tokens and cost from session JSONL</span></span>
+<span class="giallo-l"><span>3. Compare against reference answers</span></span>
+<span class="giallo-l"><span>4. Classify: pass, fail_wrong, fail_timeout</span></span>
+<span class="giallo-l"><span>5. Display leaderboard</span></span>
+<span class="giallo-l"><span>6. Eject failing models (kill tmux window, mark remaining parts as forfeit)</span></span>
+<span class="giallo-l"><span>7. Append to CSV</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>### Phase B½ — Code Review (Haskell only in this run)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Two reviewer agents evaluate code quality of all active models. Models flagged for wrong</span></span>
+<span class="giallo-l"><span>language, hardcoded answers, or reconciled rating &lt; 3 are ejected.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>### Phase C — Advance</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>- Part 1 → inject Part 2 into surviving windows</span></span>
+<span class="giallo-l"><span>- Part 2 → archive JSONL files, kill windows, advance to next day</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>## Rules</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>- NEVER solve puzzles yourself</span></span>
+<span class="giallo-l"><span>- NEVER give nudges, retries, or second chances</span></span>
+<span class="giallo-l"><span>- NEVER delete session JSONL files — archive them</span></span>
+<span class="giallo-l"><span>- ALWAYS launch all active models in parallel</span></span>
+<span class="giallo-l"><span>- ALWAYS use 3-second stagger between launches</span></span>
+<span class="giallo-l"><span>- ALWAYS subtract per-model launch offsets when computing elapsed time</span></span>
+<span class="giallo-l"><span>- ALWAYS trim whitespace when comparing answers</span></span>
+<span class="giallo-l"><span>- ALWAYS collect token and cost data after every part</span></span>
+<span class="giallo-l"><span>- ALWAYS reset active_models to full list when starting a new language</span></span></code></pre></details>
+<hr />
+<p><em>Benchmarked on 2026-02-28 using <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a>
+as the agent harness. This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

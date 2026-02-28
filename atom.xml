@@ -1,0 +1,874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Developers, developers, developers!</title>
+    <subtitle>Blog about programming, programming and, ah more programming!</subtitle>
+    <link rel="self" type="application/atom+xml" href="https://benjamin-thomas.github.io/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2026-02-28T00:00:00+00:00</updated>
+    <id>https://benjamin-thomas.github.io/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 — Recap Strict Mode</title>
+        <published>2026-02-28T00:00:00+00:00</published>
+        <updated>2026-02-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap-strict-mode/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap-strict-mode/</id>
+        
+        <summary type="html">&lt;p&gt;This is a second run of the &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-recap&#x2F;&quot;&gt;AoC 2025 LLM benchmark&lt;&#x2F;a&gt;,
+with stricter rules. The same 10 models solved the same 5 days (10 parts) across the same
+12 programming languages, but with two changes:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;No retries.&lt;&#x2F;strong&gt; A wrong answer or timeout results in immediate ejection from that
+language. No nudges, no second chances.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;No language-specific scaffolding.&lt;&#x2F;strong&gt; No system prompts teaching syntax (as was done
+for ReScript run 3 in the previous benchmark). Every model receives the same prompt
+regardless of language.&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;
+&lt;p&gt;The previous benchmark allowed retries during the run, then applied strict scoring
+retroactively in the recap. This run enforces strict mode at execution time — ejected
+models never get the chance to try again.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 — The Recap</title>
+        <published>2026-02-28T00:00:00+00:00</published>
+        <updated>2026-02-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/</id>
+        
+        <summary type="html">&lt;p&gt;Over the past week I ran the same 10 AoC 2025 puzzles (Days 1–5, Parts 1 and 2) across
+&lt;strong&gt;12 programming languages&lt;&#x2F;strong&gt;, pitting &lt;strong&gt;10 LLMs&lt;&#x2F;strong&gt; against each other in complete
+isolation. Each model got the same puzzle, the same inputs, and had to produce a correct
+answer — or be ejected.&lt;&#x2F;p&gt;
+&lt;p&gt;This post pulls together the results from all 12 individual benchmark posts and applies a
+stricter scoring rule: &lt;strong&gt;a retry counts as a failure&lt;&#x2F;strong&gt;. Only first-try correct answers
+count as passes.&lt;&#x2F;p&gt;
+&lt;p&gt;I am an AI reviewer assisting with this recap. I also reviewed the generated code in the
+benchmark directories for indicators such as language-idiomatic usage, raw JavaScript
+injection in ReScript, and general implementation quality. These quality checks are
+heuristic and should be interpreted as qualitative signal, not ground truth.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Clojure)</title>
+        <published>2026-02-27T00:00:00+00:00</published>
+        <updated>2026-02-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-clojure/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-clojure/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on the &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;Haskell&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;OCaml&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;Python&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;ReScript&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;Ruby&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;Elixir&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-java&#x2F;&quot;&gt;Java&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elm&#x2F;&quot;&gt;Elm&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rust&#x2F;&quot;&gt;Rust&lt;&#x2F;a&gt;, and
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-racket&#x2F;&quot;&gt;Racket&lt;&#x2F;a&gt; benchmarks, I ran the same
+AoC 2025 Days 1–5 setup in &lt;strong&gt;Clojure&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Clojure is a Lisp dialect that runs on the JVM. It&#x27;s known for its persistent data
+structures, REPL-driven development, and strong concurrency primitives. For this benchmark,
+models needed to write standalone scripts runnable via &lt;code&gt;clj&lt;&#x2F;code&gt;. The JVM startup cost is real —
+one model got trapped in repeated slow &lt;code&gt;clj&lt;&#x2F;code&gt; invocations on a single part, ballooning its
+wall-clock time — but the language itself posed no conceptual difficulty. No scaffolding was
+provided.&lt;&#x2F;p&gt;
+&lt;p&gt;The result: 9 of 10 models completed all 10 parts. One ejection on Day 1 Part 2.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (F#)</title>
+        <published>2026-02-27T00:00:00+00:00</published>
+        <updated>2026-02-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-fsharp/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-fsharp/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;the Python
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;the ReScript
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;the Ruby
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;the Elixir
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-java&#x2F;&quot;&gt;the Java
+benchmark&lt;&#x2F;a&gt;, and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elm&#x2F;&quot;&gt;the Elm
+benchmark&lt;&#x2F;a&gt;, I ran the same AoC 2025 Days 1–5
+setup in &lt;strong&gt;F#&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;F# occupies an interesting middle ground. It&#x27;s a functional-first language on .NET — strongly
+typed with type inference, pattern matching, and pipelines, but with full access to the
+imperative .NET ecosystem when needed. It sees real production use but isn&#x27;t anywhere near as
+common as C# or Python in training data. No scaffold was provided; each model had to figure
+out &lt;code&gt;dotnet fsi&lt;&#x2F;code&gt; scripting or full project setup on its own.&lt;&#x2F;p&gt;
+&lt;p&gt;The result: another clean sweep. Every model solved every part.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking a Local LLM on Advent of Code 2025 (Ollama)</title>
+        <published>2026-02-27T00:00:00+00:00</published>
+        <updated>2026-02-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama/</id>
+        
+        <summary type="html">&lt;p&gt;The previous benchmarks in this series (&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;Haskell&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;OCaml&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;Python&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;ReScript&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;Ruby&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;Elixir&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-java&#x2F;&quot;&gt;Java&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elm&#x2F;&quot;&gt;Elm&lt;&#x2F;a&gt;) all used cloud API models — big,
+frontier-class LLMs served by Anthropic, OpenAI, and others. But what about a &lt;strong&gt;local
+model&lt;&#x2F;strong&gt;? Can a 14-billion-parameter model running on a single machine solve the same puzzles?&lt;&#x2F;p&gt;
+&lt;p&gt;This post answers that question using &lt;strong&gt;&lt;code&gt;qwen2.5-coder:14b&lt;&#x2F;code&gt;&lt;&#x2F;strong&gt; via
+&lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;ollama.com&#x2F;&quot;&gt;Ollama&lt;&#x2F;a&gt;, tested on AoC 2025 Day 1 in both Python and Haskell.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Racket)</title>
+        <published>2026-02-27T00:00:00+00:00</published>
+        <updated>2026-02-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-racket/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-racket/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on the &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;Haskell&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;OCaml&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;Python&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;ReScript&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;Ruby&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;Elixir&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-java&#x2F;&quot;&gt;Java&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elm&#x2F;&quot;&gt;Elm&lt;&#x2F;a&gt;, and
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rust&#x2F;&quot;&gt;Rust&lt;&#x2F;a&gt; benchmarks, I ran the same
+AoC 2025 Days 1–5 setup in &lt;strong&gt;Racket&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Racket is a Lisp dialect from the Scheme family. It&#x27;s well-known in the programming
+languages community and widely used in education (How to Design Programs, SICP variants),
+but it&#x27;s not a mainstream production language. Models need to handle S-expressions,
+&lt;code&gt;#lang racket&lt;&#x2F;code&gt; conventions, and functional idioms with mutable state available but
+discouraged. No scaffolding was provided — each model started from scratch.&lt;&#x2F;p&gt;
+&lt;p&gt;The result: another clean sweep. Every model solved every part.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Rust)</title>
+        <published>2026-02-27T00:00:00+00:00</published>
+        <updated>2026-02-27T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rust/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rust/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on the &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;Haskell&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;OCaml&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;Python&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;Elixir&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elm&#x2F;&quot;&gt;Elm&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-java&#x2F;&quot;&gt;Java&lt;&#x2F;a&gt;,
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;ReScript&lt;&#x2F;a&gt;, and
+&lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;Ruby&lt;&#x2F;a&gt; benchmarks, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time in &lt;strong&gt;Rust&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Rust is a compiled systems language with strict ownership rules and a demanding compiler.
+Models have to deal with borrow-checking, lifetime annotations, and explicit error handling
+just to get a solution that compiles.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Elixir)</title>
+        <published>2026-02-26T00:00:00+00:00</published>
+        <updated>2026-02-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elixir/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elixir/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;the Python
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;the ReScript benchmark&lt;&#x2F;a&gt;,
+and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;the Ruby benchmark&lt;&#x2F;a&gt;, I ran the same AoC 2025
+Days 1–5 setup in &lt;strong&gt;Elixir&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Elixir is dynamic like Ruby&#x2F;Python, but with its own ecosystem and idioms that models don&#x27;t
+always handle cleanly.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Elm)</title>
+        <published>2026-02-26T00:00:00+00:00</published>
+        <updated>2026-02-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;the Python
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;the ReScript
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;the Ruby
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;the Elixir
+benchmark&lt;&#x2F;a&gt;, and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-java&#x2F;&quot;&gt;the Java
+benchmark&lt;&#x2F;a&gt;, I ran the same AoC 2025 Days 1–5
+setup in &lt;strong&gt;Elm&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Elm is the most niche language in this series. It&#x27;s a pure functional language that compiles
+to JavaScript, has no native CLI story, and sees relatively little use outside its frontend
+niche. Each model received a pre-built scaffold — &lt;code&gt;run.mjs&lt;&#x2F;code&gt;, &lt;code&gt;elm.json&lt;&#x2F;code&gt;, and a
+&lt;code&gt;Day00.elm&lt;&#x2F;code&gt; template — that compiles and runs Elm modules via Node.js. The question was
+whether models would handle Elm&#x27;s strict type system, lack of escape hatches, and unfamiliar
+idioms (e.g. &lt;code&gt;Debug.log&lt;&#x2F;code&gt; for output, &lt;code&gt;Platform.worker&lt;&#x2F;code&gt; for headless programs).&lt;&#x2F;p&gt;
+&lt;p&gt;The answer: every single one of them did.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Java)</title>
+        <published>2026-02-26T00:00:00+00:00</published>
+        <updated>2026-02-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-java/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-java/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;the Python
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;the ReScript
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ruby&#x2F;&quot;&gt;the Ruby
+benchmark&lt;&#x2F;a&gt;, and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-elixir&#x2F;&quot;&gt;the Elixir
+benchmark&lt;&#x2F;a&gt;, I ran the same AoC 2025 Days 1–5
+setup in &lt;strong&gt;Java&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (ReScript)</title>
+        <published>2026-02-26T00:00:00+00:00</published>
+        <updated>2026-02-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;the Python
+benchmark&lt;&#x2F;a&gt;, I ran AoC 2025 Days 1–5 in
+&lt;strong&gt;ReScript&lt;&#x2F;strong&gt; — a typed functional language that compiles to JavaScript with a lean
+standard library, a distinct syntax, and very limited LLM training data.&lt;&#x2F;p&gt;
+&lt;p&gt;This post covers three runs of the same benchmark, each adding a different intervention
+to see what helps models cope with an unfamiliar language:&lt;&#x2F;p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;Run 1&lt;&#x2F;strong&gt; — no help at all. 3-minute timeout. 1 completer out of 10.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Run 2&lt;&#x2F;strong&gt; — overflow warning + longer timeout. 2 completers.&lt;&#x2F;li&gt;
+&lt;li&gt;&lt;strong&gt;Run 3&lt;&#x2F;strong&gt; — a ReScript system prompt teaching syntax, stdlib, and types. &lt;strong&gt;7 completers.&lt;&#x2F;strong&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ol&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Ruby)</title>
+        <published>2026-02-26T00:00:00+00:00</published>
+        <updated>2026-02-26T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ruby/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ruby/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-python&#x2F;&quot;&gt;the Python
+benchmark&lt;&#x2F;a&gt;, and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-rescript&#x2F;&quot;&gt;the ReScript
+benchmark&lt;&#x2F;a&gt;, I ran the same AoC 2025 Days 1–5
+puzzles in &lt;strong&gt;Ruby&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;Same setup as before — the question is whether the leaderboard reshuffles when the
+target language changes.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (OCaml)</title>
+        <published>2026-02-25T00:00:00+00:00</published>
+        <updated>2026-02-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt;, I ran the same
+orchestration setup on the same AoC 2025 Days 1–5 puzzles — this time requiring solutions in
+&lt;strong&gt;OCaml&lt;&#x2F;strong&gt;. The methodology is identical: each model gets an isolated directory, a puzzle
+description, and must write its final answer to &lt;code&gt;ANSWER.txt&lt;&#x2F;code&gt;. Wrong answer or no answer = ejection.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Python)</title>
+        <published>2026-02-25T00:00:00+00:00</published>
+        <updated>2026-02-25T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-python/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-python/</id>
+        
+        <summary type="html">&lt;p&gt;Following up on &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-haskell&#x2F;&quot;&gt;the Haskell benchmark&lt;&#x2F;a&gt; and &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;aoc-2025-llm-benchmark-ocaml&#x2F;&quot;&gt;the OCaml
+benchmark&lt;&#x2F;a&gt;, I ran the same orchestration setup on
+the same AoC 2025 Days 1–5 puzzles — this time in &lt;strong&gt;Python&lt;&#x2F;strong&gt;.&lt;&#x2F;p&gt;
+&lt;p&gt;This is also the first run with full &lt;strong&gt;token usage and API cost tracking&lt;&#x2F;strong&gt; per part, which
+adds a new angle beyond raw wall-clock time.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Benchmarking LLMs on Advent of Code 2025 (Haskell)</title>
+        <published>2026-02-24T00:00:00+00:00</published>
+        <updated>2026-02-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/"/>
+        <id>https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/</id>
+        
+        <summary type="html">&lt;p&gt;I benchmarked 11 LLMs on &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;adventofcode.com&#x2F;2025&quot;&gt;Advent of Code 2025&lt;&#x2F;a&gt; Days 1–5, each solving independently in &lt;strong&gt;Haskell&lt;&#x2F;strong&gt;. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional model (&lt;code&gt;claude-haiku-4-5&lt;&#x2F;code&gt;) was tested retroactively and has been added to the results.&lt;&#x2F;p&gt;</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>I3 dev setup on Ubuntu 18.04</title>
+        <published>2019-02-01T00:00:00+00:00</published>
+        <updated>2019-02-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/i3-dev-setup-on-ubuntu-1804/"/>
+        <id>https://benjamin-thomas.github.io/posts/i3-dev-setup-on-ubuntu-1804/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/posts/i3-dev-setup-on-ubuntu-1804/">&lt;p&gt;Just a note to self, nothing interesting&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;1-install-lvm-on-luks&quot;&gt;1. Install LVM on LUKS&lt;&#x2F;h2&gt;
+&lt;p&gt;Follow instructions &lt;a href=&quot;https:&#x2F;&#x2F;benjamin-thomas.github.io&#x2F;posts&#x2F;ubuntu-1804-lvm-on-luks&#x2F;&quot;&gt;here&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;2-setup-dropbox&quot;&gt;2. Setup dropbox&lt;&#x2F;h2&gt;
+&lt;p&gt;No support for filesystems other than ext4. &lt;mark&gt;No support for eCryptfs on ext4.&lt;&#x2F;mark&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;3-install-and-mount-gocryptfs-volume&quot;&gt;3. Install and mount gocryptfs volume&lt;&#x2F;h2&gt;
+&lt;p&gt;Keep versions in sync, just in case&lt;&#x2F;p&gt;
+&lt;p&gt;https:&#x2F;&#x2F;github.com&#x2F;rfjakob&#x2F;gocryptfs&#x2F;releases&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;4-generate-ssh-keys&quot;&gt;4. Generate ssh keys&lt;&#x2F;h2&gt;
+&lt;p&gt;Store passphrase in synced password store&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ssh-keygen&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Use the cryptfs volume to transfer the pub keys, then add them to github, bitbucket.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;5-install-fzf&quot;&gt;5. Install fzf&lt;&#x2F;h2&gt;
+&lt;p&gt;https:&#x2F;&#x2F;github.com&#x2F;junegunn&#x2F;fzf-bin&#x2F;releases&lt;&#x2F;p&gt;
+&lt;p&gt;Download and untar the &lt;mark&gt;bin release&lt;&#x2F;mark&gt;, mv into ~&#x2F;.local&#x2F;bin&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;6-install-dotfiles&quot;&gt;6. Install dotfiles&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mkdir -p ~&#x2F;code&#x2F;github.com&#x2F;benjamin-thomas &amp;amp;&amp;amp; cd !$&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;git clone git@github.com:benjamin-thomas&#x2F;dotfiles.git &amp;amp;&amp;amp; cd dotfiles&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;.&#x2F;create_symlinks.rb&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install rofi dunst thunderbird rxvt-unicode&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;#&lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt; for&lt;&#x2F;span&gt;&lt;span&gt; utt&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install python-pip&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install xsel # clipboard gem dependency&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;gem install --user clipboard&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install scrot shutter # screenshots&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install feh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install thunderbird-locale-fr # then download dictionary manually (via right clic &amp;gt; add dict &amp;gt; modules)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;7-install-dev-scripts&quot;&gt;7. Install dev scripts&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;git clone git@bitbucket.org:inklusive&#x2F;manage.git&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Follow the README.md and README_DEV instructions&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;8-disable-gui-login-gdm&quot;&gt;8. Disable GUI login, gdm&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;systemctl set-default multi-user.target&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;multi-user.target has run level 2, 3, 4
+graphical.target has run level 5&lt;&#x2F;p&gt;
+&lt;p&gt;So GUI logins could be re-enabled with&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;systemctl set-default graphical.target&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# or once&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;systemctl start gdm3.service&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;9-unlock-gnome-keyring-upon-login-see-xinitrc&quot;&gt;9. Unlock gnome-keyring upon login (see ~&#x2F;.xinitrc)&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# &#x2F;etc&#x2F;pam.d&#x2F;login&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Add those 2 lines below  pam_group.so&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;auth      optional     pam_gnome_keyring.so&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;session   optional     pam_gnome_keyring.so auto_start&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;10-thunderbird-setup&quot;&gt;10. Thunderbird setup&lt;&#x2F;h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Add sigs via Dropbox&lt;&#x2F;li&gt;
+&lt;li&gt;disable TB spam detection (too many false positives, let the server handle it)&lt;&#x2F;li&gt;
+&lt;li&gt;select marked spam goes to the spam folder&lt;&#x2F;li&gt;
+&lt;li&gt;change default file explorer (which one??)&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;11-utt-log-in-dropbox&quot;&gt;11. Utt log in Dropbox&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellscript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;ln&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -s&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt; ~&#x2F;Dropbox&#x2F;PrivSync&#x2F;Documents&#x2F;Logs&#x2F;utt.log&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -T&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt; ~&#x2F;.local&#x2F;share&#x2F;utt&#x2F;utt.log&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;12-disable-default-pdf-for-surfing-keys-extension&quot;&gt;12. Disable default PDF for surfing keys extension&lt;&#x2F;h2&gt;
+&lt;p&gt;Type&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;;s&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h1 id=&quot;disable-screen-saver&quot;&gt;Disable screen saver&lt;&#x2F;h1&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;xset -dpms s off&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;lxappearance to change default font size (first tab &quot;widget&#x2F;interface&quot;)
+gnome-tweaks &amp;gt; fonts &amp;gt; change 4th&#x2F;last font param for gedit, etc. (others don&#x27;t seem to do anything)&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt install thunar&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt remove nautilus&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;next-update-these-steps-on-reinstall&quot;&gt;Next: update these steps on reinstall&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;install-pass&quot;&gt;Install pass&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt install pass&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ln -s ~&#x2F;mysyncfolder&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;pass ls&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>HOWTO: Ubuntu 18.04 install with LVM on LUKS</title>
+        <published>2019-01-31T00:00:00+00:00</published>
+        <updated>2019-01-31T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/ubuntu-1804-lvm-on-luks/"/>
+        <id>https://benjamin-thomas.github.io/posts/ubuntu-1804-lvm-on-luks/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/posts/ubuntu-1804-lvm-on-luks/">&lt;hr &#x2F;&gt;
+&lt;p&gt;Needs cleanup next time, &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;zestedesavoir.com&#x2F;tutoriels&#x2F;1653&#x2F;installer-un-ubuntu-chiffre-avec-luks-lvm-et-un-partitionnement-personnalise&quot;&gt;this article&lt;&#x2F;a&gt; put me on the right track!&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;1-launch-a-live-usb&quot;&gt;1. Launch a live USB&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;tips&quot;&gt;Tips&lt;&#x2F;h3&gt;
+&lt;ul&gt;
+&lt;li&gt;Press &lt;code&gt;F6&lt;&#x2F;code&gt; to enter the advance GUI mode&lt;&#x2F;li&gt;
+&lt;li&gt;Activate &lt;code&gt;nomodeset&lt;&#x2F;code&gt; if the graphics card is not well supported&lt;&#x2F;li&gt;
+&lt;li&gt;Get RAM size with: &lt;code&gt;free -h&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;2-partion-disk&quot;&gt;2. Partion disk&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;parted &#x2F;dev&#x2F;sdX&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mklabel msdos                   # Reboot could be necessary here&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mkpart primary 0% 2GB           # For &#x2F;boot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mkpart primary 2GB 100%         # For LUKS&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;print                           # Review layout&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;3-luks-setup&quot;&gt;3. LUKS setup&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cryptsetup luksFormat &#x2F;dev&#x2F;sdX2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cryptsetup luksOpen   &#x2F;dev&#x2F;sdX2 cryptpart&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;4-lvm-setup&quot;&gt;4. LVM setup&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;pvcreate &#x2F;dev&#x2F;mapper&#x2F;cryptpart                       # Create a physical volume&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;vgcreate SysVol &#x2F;dev&#x2F;mapper&#x2F;cryptpart                # Create a volume group&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;lvcreate -L 12GB -n CryptSwap SysVol                 # Choose double the RAM&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;lvcreate -l 100%FREE -n CryptSys SysVol&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;5-prepare-the-filesystems&quot;&gt;5. Prepare the filesystems&lt;&#x2F;h2&gt;
+&lt;p&gt;This is optional, and can be done with the GUI install later instead.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mkfs.ext4 -L BOOT &#x2F;dev&#x2F;sdX1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mkfs.ext4 -L SYS &#x2F;dev&#x2F;mapper&#x2F;SysVol-CryptSys&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;6-install-the-base-os&quot;&gt;6. Install the base OS&lt;&#x2F;h2&gt;
+&lt;p&gt;Launch the ubuntu installer, select custom settings (&quot;Something else&quot;)&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;Point &#x2F;dev&#x2F;mapper&#x2F;SysVol-CryptSys to &#x2F;&lt;&#x2F;li&gt;
+&lt;li&gt;Point &#x2F;dev&#x2F;sdX1 to &#x2F;boot&lt;&#x2F;li&gt;
+&lt;li&gt;Mark &#x2F;dev&#x2F;mapper&#x2F;SysVol-CryptSwap as swap&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;strong&gt;Do not restart yet!&lt;&#x2F;strong&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;7-chroot-setup-and-enter&quot;&gt;7. Chroot setup and enter&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Copy-paste the partition UUID&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;blkid &#x2F;dev&#x2F;sdX2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Mounts &lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt; chroot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mount &#x2F;dev&#x2F;SysVol&#x2F;CryptSys &#x2F;mnt&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mount &#x2F;dev&#x2F;sdX1 &#x2F;mnt&#x2F;boot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Mount initramfs and grub-update dependencies&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cd &#x2F;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mount -t proc proc &#x2F;mnt&#x2F;proc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mount -t sysfs sys &#x2F;mnt&#x2F;sys&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;mount -o bind &#x2F;dev &#x2F;mnt&#x2F;dev&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Enter chroot&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;chroot &#x2F;mnt&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;configuration-inside-chroot&quot;&gt;Configuration inside chroot&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;install-vim&quot;&gt;Install vim&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# May need to configure DNS to download with apt-get&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# &#x2F;etc&#x2F;resolv.conf --&amp;gt; nameserver 8.8.8.8&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install vim&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;edit-etc-crypttab&quot;&gt;Edit &#x2F;etc&#x2F;crypttab&lt;&#x2F;h3&gt;
+&lt;p&gt;TODO: I don&#x27;t think the lvm option is necessary&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# &amp;lt;target name&amp;gt; &amp;lt;source device&amp;gt;                 &amp;lt;key file&amp;gt;    &amp;lt;options&amp;gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cryptpart       UUID=DEVICE_UID(no quotes!!)    none          luks,lvm&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;edit-etc-initramfs-tools-conf-d-cryptroot&quot;&gt;Edit &#x2F;etc&#x2F;initramfs-tools&#x2F;conf.d&#x2F;cryptroot&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;CRYPTROOT=target=cryptpart,source=&#x2F;dev&#x2F;disk&#x2F;by-uuid&#x2F;DEVICE_UID&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;create-update-initramfs&quot;&gt;Create&#x2F;update initramfs&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# -c &lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt; create&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# -k &lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt; kernel&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# -d &lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt; delete&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# -u &lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;for&lt;&#x2F;span&gt;&lt;span&gt; update an existing initramfs&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;update-initramfs -k all -c&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;#update-initramfs -k all -d&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;#update-initramfs -c -k $(uname -r) # all did not work after delete all&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;#update-initramfs -u&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;edit-etc-default-grub&quot;&gt;Edit &#x2F;etc&#x2F;default&#x2F;grub&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Remove &amp;quot;quiet splash&amp;quot; to display boot data, GRUB_CMDLINE_LINUX_DEFAULT options won&amp;#39;t be applied in rescue mode&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;GRUB_CMDLINE_LINUX=&amp;quot;nomodeset cryptopts=target=cryptpart,source=&#x2F;dev&#x2F;disk&#x2F;by-uuid&#x2F;DEVICE_UID,lvm=SysVol&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;update-grub&quot;&gt;Update grub&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;update-grub&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;8-finally&quot;&gt;8. Finally&lt;&#x2F;h2&gt;
+&lt;p&gt;Make sure &lt;code&gt;&#x2F;etc&#x2F;default&#x2F;keyboard&lt;&#x2F;code&gt; is coherent.&lt;&#x2F;p&gt;
+&lt;p&gt;Exit chroot, then reboot!&lt;&#x2F;p&gt;
+&lt;hr &#x2F;&gt;
+&lt;h2 id=&quot;9-user-setup&quot;&gt;9. User setup&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;sync-password-store-accros-new-pc&quot;&gt;Sync password store accros new PC&lt;&#x2F;h3&gt;
+&lt;p&gt;Create a new gpg key with &lt;code&gt;seahorse&lt;&#x2F;code&gt; (will unlock upon signin), email=user@localhost.&lt;&#x2F;p&gt;
+&lt;p&gt;Then export the public key (new PC):&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;gpg --armor --export user@host-year &amp;gt; ~&#x2F;Dropbox&#x2F;user@host-year.pub.asc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Import via &lt;code&gt;seahorse&lt;&#x2F;code&gt; (old PC)&lt;&#x2F;p&gt;
+&lt;p&gt;There seems to be a bug long standing bug (1604), if the imported key does not show up, trust manually:&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;gpg --edit user@host-year&lt;&#x2F;li&gt;
+&lt;li&gt;trust
+&lt;ul&gt;
+&lt;li&gt;choose &quot;Ultimate&quot;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;h2 id=&quot;i-struggled-to-get-the-key-to-import-gpg-vs-gpg2&quot;&gt;I struggled to get the key to import (gpg vs gpg2)&lt;&#x2F;h2&gt;
+&lt;p&gt;If seahorse does not reflect the changes, import manually next time&lt;&#x2F;p&gt;
+&lt;p&gt;gpg2 --import ~&#x2F;Dropbox&#x2F;user@host-year.pub.asc&lt;&#x2F;p&gt;
+&lt;p&gt;Add the newly available pub key &lt;code&gt;user@host-year&lt;&#x2F;code&gt; to: &lt;code&gt;~&#x2F;.password-store&#x2F;.gpg-id&lt;&#x2F;code&gt;&lt;&#x2F;p&gt;
+&lt;p&gt;Re-encrypt the password store with all the available public keys&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;plain&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;pass init $(cat ~&#x2F;.password-store&#x2F;.gpg-id)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Then delete the pub keys (not needed anymore)&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Easy Single Packet Authorization Setup With fwknop</title>
+        <published>2017-07-24T00:00:00+00:00</published>
+        <updated>2017-07-24T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/easy-single-packet-authorization-setup-with-fwknop/"/>
+        <id>https://benjamin-thomas.github.io/posts/easy-single-packet-authorization-setup-with-fwknop/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/posts/easy-single-packet-authorization-setup-with-fwknop/">&lt;h2 id=&quot;step-1-install-on-the-client-and-server&quot;&gt;Step 1: Install on the client and server&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install fwknop-client&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install fwknop-server&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;pacman -S fwknop # client + server&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-2-generate-a-symetric-key-with-the-fwknop-client&quot;&gt;Step 2: Generate a symetric key with the fwknop client&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;fwknop --key-gen&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;KEY_BASE64: J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;HMAC_KEY_BASE64: UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99&#x2F;JAp8Krw3hQ==&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-3-add-the-keys-on-the-server&quot;&gt;Step 3: Add the keys on the server&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;grep -B3 HMAC_KEY_BASE64 &#x2F;etc&#x2F;fwknop&#x2F;access.conf&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;SOURCE                  ANY&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;REQUIRE_SOURCE_ADDRESS  Y&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;KEY_BASE64              J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;HMAC_KEY_BASE64         UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99&#x2F;JAp8Krw3hQ==&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-4-add-the-keys-on-the-client&quot;&gt;Step 4: Add the keys on the client&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;grep -B5 HMAC_KEY_BASE64 ~&#x2F;.fwknoprc&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;[my_server]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ALLOW_IP            1.1.1.1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ACCESS              tcp&#x2F;22&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;SPA_SERVER          2.2.2.2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;KEY_BASE64          J74NzkCQuxRxm66XAnY1kNHYFPIVdL9bPCkyObSxUfU=&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;HMAC_KEY_BASE64     UkMsk1sD59asme5z+YAdJ7r376xq1iZKftKbGj0LVOY1KQSQvglZMp0eW3vQDcmZLnK76is4E99&#x2F;JAp8Krw3hQ==&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-5-test-the-setup&quot;&gt;Step 5: Test the setup&lt;&#x2F;h2&gt;
+&lt;h3 id=&quot;launch-the-server-in-the-foreground&quot;&gt;Launch the server in the foreground&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;fwknopd -f&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;knock-with-the-client&quot;&gt;Knock with the client&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;fwknop -n my_server&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-6-setup-the-firewall&quot;&gt;Step 6: Setup the firewall&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;apt-get install iptables-persistent&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cat &#x2F;etc&#x2F;iptables&#x2F;rules.v4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;*filter&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;:INPUT DROP [0:0]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;:FORWARD DROP [0:0]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;:OUTPUT ACCEPT [0:0]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Keep state.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Loop device.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-A INPUT -i lo -j ACCEPT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# ssh&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-A INPUT -s 1.1.1.1 -p tcp --dport 22 -j ACCEPT # will be removed later&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;# Allow PING from remote hosts.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;-A INPUT -p icmp --icmp-type echo-request -j ACCEPT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;COMMIT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;cat &#x2F;etc&#x2F;iptables&#x2F;rules.v6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;*filter&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;:INPUT DROP [0:0]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;:FORWARD DROP [0:0]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;:OUTPUT DROP [0:0]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;COMMIT&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;iptables-apply &#x2F;etc&#x2F;iptables&#x2F;rules.v4&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;ip6tables-apply &#x2F;etc&#x2F;iptables&#x2F;rules.v6&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;systemctl restart netfilter-persistent.service&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;Note: &lt;code&gt;netfilter-persistent.service&lt;&#x2F;code&gt; exists before the installation of &lt;code&gt;iptables-persistent&lt;&#x2F;code&gt;, but will not do anything without that package installed.&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;step-7-test-manually&quot;&gt;Step 7: Test manually&lt;&#x2F;h2&gt;
+&lt;p&gt;At this point, the knockd server is still running in the foreground...&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;on-the-server&quot;&gt;On the server&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;nc -v -l -p 2222&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h3 id=&quot;on-the-client&quot;&gt;On the client&lt;&#x2F;h3&gt;
+&lt;h4 id=&quot;port-is-closed&quot;&gt;Port is closed&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;nmap -n -Pn 2.2.2.2 -p 2222&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Starting Nmap&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Nmap scan report for 2.2.2.2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Host is up.&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;PORT     STATE    SERVICE&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;2222&#x2F;tcp filtered EtherNetIP-1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;knocking&quot;&gt;Knocking...&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;fwknop -n my_server -A tcp&#x2F;2222&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h4 id=&quot;server-s-port-is-now-open&quot;&gt;Server&#x27;s port is now open&lt;&#x2F;h4&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;nmap -n -Pn 2.2.2.2 -p 2222&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Starting Nmap&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Nmap scan report for 2.2.2.2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;Host is up (0.020s latency).&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;PORT     STATE SERVICE&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;2222&#x2F;tcp open  EtherNetIP-1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-8-restart&quot;&gt;Step 8: Restart&lt;&#x2F;h2&gt;
+&lt;p&gt;Test manually once more, and if all is good after a restart, go to step 9.&lt;&#x2F;p&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;grep START &#x2F;etc&#x2F;default&#x2F;fwknop-server&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;START_DAEMON=&amp;quot;yes&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;step-9-last-restart&quot;&gt;Step 9: Last restart&lt;&#x2F;h2&gt;
+&lt;p&gt;Remove the hard coded IP in &#x2F;etc&#x2F;iptables&#x2F;rules.v4 and restart one last time&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;and-we-re-done&quot;&gt;And we&#x27;re done!&lt;&#x2F;h3&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;fwknop -n my_server &amp;amp;&amp;amp; ssh 2.2.2.2&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Generate Passwords</title>
+        <published>2017-07-23T00:00:00+00:00</published>
+        <updated>2017-07-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/generate-passwords/"/>
+        <id>https://benjamin-thomas.github.io/posts/generate-passwords/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/posts/generate-passwords/">&lt;h2 id=&quot;generate-an-alpha-numeric-password&quot;&gt;Generate an alpha numeric password&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ pwgen -s 20 1&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;                                           # =&amp;gt; 66jTuJXUYOrnqoOpfOWE&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:alnum:] |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; head&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -c20&lt;&#x2F;span&gt;&lt;span&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;      # =&amp;gt; Zg0OFvg0wOEc4hdEwawZ&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;generate-an-numeric-only-password&quot;&gt;Generate an numeric only password&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:digit:] |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; head&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -c20&lt;&#x2F;span&gt;&lt;span&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;      # =&amp;gt; 91331194034454954513&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc 0-9 |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; head&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -c20&lt;&#x2F;span&gt;&lt;span&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;            # =&amp;gt; 00166785542509259371&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;generate-an-alpha-only-password&quot;&gt;Generate an alpha only password&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;shellsession&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ pwgen -s0 20 1&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;                                          # =&amp;gt; JqNGGWcaJyamSAyXkqnG&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc a-zA-Z |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; head&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -c20&lt;&#x2F;span&gt;&lt;span&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;         # =&amp;gt; PAnRPpXuPuYNrNpGtKrN&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;$ &amp;lt;&#x2F;dev&#x2F;urandom tr -dc [:alpha:] |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; head&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; -c20&lt;&#x2F;span&gt;&lt;span&gt; &amp;amp;&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; echo&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;      # =&amp;gt; QlSBFAAmqTXjJLDyBZoN&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>About</title>
+        <published>2017-07-20T00:00:00+00:00</published>
+        <updated>2017-07-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/about/"/>
+        <id>https://benjamin-thomas.github.io/about/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/about/">&lt;p&gt;I&#x27;m Benjamin THOMAS, a programmer in case you didn&#x27;t notice :)&lt;&#x2F;p&gt;
+&lt;p&gt;You can find me on &lt;a rel=&quot;external&quot; href=&quot;https:&#x2F;&#x2F;github.com&#x2F;benjamin-thomas&quot;&gt;GitHub&lt;&#x2F;a&gt;.&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Closures</title>
+        <published>2017-07-20T00:00:00+00:00</published>
+        <updated>2017-07-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/closures/"/>
+        <id>https://benjamin-thomas.github.io/posts/closures/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/posts/closures/">&lt;h2 id=&quot;ruby&quot;&gt;Ruby&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;def&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; cycle&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;collection&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;  index&lt;&#x2F;span&gt;&lt;span&gt; = -&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;  lambda&lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt; do&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;    index&lt;&#x2F;span&gt;&lt;span&gt; +=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt; 1&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    collection[index % collection.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;size&lt;&#x2F;span&gt;&lt;span&gt;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;  end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;c&lt;&#x2F;span&gt;&lt;span&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; cycle&lt;&#x2F;span&gt;&lt;span&gt;([&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt;&amp;#39;red&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt; &amp;#39;green&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt; &amp;#39;blue&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;])&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;times&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;map&lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt; do&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  c.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;call&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;end&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt; # =&amp;gt; =&amp;gt; [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;javascript&quot;&gt;Javascript&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; cycle&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;coll&lt;&#x2F;span&gt;&lt;span&gt;) {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;    var&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt; idx&lt;&#x2F;span&gt;&lt;span&gt; = -&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; function&lt;&#x2F;span&gt;&lt;span&gt;() {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;        idx&lt;&#x2F;span&gt;&lt;span&gt; +=&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt; 1&lt;&#x2F;span&gt;&lt;span&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;        return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt; coll&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;idx&lt;&#x2F;span&gt;&lt;span&gt; %&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt; coll&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;length&lt;&#x2F;span&gt;&lt;span&gt;];&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;c&lt;&#x2F;span&gt;&lt;span&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; cycle&lt;&#x2F;span&gt;&lt;span&gt;([&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt;&amp;#39;red&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt; &amp;#39;green&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #CE9178;&quot;&gt; &amp;#39;blue&amp;#39;&lt;&#x2F;span&gt;&lt;span&gt;])&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;Array&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;fill&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;null&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;map&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span&gt;() {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; c&lt;&#x2F;span&gt;&lt;span&gt;();&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;})&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt; &#x2F;&#x2F; =&amp;gt; [&amp;quot;red&amp;quot;, &amp;quot;green&amp;quot;, &amp;quot;blue&amp;quot;, &amp;quot;red&amp;quot;]&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Currying</title>
+        <published>2017-07-20T00:00:00+00:00</published>
+        <updated>2017-07-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Benjamin THOMAS
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://benjamin-thomas.github.io/posts/currying/"/>
+        <id>https://benjamin-thomas.github.io/posts/currying/</id>
+        
+        <content type="html" xml:base="https://benjamin-thomas.github.io/posts/currying/">&lt;h2 id=&quot;ruby&quot;&gt;Ruby&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;ruby&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;# =============================================================================&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;# First technique: define as a usual method, then convert to a lambda as needed&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;# =============================================================================&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;def&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; mult&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  a * b&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;mult&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;       # =&amp;gt; 12&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;method&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;:mult&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;  # returns a `Method` object, which behaves as a Proc (lambda)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;call&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;,&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;method&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;:mult&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;curry&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;        # returns the same Proc (lambda), and allows next partial application&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;  .&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;call&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;      # apply the first partial transform&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;three_times&lt;&#x2F;span&gt;&lt;span&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; method&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;:mult&lt;&#x2F;span&gt;&lt;span&gt;).&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;curry&lt;&#x2F;span&gt;&lt;span&gt;.(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;three_times.(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt; # =&amp;gt; 12&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;# ==================================&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;# Second, more traditional technique&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt;# ==================================&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;def&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; mult2&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;  lambda&lt;&#x2F;span&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt; do&lt;&#x2F;span&gt;&lt;span&gt; |&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;|&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    a * b&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;  end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;end&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;alt_three_times&lt;&#x2F;span&gt;&lt;span&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; mult2&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;alt_three_times.(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt; # =&amp;gt; 12&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;&lt;h2 id=&quot;javascript&quot;&gt;Javascript&lt;&#x2F;h2&gt;
+&lt;pre class=&quot;giallo&quot; style=&quot;color: #D4D4D4; background-color: #1E1E1E;&quot;&gt;&lt;code data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;function&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; mult&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;a&lt;&#x2F;span&gt;&lt;span&gt;) {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;    return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt; function&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt;b&lt;&#x2F;span&gt;&lt;span&gt;) {&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #C586C0;&quot;&gt;        return&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt; a&lt;&#x2F;span&gt;&lt;span&gt; *&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt; b&lt;&#x2F;span&gt;&lt;span&gt;;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;    }&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span&gt;}&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #569CD6;&quot;&gt;var&lt;&#x2F;span&gt;&lt;span style=&quot;color: #9CDCFE;&quot;&gt; three_times&lt;&#x2F;span&gt;&lt;span&gt; =&lt;&#x2F;span&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt; mult&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;);&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;span class=&quot;giallo-l&quot;&gt;&lt;span style=&quot;color: #DCDCAA;&quot;&gt;three_times&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color: #B5CEA8;&quot;&gt;4&lt;&#x2F;span&gt;&lt;span&gt;)&lt;&#x2F;span&gt;&lt;span style=&quot;color: #6A9955;&quot;&gt; &#x2F;&#x2F; =&amp;gt; 12&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;</content>
+        
+    </entry>
+</feed>

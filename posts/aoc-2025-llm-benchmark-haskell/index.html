@@ -1,0 +1,711 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking LLMs on Advent of Code 2025 (Haskell) | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="I benchmarked 11 LLMs on Advent of Code 2025 Days 1–5, each solving independently in Haskell. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional …">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking LLMs on Advent of Code 2025 (Haskell)">
+  <meta name="twitter:description" content="I benchmarked 11 LLMs on Advent of Code 2025 Days 1–5, each solving independently in Haskell. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional …">
+  
+  <meta property="og:title" content="Benchmarking LLMs on Advent of Code 2025 (Haskell)">
+  <meta property="og:description" content="I benchmarked 11 LLMs on Advent of Code 2025 Days 1–5, each solving independently in Haskell. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional …">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking LLMs on Advent of Code 2025 (Haskell)">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-24T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell"
+      },
+      "headline": "Benchmarking LLMs on Advent of Code 2025 (Haskell)",
+      "description": "I benchmarked 11 LLMs on Advent of Code 2025 Days 1–5, each solving independently in Haskell. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional …",
+      "wordcount": "2652",
+      "datePublished": "2026-02-24T00:00:00+00:00",
+      "dateModified": "2026-02-24T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking LLMs on Advent of Code 2025 (Haskell)",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking LLMs on Advent of Code 2025 (Haskell)</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-24-aoc-2025-llm-benchmark-haskell.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/haskell/" class="page-tag">Haskell</a>,
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-24T00:00:00+00:00">
+      Posted on February 24, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>I benchmarked 11 LLMs on <a rel="external" href="https://adventofcode.com/2025">Advent of Code 2025</a> Days 1–5, each solving independently in <strong>Haskell</strong>. The goal: see which models can reliably produce correct, working solutions — and how fast. One additional model (<code>claude-haiku-4-5</code>) was tested retroactively and has been added to the results.</p>
+<span id="continue-reading"></span><h2 id="how-it-works">How it works</h2>
+<p>I built a custom orchestration prompt for <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a>, a CLI coding agent. The prompt acts as a benchmark controller: it launches one <code>pi</code> agent per model in separate tmux windows, feeds them the puzzle description, waits for them to finish, collects their answers, scores them for correctness and time-to-solution, and maintains a leaderboard. Models that fail a puzzle get ejected from the competition.</p>
+<p>Each agent works in complete isolation — its own directory, no shared state, no awareness of the others. They all get the same puzzle description and input files. The orchestrator never solves anything itself; it just dispatches, collects, and scores.</p>
+<h2 id="the-contestants">The contestants</h2>
+<p>All 11 models came from my enabled model list:</p>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: right">Model</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right"><code>anthropic/claude-opus-4-6</code></td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right"><code>anthropic/claude-sonnet-4-6</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right"><code>openai-codex/gpt-5.3-codex</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right"><code>zai/glm-5</code></td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right"><code>minimax/MiniMax-M2.5</code></td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: right"><code>kimi-coding/k2p5</code></td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: right"><code>mistral/devstral-2512</code></td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: right"><code>alibaba/qwen3.5-plus</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: right"><code>alibaba/qwen3-max-2026-01-23</code></td></tr>
+<tr><td style="text-align: right">10</td><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td></tr>
+<tr><td style="text-align: right">11</td><td style="text-align: right"><code>alibaba/qwen3-coder-plus</code></td></tr>
+<tr><td style="text-align: right">12</td><td style="text-align: right"><code>anthropic/claude-haiku-4-5</code></td></tr>
+</tbody></table>
+<h2 id="ejections">Ejections</h2>
+<p>Models that failed a puzzle were offered for ejection. Four models didn't survive past Day 1:</p>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Ejected at</th><th style="text-align: right">Reason</th></tr></thead><tbody>
+<tr><td style="text-align: right"><code>alibaba/qwen3-coder-plus</code></td><td style="text-align: right">D1P1</td><td style="text-align: right">No answer (never wrote ANSWER.txt)</td></tr>
+<tr><td style="text-align: right"><code>mistral/devstral-2512</code></td><td style="text-align: right">D1P2</td><td style="text-align: right">Wrong answer</td></tr>
+<tr><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td><td style="text-align: right">D1P2</td><td style="text-align: right">Wrong answer</td></tr>
+<tr><td style="text-align: right"><code>alibaba/qwen3-max-2026-01-23</code></td><td style="text-align: right">D1P2</td><td style="text-align: right">No answer (got the right answer but stopped before writing the file!)</td></tr>
+<tr><td style="text-align: right"><code>anthropic/claude-haiku-4-5</code> ★</td><td style="text-align: right">D1P2</td><td style="text-align: right">Wrong answer</td></tr>
+</tbody></table>
+<p>The <code>qwen3-max</code> case was notable — the model computed the correct answer, said "Now I'll write the answer to ANSWER.txt:" and then stopped generating before writing the file.</p>
+<h2 id="results-days-1-5">Results (Days 1–5)</h2>
+<p>The surviving 7 models went on a perfect streak through Days 1–5, all producing correct answers for every part. Here's the full timing breakdown:</p>
+<br>
+<h3 id="per-task-leaderboards">Per-task leaderboards</h3>
+<br>
+<h4 id="day-1-part-1-dial-rotation-counting">Day 1 Part 1 — Dial rotation counting</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-haiku-4-5</td><td style="text-align: right">12s</td></tr>
+<tr><td style="text-align: right">mistral/devstral-2512</td><td style="text-align: right">33s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">40s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">41s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">42s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">45s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">50s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">70s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-coder-next</td><td style="text-align: right">74s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3-max-2026-01-23</td><td style="text-align: right">78s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">111s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-1-part-2-counting-zero-crossings-during-dial-rotation">Day 1 Part 2 — Counting zero-crossings during dial rotation</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">32s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">39s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">53s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">70s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">85s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">130s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">972s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-2-part-1-summing-repeated-digit-ids-in-ranges">Day 2 Part 1 — Summing repeated-digit IDs in ranges</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">17s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">41s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">45s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">53s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">54s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">72s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">113s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-2-part-2-repeated-pattern-ids-any-repeat-count">Day 2 Part 2 — Repeated-pattern IDs (any repeat count)</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">22s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">22s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">25s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">31s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">38s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">41s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">63s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-3-part-1-maximizing-2-digit-joltage-from-battery-banks">Day 3 Part 1 — Maximizing 2-digit joltage from battery banks</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">30s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">32s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">39s</td></tr>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">41s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">42s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">1078s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-3-part-2-maximizing-12-digit-joltage-from-battery-banks">Day 3 Part 2 — Maximizing 12-digit joltage from battery banks</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">19s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">27s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">30s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">37s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">71s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">473s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-4-part-1-grid-neighbor-counting-accessible-paper-rolls">Day 4 Part 1 — Grid neighbor counting (accessible paper rolls)</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">27s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">27s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">33s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">36s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">70s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">707s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-4-part-2-iterative-grid-removal-simulation">Day 4 Part 2 — Iterative grid removal simulation</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">23s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">37s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">39s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">166s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-5-part-1-range-membership-checking">Day 5 Part 1 — Range membership checking</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">27s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">32s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">33s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">72s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">140s</td></tr>
+</tbody></table>
+<p><br><br></p>
+<h4 id="day-5-part-2-counting-total-fresh-ids-from-overlapping-ranges">Day 5 Part 2 — Counting total fresh IDs from overlapping ranges</h4>
+<table><thead><tr><th style="text-align: right">Model</th><th style="text-align: right">Time</th></tr></thead><tbody>
+<tr><td style="text-align: right">openai-codex/gpt-5.3-codex</td><td style="text-align: right">20s</td></tr>
+<tr><td style="text-align: right">kimi-coding/k2p5</td><td style="text-align: right">20s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-sonnet-4-6</td><td style="text-align: right">23s</td></tr>
+<tr><td style="text-align: right">anthropic/claude-opus-4-6</td><td style="text-align: right">24s</td></tr>
+<tr><td style="text-align: right">alibaba/qwen3.5-plus</td><td style="text-align: right">28s</td></tr>
+<tr><td style="text-align: right">minimax/MiniMax-M2.5</td><td style="text-align: right">44s</td></tr>
+<tr><td style="text-align: right">zai/glm-5</td><td style="text-align: right">54s</td></tr>
+</tbody></table>
+<h3 id="speed-vs-accuracy">Speed vs accuracy</h3>
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  { name: 'codex',      t: 299,  s: 10, cost: 0 },
+  { name: 'sonnet',     t: 322,  s: 10, cost: 0 },
+  { name: 'opus',       t: 346,  s: 10, cost: 0 },
+  { name: 'qwen3.5+',   t: 373,  s: 10, cost: 0 },
+  { name: 'k2p5',       t: 402,  s: 10, cost: 0 },
+  { name: 'glm-5',      t: 646,  s: 10, cost: 0 },
+  { name: 'MiniMax',    t: 3842, s: 10, cost: 0 },
+  { name: 'haiku',      t: 12,   s:  1, cost: 0 },
+  { name: 'devstral',   t: 33,   s:  1, cost: 0 },
+  { name: 'coder-next', t: 74,   s:  1, cost: 0 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 6 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${(m.t/m.s).toFixed(1)}s/part`; } } }
+    }
+  }
+});
+</script>
+<p>No cost data was tracked for this benchmark run.</p>
+<h3 id="summary-table">Summary table</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">50s</td>
+      <td style="text-align: right">53s</td>
+      <td style="text-align: right">17s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right">41s</td>
+      <td style="text-align: right">19s</td>
+      <td style="text-align: right">27s</td>
+      <td style="text-align: right">23s</td>
+      <td style="text-align: right">27s</td>
+      <td style="text-align: right">20s</td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-sonnet-4-6</td>
+      <td style="text-align: right">41s</td>
+      <td style="text-align: right">39s</td>
+      <td style="text-align: right">53s</td>
+      <td style="text-align: right">31s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">27s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">23s</td>
+    </tr>
+    <tr>
+      <td>anthropic/claude-opus-4-6</td>
+      <td style="text-align: right">40s</td>
+      <td style="text-align: right">32s</td>
+      <td style="text-align: right">54s</td>
+      <td style="text-align: right">41s</td>
+      <td style="text-align: right">32s</td>
+      <td style="text-align: right">30s</td>
+      <td style="text-align: right">33s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">32s</td>
+      <td style="text-align: right">24s</td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">42s</td>
+      <td style="text-align: right">70s</td>
+      <td style="text-align: right">41s</td>
+      <td style="text-align: right">22s</td>
+      <td style="text-align: right">30s</td>
+      <td style="text-align: right">71s</td>
+      <td style="text-align: right">36s</td>
+      <td style="text-align: right">37s</td>
+      <td style="text-align: right">33s</td>
+      <td style="text-align: right">20s</td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">45s</td>
+      <td style="text-align: right">85s</td>
+      <td style="text-align: right">45s</td>
+      <td style="text-align: right">25s</td>
+      <td style="text-align: right">42s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">27s</td>
+      <td style="text-align: right">24s</td>
+      <td style="text-align: right">28s</td>
+      <td style="text-align: right">28s</td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">70s</td>
+      <td style="text-align: right">130s</td>
+      <td style="text-align: right">72s</td>
+      <td style="text-align: right">63s</td>
+      <td style="text-align: right">39s</td>
+      <td style="text-align: right">37s</td>
+      <td style="text-align: right">70s</td>
+      <td style="text-align: right">39s</td>
+      <td style="text-align: right">72s</td>
+      <td style="text-align: right">54s</td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">111s</td>
+      <td style="text-align: right">972s</td>
+      <td style="text-align: right">113s</td>
+      <td style="text-align: right">38s</td>
+      <td style="text-align: right">1078s</td>
+      <td style="text-align: right">473s</td>
+      <td style="text-align: right">707s</td>
+      <td style="text-align: right">166s</td>
+      <td style="text-align: right">140s</td>
+      <td style="text-align: right">44s</td>
+    </tr>
+    <tr><td colspan="11" style="text-align: center; font-style: italic; opacity: 0.6">— ejected —</td></tr>
+    <tr>
+      <td>anthropic/claude-haiku-4-5 ★</td>
+      <td style="text-align: right">12s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">33s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">74s</td>
+      <td style="text-align: right">✗</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-max-2026-01-23</td>
+      <td style="text-align: right">78s</td>
+      <td style="text-align: right">✗(—)</td>
+      <td colspan="8"></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-plus</td>
+      <td style="text-align: right">✗(—)</td>
+      <td colspan="9"></td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="observations">Observations</h2>
+<p><strong>Fastest group</strong> — <code>openai-codex/gpt-5.3-codex</code>, <code>anthropic/claude-sonnet-4-6</code>, and <code>anthropic/claude-opus-4-6</code> were consistently fast and correct.</p>
+<p><strong>Mid-pack</strong> — <code>kimi-coding/k2p5</code> and <code>alibaba/qwen3.5-plus</code> were reliable and reasonably quick.</p>
+<p><strong>Slow but correct</strong> — <code>zai/glm-5</code> got the right answer each time but typically took 2–3x longer.</p>
+<p><strong><code>minimax/MiniMax-M2.5</code></strong> got the right answer each time, but with variable timing — from 38s to 1078s (18 minutes).</p>
+<p><strong>Ejected models</strong> — The four ejected models all failed on the very first day. <code>mistral/devstral-2512</code> was the fastest on D1P1 (33s) but got Part 2 wrong. <code>qwen3-max</code> computed the correct answer but stopped generating before writing it to disk.</p>
+<p><strong><code>claude-haiku-4-5</code> (added retroactively)</strong> — Tested after the main run, solo. Fastest on Day 1 Part 1 (12s vs 33s for the next), but got Part 2 wrong — ejected under the same rule as everyone else. It completed the <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">OCaml run</a> without issues.</p>
+<p><strong>Haskell</strong> — All surviving models were able to produce compilable Haskell code that solved the puzzles correctly. I did not review the code quality itself.</p>
+<h2 id="methodology">Methodology</h2>
+<h3 id="orchestration">Orchestration</h3>
+<p>The whole benchmark is driven by a custom <code>pi</code> prompt that acts as a controller. It:</p>
+<ul>
+<li>Reads the enabled model list from pi's settings</li>
+<li>Creates an isolated working directory per model</li>
+<li>Launches each model as a separate <code>pi</code> agent in its own tmux window</li>
+<li>Feeds puzzle descriptions (pasted by the operator) into each model's directory</li>
+<li>Waits for agents to finish, then reads their <code>ANSWER.txt</code> files</li>
+<li>Compares answers, displays leaderboards, and handles ejections</li>
+<li>For Part 2, reuses the same tmux sessions so agents keep their Part 1 context (since AoC Part 2 typically builds on Part 1)</li>
+</ul>
+<p>The orchestrator never reads puzzle descriptions itself and never solves anything — it only dispatches and scores.</p>
+<h3 id="timing">Timing</h3>
+<ul>
+<li>Elapsed time = <code>ANSWER.txt</code> file modification time − launch time − stagger offset</li>
+<li>Agents are launched with a <strong>3-second stagger</strong> between each to avoid a lock file race condition in pi's settings. Each model's offset is subtracted from its raw time</li>
+<li>Times include the full cycle: reading the puzzle, writing Haskell code, compiling with GHC, testing against example input, running against real input, and writing the answer</li>
+</ul>
+<h3 id="fairness-controls">Fairness controls</h3>
+<ul>
+<li><strong>Thinking/reasoning disabled</strong> (<code>--thinking off</code>) — keeps things fair across models that support extended thinking differently</li>
+<li><strong>5-second execution timeout</strong> — prevents runaway brute-force solutions from locking up the machine</li>
+<li><strong><code>nice -n 10</code></strong> on all agent processes — prevents CPU starvation with 7+ concurrent compilations and executions</li>
+<li><strong>No shared state</strong> — each model works in its own directory with no awareness of others</li>
+<li><strong>Same prompt for all</strong> — every agent receives identical instructions and input paths</li>
+</ul>
+<h3 id="caveats">Caveats</h3>
+<ul>
+<li>This is a single run, not averaged over multiple attempts. Results may vary on repeated runs</li>
+<li>All costs mentioned are rough approximations based on published per-token pricing. I use subscription plans, so my actual spending is capped regardless</li>
+<li>Wall-clock times could be heavily influenced by the inference platform. The same model served on different infrastructure (e.g. <a rel="external" href="https://cloud.cerebras.ai/">Cerebras</a> vs a standard API endpoint) could produce dramatically different timings. This is why measuring <strong>solution complexity</strong> (see future ideas below) would be a more meaningful model-to-model comparison than raw elapsed time</li>
+</ul>
+<h3 id="future-ideas">Future ideas</h3>
+<ul>
+<li><strong>Measure solution complexity</strong> — count the number of output lines or tool invocations each model produces. A model that solves a puzzle in 3 steps vs. 30 tells a very different story, even if wall-clock times are similar</li>
+<li><strong>Post-mortem reflections</strong> — have each agent write a <code>CONCLUSION.txt</code> summarizing what went well, what went wrong, and how many attempts it took. This would give qualitative insight into each model's problem-solving approach</li>
+<li><strong>Cross-model code review</strong> — have different LLMs rate each other's code for quality, readability, and idiomatic style. This raises interesting questions: would models be biased toward their own output? Should the code directories be anonymized before review? What rubric produces the most useful signal for "code quality"?</li>
+<li><strong>Language comparison</strong> — run the same benchmark in different languages (e.g. Haskell vs Python vs Go) to see which models are language-specialists vs generalists</li>
+<li><strong>Average over multiple runs</strong> — reduce variance from network latency and non-deterministic generation</li>
+</ul>
+<p><em>Benchmarked on 2026-02-24 using <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a> as the agent harness.</em></p>
+<h2 id="the-full-orchestration-prompt">The full orchestration prompt</h2>
+<p>The prompt below is what drives the entire benchmark. It's a pi prompt — a markdown file that turns the agent into a benchmark controller. I paste puzzle descriptions into the chat, and the orchestrator handles everything else.</p>
+<details>
+<summary>Click to expand the full prompt (~280 lines of markdown)</summary>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="markdown"><span class="giallo-l"><span>You are the </span><span style="color: #569CD6;font-weight: bold;">**Benchmark AOC**</span><span> orchestrator. You guide the user through benchmarking</span></span>
+<span class="giallo-l"><span>multiple LLMs on Advent of Code puzzles, one part at a time. You dispatch work to agents,</span></span>
+<span class="giallo-l"><span>collect results, maintain a leaderboard, and eject underperforming models as you go.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## Arguments</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Parse:</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #569CD6;font-weight: bold;"> **Year**</span><span> (e.g. </span><span style="color: #CE9178;">`2025`</span><span>) — required, ask if not provided</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #569CD6;font-weight: bold;"> **Language**</span><span> (e.g. </span><span style="color: #CE9178;">`Haskell`</span><span>, </span><span style="color: #CE9178;">`Ruby`</span><span>, </span><span style="color: #CE9178;">`Go`</span><span>) — required, ask if not provided</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #569CD6;font-weight: bold;"> **Thinking level**</span><span> (</span><span style="color: #CE9178;">`off`</span><span>, </span><span style="color: #CE9178;">`minimal`</span><span>, </span><span style="color: #CE9178;">`low`</span><span>, </span><span style="color: #CE9178;">`medium`</span><span>, </span><span style="color: #CE9178;">`high`</span><span>, </span><span style="color: #CE9178;">`xhigh`</span><span>) — optional, ask if</span></span>
+<span class="giallo-l"><span>  not provided. This sets the </span><span style="color: #CE9178;">`--thinking`</span><span> flag uniformly for all models, keeping the</span></span>
+<span class="giallo-l"><span>  benchmark fair. If a model doesn&#39;t support extended thinking, pi handles it gracefully.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Example invocations: </span><span style="color: #CE9178;">`/benchmark-aoc 2025 Haskell high`</span><span>, </span><span style="color: #CE9178;">`/benchmark-aoc 2025 Ruby medium`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## Required filesystem layout</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>The inputs base is: </span><span style="color: #CE9178;">`~/benchmark/aoc-inputs/&lt;year&gt;/inputs/`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Each day has a subdirectory:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    DayNN/</span></span>
+<span class="giallo-l"><span>      input.example       ← small example input (can be pre-staged for all days)</span></span>
+<span class="giallo-l"><span>      input.real          ← the actual puzzle input (can be pre-staged for all days)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Puzzle descriptions are </span><span style="color: #569CD6;font-weight: bold;">**not**</span><span> stored in the shared inputs directory. Instead, the user</span></span>
+<span class="giallo-l"><span>pastes them directly into the chat, and the orchestrator writes them to each active model&#39;s</span></span>
+<span class="giallo-l"><span>subdirectory as </span><span style="color: #CE9178;">`PART_&lt;P&gt;.description`</span><span>. This prevents stale descriptions from leaking across</span></span>
+<span class="giallo-l"><span>re-runs and ensures no agent sees a description before it&#39;s time.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Zero-pad the day number: </span><span style="color: #CE9178;">`Day01`</span><span>, </span><span style="color: #CE9178;">`Day02`</span><span>, ..., </span><span style="color: #CE9178;">`Day09`</span><span>, </span><span style="color: #CE9178;">`Day10`</span><span>, etc.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## State (track across the session)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `active_models`</span><span>: list of model names still in the benchmark (starts as all enabled models)</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `windows`</span><span>: map of </span><span style="color: #CE9178;">`model → tmux window name`</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `subdirs`</span><span>: map of </span><span style="color: #CE9178;">`model → absolute path of its work subdirectory`</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `work_dir`</span><span>: the directory the prompt was launched from (captured at setup)</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `inputs_base`</span><span>: </span><span style="color: #CE9178;">`~/benchmark/aoc-inputs/&lt;year&gt;/inputs`</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `language`</span><span>: target language</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `thinking`</span><span>: thinking level (e.g. </span><span style="color: #CE9178;">`high`</span><span>)</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `current_day`</span><span>: integer, starts at 1</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span style="color: #CE9178;"> `leaderboard`</span><span>: accumulated results across all days and parts</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## Setup (once per session)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### 1. Get model list</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    cat ~/.pi/agent/settings.json | jq -r &#39;.enabledModels[]&#39;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>This is the starting </span><span style="color: #CE9178;">`active_models`</span><span> list. Show it to the user.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### 2. Set work directory</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>The work directory is wherever the user launched this prompt from. Store it as </span><span style="color: #CE9178;">`work_dir`</span><span>.</span></span>
+<span class="giallo-l"><span>Model subdirectories will be created inside this directory.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### 3. Create subdirectory per model</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each model, create </span><span style="color: #CE9178;">`&lt;work_dir&gt;/&lt;model-subdir&gt;/`</span><span> where the subdir name is the full model</span></span>
+<span class="giallo-l"><span>name with </span><span style="color: #CE9178;">`/`</span><span> replaced by </span><span style="color: #CE9178;">`__`</span><span>.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Example: </span><span style="color: #CE9178;">`anthropic/claude-opus-4-6`</span><span> → </span><span style="color: #CE9178;">`anthropic__claude-opus-4-6/`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## Main loop</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Repeat for each day (1–25), parts 1 then 2, until all models are ejected or day 25 part 2</span></span>
+<span class="giallo-l"><span>is complete.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Phase A — Launch</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**1. Verify input files and collect description**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Check that </span><span style="color: #CE9178;">`input.example`</span><span> and </span><span style="color: #CE9178;">`input.real`</span><span> exist. If input files are missing, tell the user</span></span>
+<span class="giallo-l"><span>and wait.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Then ask the user to paste the puzzle description. When the user pastes it, write the</span></span>
+<span class="giallo-l"><span>description to </span><span style="color: #CE9178;">`&lt;subdir&gt;/PART_&lt;P&gt;.description`</span><span> for </span><span style="color: #569CD6;font-weight: bold;">**each active model&#39;s subdirectory**</span><span>.</span></span>
+<span class="giallo-l"><span>This keeps descriptions scoped per-model and per-run — no shared files that could leak</span></span>
+<span class="giallo-l"><span>across re-runs.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**2. Clear stale ANSWER.txt files**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each model in </span><span style="color: #CE9178;">`active_models`</span><span>:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    rm -f &lt;subdir&gt;/ANSWER.txt</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**3. Record start time**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    date +%s</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Store as </span><span style="color: #CE9178;">`start_time`</span><span>.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**4. Launch tmux windows**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each model in </span><span style="color: #CE9178;">`active_models`</span><span>, open a new tmux window with a </span><span style="color: #569CD6;font-weight: bold;">**3-second delay**</span><span> between</span></span>
+<span class="giallo-l"><span>each launch. Multiple </span><span style="color: #CE9178;">`pi`</span><span> instances starting simultaneously will fight over the global</span></span>
+<span class="giallo-l"><span>settings lock file and crash. The stagger gives each instance time to acquire the lock, read</span></span>
+<span class="giallo-l"><span>config, and release it.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Because of the stagger, </span><span style="color: #569CD6;font-weight: bold;">**subtract each model&#39;s launch offset**</span><span> when computing elapsed time.</span></span>
+<span class="giallo-l"><span>Model #0 (launched first) gets 0s subtracted, model #1 gets 3s, model #2 gets 6s, etc.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>    tmux new-window -n &lt;window-name&gt; -c &lt;subdir&gt; \</span></span>
+<span class="giallo-l"><span>      &quot;nice -n 10 pi --model &lt;model&gt; --thinking &lt;thinking&gt; &#39;&lt;prompt&gt;&#39;&quot;</span></span>
+<span class="giallo-l"><span>    sleep 3</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>The agent prompt tells the model to:</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> Read the puzzle description from </span><span style="color: #CE9178;">`./PART_&lt;P&gt;.description`</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> Read example and real inputs from the shared inputs directory</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> Verify against the example input first, then run against the real input</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> Always run solutions with a 5-second timeout</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> Write ONLY the final answer to </span><span style="color: #CE9178;">`ANSWER.txt`</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> Say DONE when finished</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Window name = full model name with </span><span style="color: #CE9178;">`/`</span><span> replaced by </span><span style="color: #CE9178;">`__`</span><span> and </span><span style="color: #CE9178;">`.`</span><span> replaced by </span><span style="color: #CE9178;">`_`</span><span>.</span></span>
+<span class="giallo-l"><span>The </span><span style="color: #CE9178;">`.`</span><span> replacement prevents tmux from interpreting </span><span style="color: #CE9178;">`.`</span><span> as a pane separator in </span><span style="color: #CE9178;">`-t`</span><span> targets.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**5. Tell the user**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Report how many agents were launched. Then wait for the user to type </span><span style="color: #CE9178;">`done`</span><span>.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Phase B — Collect results</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>When the user types </span><span style="color: #CE9178;">`done`</span><span>:</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**1. Read results**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each model, read </span><span style="color: #CE9178;">`ANSWER.txt`</span><span> and compute elapsed time (file mtime − start_time).</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**2. Ask for the correct answer**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Wait for the user&#39;s reply. Trim whitespace from both answers before comparing.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**3. Display leaderboard for this task**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Sort passing models by elapsed time (fastest first), then failing models below.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**4. Eject failing models**</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>For each model that gave a wrong or missing answer, ask the user whether to eject it.</span></span>
+<span class="giallo-l"><span>For each confirmed ejection, kill its tmux window and remove it from </span><span style="color: #CE9178;">`active_models`</span><span>.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>If no models remain, show the final leaderboard and stop.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Phase C — Advance</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">#### If this was Part 1 → move to Part 2</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Part 2 reuses the same tmux sessions. This is intentional — the agents keep their Part 1</span></span>
+<span class="giallo-l"><span>context, which helps since AoC Part 2 typically builds on Part 1.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6796E6;">1.</span><span> Ask the user to paste the Part 2 description. Write it to each surviving model&#39;s subdir.</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">2.</span><span> Clear ANSWER.txt in each surviving model&#39;s subdir.</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">3.</span><span> Record new </span><span style="color: #CE9178;">`start_time`</span><span>.</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">4.</span><span> Inject Part 2 into surviving tmux windows via </span><span style="color: #CE9178;">`tmux send-keys`</span><span>.</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">5.</span><span> Tell the user and wait for </span><span style="color: #CE9178;">`done`</span><span>. → Go to Phase B.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">#### If this was Part 2 → move to next day</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6796E6;">1.</span><span> Increment </span><span style="color: #CE9178;">`current_day`</span><span>. If &gt; 25, show the final leaderboard and stop.</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">2.</span><span> Kill all surviving tmux windows. Fresh windows will be created by Phase A.</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">3.</span><span> Go to Phase A.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## Final leaderboard</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>When all models are ejected or day 25 part 2 is complete, display a full summary table</span></span>
+<span class="giallo-l"><span>showing times for passing cells and ✗ for failing cells.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>---</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## Rules</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> NEVER solve puzzles yourself</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> NEVER read puzzle descriptions — only write them to model subdirs and point agents there</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> NEVER ask the user for a description for a part they haven&#39;t reached yet</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> NEVER kill a tmux window without telling the user first</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> ALWAYS write descriptions to each active model&#39;s subdir before launching</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> ALWAYS clear ANSWER.txt before each new launch</span></span>
+<span class="giallo-l"><span style="color: #6796E6;">-</span><span> ALWAYS trim whitespace when comparing answers</span></span></code></pre></details>
+<h2 id="discussion">Discussion</h2>
+<p>Join the conversation on the <a rel="external" href="https://discourse.haskell.org/t/benchmarking-haskell-llm-proficiency-with-aoc-puzzles/13736/4">Haskell Discourse</a>.</p>
+<hr />
+<p><em>This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

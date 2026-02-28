@@ -1,0 +1,1331 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking LLMs on Advent of Code 2025 (ReScript) | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="Following up on the Haskell benchmark, the OCaml
+benchmark, and the Python
+benchmark, I ran AoC 2025 Days 1–5 in
+ReScript — a typed functional language that compiles to JavaScript with a lean
+standard…">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking LLMs on Advent of Code 2025 (ReScript)">
+  <meta name="twitter:description" content="Following up on the Haskell benchmark, the OCaml
+benchmark, and the Python
+benchmark, I ran AoC 2025 Days 1–5 in
+ReScript — a typed functional language that compiles to JavaScript with a lean
+standard…">
+  
+  <meta property="og:title" content="Benchmarking LLMs on Advent of Code 2025 (ReScript)">
+  <meta property="og:description" content="Following up on the Haskell benchmark, the OCaml
+benchmark, and the Python
+benchmark, I ran AoC 2025 Days 1–5 in
+ReScript — a typed functional language that compiles to JavaScript with a lean
+standard…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking LLMs on Advent of Code 2025 (ReScript)">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-26T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript"
+      },
+      "headline": "Benchmarking LLMs on Advent of Code 2025 (ReScript)",
+      "description": "Following up on the Haskell benchmark, the OCaml
+benchmark, and the Python
+benchmark, I ran AoC 2025 Days 1–5 in
+ReScript — a typed functional language that compiles to JavaScript with a lean
+standard…",
+      "wordcount": "7250",
+      "datePublished": "2026-02-26T00:00:00+00:00",
+      "dateModified": "2026-02-26T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking LLMs on Advent of Code 2025 (ReScript)",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking LLMs on Advent of Code 2025 (ReScript)</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-26-aoc-2025-llm-benchmark-rescript.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/rescript/" class="page-tag">ReScript</a>,
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-26T00:00:00+00:00">
+      Posted on February 26, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>Following up on <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">the Haskell benchmark</a>, <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">the OCaml
+benchmark</a>, and <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-python/">the Python
+benchmark</a>, I ran AoC 2025 Days 1–5 in
+<strong>ReScript</strong> — a typed functional language that compiles to JavaScript with a lean
+standard library, a distinct syntax, and very limited LLM training data.</p>
+<p>This post covers three runs of the same benchmark, each adding a different intervention
+to see what helps models cope with an unfamiliar language:</p>
+<ol>
+<li><strong>Run 1</strong> — no help at all. 3-minute timeout. 1 completer out of 10.</li>
+<li><strong>Run 2</strong> — overflow warning + longer timeout. 2 completers.</li>
+<li><strong>Run 3</strong> — a ReScript system prompt teaching syntax, stdlib, and types. <strong>7 completers.</strong></li>
+</ol>
+<span id="continue-reading"></span><h2 id="the-contestants">The contestants</h2>
+<p>Same 10 models across all three runs:</p>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: right">Model</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right"><code>anthropic/claude-haiku-4-5</code></td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right"><code>anthropic/claude-sonnet-4-6</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right"><code>anthropic/claude-opus-4-6</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right"><code>openai-codex/gpt-5.3-codex</code></td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right"><code>zai/glm-5</code></td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: right"><code>minimax/MiniMax-M2.5</code></td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: right"><code>kimi-coding/k2p5</code></td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: right"><code>mistral/devstral-2512</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: right"><code>alibaba/qwen3.5-plus</code></td></tr>
+<tr><td style="text-align: right">10</td><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td></tr>
+</tbody></table>
+<hr />
+<h1 id="run-2-overflow-warning-longer-timeout">Run 2 — overflow warning + longer timeout</h1>
+<p>The first run was rough: 7 of 10 models ejected, <code>claude-haiku-4-5</code> the sole completer,
+integer overflow the root cause of most failures. Two things changed for run 2:</p>
+<ol>
+<li>
+<p><strong>Overflow warning baked into every prompt.</strong> ReScript's <code>int</code> type is 32 bits on the
+JavaScript runtime. Several puzzles produce answers in the tens of billions or hundreds
+of trillions — well beyond that ceiling. No warning was given in run 1. In run 2 every
+prompt includes an explicit note that large answers require <code>float</code> or <code>BigInt</code>.</p>
+</li>
+<li>
+<p><strong>Timeout increased from 3 to 5 minutes per attempt.</strong> ReScript project setup
+(initialising npm, configuring the build system, first compile) is non-trivial for
+models unfamiliar with the ecosystem. Three minutes left very little room for the actual
+solving.</p>
+</li>
+</ol>
+<h2 id="the-rules-run-2">The rules (Run 2)</h2>
+<p><strong>Part 1</strong> runs up to 3 attempts, each with a 5-minute window:</p>
+<ul>
+<li>Attempt 1: plain prompt + overflow warning</li>
+<li>Attempt 2 (on failure): "YOU MUST read <code>llm-small.txt</code> before starting"</li>
+<li>Attempt 3 (still failing): "YOU MUST read <code>llm-full.txt</code> before starting"</li>
+<li>Fail all three → ejected</li>
+</ul>
+<p>The working directory contains two versions of the official ReScript <code>llms.txt</code>
+documentation: a 5,578-line condensed version and a 14,405-line full API reference.
+Models are not told about them on the first attempt.</p>
+<p><strong>Part 2</strong> gets exactly one attempt. Any failure — wrong answer, timeout, or API error —
+means immediate ejection. No llms.txt hints.</p>
+<p>API errors (quota limits, network failures) count as free retries and are not charged
+against the attempt limit.</p>
+<hr />
+<h2 id="ejections-run-2">Ejections (Run 2)</h2>
+<table><thead><tr><th>Model</th><th>Ejected at</th><th>Reason</th></tr></thead><tbody>
+<tr><td><code>mistral/devstral-2512</code></td><td>D1P1</td><td>Filled ~75% of its 200k context window with no answer</td></tr>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>D1P1</td><td>Entered a loop of echoing prompts back as "DONE" without doing any work</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>D1P2</td><td>Wrong answer</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>D1P2</td><td>Wrong answer</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>D1P2</td><td>Wrong answer</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>D1P2</td><td>Wrong answer</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>D2P1</td><td>40+ minutes in a compile loop, 45% of context consumed — ejected on excessive cost</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>D5P2</td><td>32-bit integer overflow on the final puzzle</td></tr>
+</tbody></table>
+<p><strong>Two models completed all 10 parts:</strong> <code>claude-opus-4-6</code> and <code>kimi-coding/k2p5</code>.</p>
+<hr />
+<h2 id="did-the-overflow-warning-make-a-difference">Did the overflow warning make a difference?</h2>
+<p>Yes — but with an asterisk.</p>
+<p>In run 1, both <code>claude-opus-4-6</code> and <code>claude-sonnet-4-6</code> overflowed on Day 5 Part 2 and
+were ejected. In run 2, <code>opus</code> answered correctly and completed the benchmark. The warning
+worked exactly as intended for it.</p>
+<p><code>alibaba/qwen3.5-plus</code> tells a more complicated story. In run 1 it timed out on Day 2
+Part 1 and was ejected. In run 2 it sailed through Days 2, 3, and 4 — even detecting and
+self-correcting an overflow mid-run on Day 2 Part 2. Then on Day 5 Part 2 it overflowed
+anyway and was ejected. The warning helped it reach six extra puzzle parts; it wasn't
+enough to protect it at the end.</p>
+<p>The four models ejected on Day 1 Part 2 — <code>haiku</code>, <code>sonnet</code>, <code>glm-5</code>, <code>minimax</code> — gave
+algorithmically wrong answers rather than overflow answers. The overflow warning had
+nothing to do with their ejection. (In run 1, different models fell at Day 1 Part 2 —
+it's a tricky boundary-condition puzzle that catches different models in different
+sessions.)</p>
+<hr />
+<h2 id="results-run-2">Results (Run 2)</h2>
+<h3 id="day-1-part-1-dial-rotation-counting">Day 1 Part 1 — Dial rotation counting</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>52s</td><td>2,613</td><td>$0.23</td></tr>
+<tr><td><code>claude-sonnet-4-6</code></td><td>109s</td><td>6,335</td><td>$0.29</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>150s</td><td>3,495</td><td>$0.08</td></tr>
+<tr><td><code>claude-haiku-4-5</code></td><td>183s</td><td>16,079</td><td>$0.32</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>337s</td><td>18,512</td><td>$1.06</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>365s</td><td>7,636</td><td>$0.14</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>894s</td><td>54,900</td><td>$6.47</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>1,404s</td><td>14,027</td><td>$0.45</td></tr>
+<tr><td><code>mistral/devstral-2512</code></td><td>—</td><td>50,158</td><td>$3.46</td></tr>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>—</td><td>3,599</td><td>$0.22</td></tr>
+</tbody></table>
+<p>All 8 surviving models passed on attempt 1 — nobody needed the llms.txt reference this
+time. In run 1, three models only cleared Day 1 Part 1 by reading <code>llm-full.txt</code> on their
+third attempt. The extra two minutes made the difference.</p>
+<p><code>mistral</code> consumed most of its 200k context window without producing an answer — a
+different failure mode from run 1 (where it overflowed on every attempt), same outcome.</p>
+<p><code>gpt-5.3-codex</code> compiled a project, hit errors, then entered a loop of echoing each nudge
+back and responding "DONE" without doing any work.</p>
+<br>
+<h3 id="day-1-part-2-counting-zero-crossings-during-dial-rotation">Day 1 Part 2 — Counting zero-crossings during dial rotation</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>39s</td><td>2,329</td><td>$0.11</td><td>✓</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>92s</td><td>682</td><td>$0.02</td><td>✓</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>108s</td><td>8,560</td><td>$0.16</td><td>✓</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>247s</td><td>14,616</td><td>$1.09</td><td>✓</td></tr>
+<tr><td><code>claude-sonnet-4-6</code></td><td>16s</td><td>2,118</td><td>$0.08</td><td>✗ wrong answer → <strong>EJECTED</strong></td></tr>
+<tr><td><code>zai/glm-5</code></td><td>22s</td><td>1,323</td><td>$0.05</td><td>✗ wrong answer → <strong>EJECTED</strong></td></tr>
+<tr><td><code>claude-haiku-4-5</code></td><td>46s</td><td>5,253</td><td>$0.15</td><td>✗ wrong answer → <strong>EJECTED</strong></td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>446s</td><td>17,084</td><td>$0.56</td><td>✗ wrong answer → <strong>EJECTED</strong></td></tr>
+</tbody></table>
+<p>Day 1 Part 2 ejected four models in this run.
+<code>k2p5</code> flipped from a wrong answer in run 1 to correct in run 2; the extra time appears
+to have made the difference. <code>haiku</code>, which was run 1's sole winner, went out here.</p>
+<br>
+<h3 id="day-2-part-1-summing-repeated-digit-ids-in-ranges">Day 2 Part 1 — Summing repeated-digit IDs in ranges</h3>
+<p>The puzzle answer is an 11-digit number — the first real overflow test.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>142s</td><td>6,918</td><td>$0.47</td><td>✓</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>146s</td><td>5,413</td><td>$0.03</td><td>✓</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>910s</td><td>24,027</td><td>$2.29</td><td>✓</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>&gt;2,500s</td><td>70,017</td><td>$3.80</td><td>✗ <strong>EJECTED</strong> (cost/time)</td></tr>
+</tbody></table>
+<p><code>qwen3.5-plus</code> passed where it timed out in run 1 — the overflow warning appears to have
+steered it toward <code>float</code> arithmetic. Slow, but correct.</p>
+<p><code>qwen3-coder-next</code> spent over 40 minutes in a compile-debug loop and was ejected on cost
+grounds. Its total across Days 1–2: $11.36.</p>
+<br>
+<h3 id="day-2-part-2-repeated-pattern-ids-any-repeat-count">Day 2 Part 2 — Repeated-pattern IDs (any repeat count)</h3>
+<p>Another 11-digit answer.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>33s</td><td>2,126</td><td>$0.13</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>142s</td><td>8,758</td><td>$0.60</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>854s</td><td>1,397</td><td>$0.02</td></tr>
+</tbody></table>
+<p><code>qwen3.5-plus</code> detected an overflowed intermediate result mid-run, switched to <code>float</code>
+arithmetic, and corrected itself — all within the same attempt.</p>
+<br>
+<h3 id="day-3-part-1-maximizing-2-digit-joltage-from-battery-banks">Day 3 Part 1 — Maximizing 2-digit joltage from battery banks</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>80s</td><td>2,966</td><td>$0.29</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>85s</td><td>3,188</td><td>$0.04</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>847s</td><td>24,097</td><td>$1.32</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-3-part-2-maximizing-12-digit-joltage-from-battery-banks">Day 3 Part 2 — Maximizing 12-digit joltage from battery banks</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>17s</td><td>1,315</td><td>$0.09</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>23s</td><td>1,351</td><td>$0.02</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>155s</td><td>3,478</td><td>$0.26</td></tr>
+</tbody></table>
+<p>The answer is a 15-digit number. All three passed.</p>
+<br>
+<h3 id="day-4-part-1-grid-neighbour-counting-accessible-paper-rolls">Day 4 Part 1 — Grid neighbour counting (accessible paper rolls)</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>59s</td><td>2,770</td><td>$0.26</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>64s</td><td>3,544</td><td>$0.03</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>280s</td><td>9,930</td><td>$0.37</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-4-part-2-iterative-grid-removal-simulation">Day 4 Part 2 — Iterative grid removal simulation</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>19s</td><td>1,399</td><td>$0.10</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>65s</td><td>2,878</td><td>$0.20</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>79s</td><td>4,193</td><td>$0.06</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-5-part-1-range-membership-checking">Day 5 Part 1 — Range membership checking</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>52s</td><td>2,426</td><td>$0.24</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>236s</td><td>4,345</td><td>$0.05</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>400s</td><td>18,712</td><td>$1.29</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-5-part-2-counting-total-fresh-ids-from-overlapping-ranges">Day 5 Part 2 — Counting total fresh IDs from overlapping ranges</h3>
+<p>The answer is a 15-digit number — the final overflow test.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td>16s</td><td>1,419</td><td>$0.09</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>71s</td><td>1,798</td><td>$0.03</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>215s</td><td>11,300</td><td>$0.96</td><td>✗ overflow → <strong>EJECTED</strong></td></tr>
+</tbody></table>
+<p><code>opus</code> answered in 16 seconds. In run 1, it overflowed the same puzzle. The overflow
+warning was the difference.</p>
+<p><code>qwen3.5-plus</code> fell to the pattern it had avoided on Days 2 and 3 — despite the warning
+and its earlier self-correction, it overflowed here and was ejected.</p>
+<hr />
+<div style="height:480px"><canvas id="speed-accuracy-run2"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+{
+const models = [
+  { name: 'opus',       t:  509, s: 10, cost: 2.01 },
+  { name: 'k2p5',       t: 2015, s: 10, cost: 0.46 },
+  { name: 'qwen3.5+',   t: 3459, s:  9, cost: 8.49 },
+  { name: 'coder-next', t: 3641, s:  2, cost: 11.36 },
+  { name: 'MiniMax',    t: 1850, s:  1, cost: 1.01 },
+  { name: 'haiku',      t:  229, s:  1, cost: 0.47 },
+  { name: 'sonnet',     t:  125, s:  1, cost: 0.37 },
+  { name: 'glm-5',      t:  172, s:  1, cost: 0.13 },
+  { name: 'devstral',   t:  300, s:  0, cost: 3.46 },
+  { name: 'codex',      t:  300, s:  0, cost: 0.22 },
+];
+new Chart(document.getElementById('speed-accuracy-run2'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: m.s > 0 ? +(m.t/m.s).toFixed(1) : m.t, y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: -1, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.t}s total, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+<div style="height:480px"><canvas id="token-efficiency-run2"></canvas></div>
+<script>
+{
+const models = [
+  { name: 'opus',       tok: 26281,  s: 10, cost: 2.01 },
+  { name: 'k2p5',       tok: 33547,  s: 10, cost: 0.46 },
+  { name: 'qwen3.5+',   tok: 130252, s:  9, cost: 8.49 },
+  { name: 'coder-next', tok: 139533, s:  2, cost: 11.36 },
+  { name: 'MiniMax',    tok: 31111,  s:  1, cost: 1.01 },
+  { name: 'haiku',      tok: 21332,  s:  1, cost: 0.47 },
+  { name: 'sonnet',     tok: 8453,   s:  1, cost: 0.37 },
+  { name: 'glm-5',      tok: 4818,   s:  1, cost: 0.13 },
+  { name: 'devstral',   tok: 50158,  s:  0, cost: 3.46 },
+  { name: 'codex',      tok: 3599,   s:  0, cost: 0.22 },
+];
+new Chart(document.getElementById('token-efficiency-run2'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: m.s > 0 ? +(m.tok/m.s).toFixed(0) : m.tok, y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Tokens per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: -1, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.tok} tokens, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+<h2 id="full-summary-run-2-all-10-models">Full summary (Run 2) — all 10 models</h2>
+<p>Wall-clock seconds. <code>✗</code> = ejected at that part.</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+      <th style="text-align: right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>claude-opus-4-6</td>
+      <td style="text-align: right">52</td>
+      <td style="text-align: right">39</td>
+      <td style="text-align: right">142</td>
+      <td style="text-align: right">33</td>
+      <td style="text-align: right">80</td>
+      <td style="text-align: right">17</td>
+      <td style="text-align: right">59</td>
+      <td style="text-align: right">19</td>
+      <td style="text-align: right">52</td>
+      <td style="text-align: right">16</td>
+      <td style="text-align: right"><strong>509s</strong></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">365</td>
+      <td style="text-align: right">92</td>
+      <td style="text-align: right">146</td>
+      <td style="text-align: right">854</td>
+      <td style="text-align: right">85</td>
+      <td style="text-align: right">23</td>
+      <td style="text-align: right">64</td>
+      <td style="text-align: right">79</td>
+      <td style="text-align: right">236</td>
+      <td style="text-align: right">71</td>
+      <td style="text-align: right"><strong>2,015s</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">337</td>
+      <td style="text-align: right">108</td>
+      <td style="text-align: right">910</td>
+      <td style="text-align: right">142</td>
+      <td style="text-align: right">847</td>
+      <td style="text-align: right">155</td>
+      <td style="text-align: right">280</td>
+      <td style="text-align: right">65</td>
+      <td style="text-align: right">400</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">894</td>
+      <td style="text-align: right">247</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">1,404</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>claude-haiku-4-5</td>
+      <td style="text-align: right">183</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>claude-sonnet-4-6</td>
+      <td style="text-align: right">109</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">150</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p>Token and cost breakdown for the completers and qwen3.5-plus. <em>Costs are rough
+approximations based on published per-token pricing. I use subscription plans, so my
+actual spending is capped regardless.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+      <th style="text-align: right">Total tokens</th>
+      <th style="text-align: right">Total cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>claude-opus-4-6</td>
+      <td style="text-align: right">2,613</td>
+      <td style="text-align: right">2,329</td>
+      <td style="text-align: right">6,918</td>
+      <td style="text-align: right">2,126</td>
+      <td style="text-align: right">2,966</td>
+      <td style="text-align: right">1,315</td>
+      <td style="text-align: right">2,770</td>
+      <td style="text-align: right">1,399</td>
+      <td style="text-align: right">2,426</td>
+      <td style="text-align: right">1,419</td>
+      <td style="text-align: right"><strong>26,281</strong></td>
+      <td style="text-align: right"><strong>$2.01</strong></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">7,636</td>
+      <td style="text-align: right">682</td>
+      <td style="text-align: right">5,413</td>
+      <td style="text-align: right">1,397</td>
+      <td style="text-align: right">3,188</td>
+      <td style="text-align: right">1,351</td>
+      <td style="text-align: right">3,544</td>
+      <td style="text-align: right">4,193</td>
+      <td style="text-align: right">4,345</td>
+      <td style="text-align: right">1,798</td>
+      <td style="text-align: right"><strong>33,547</strong></td>
+      <td style="text-align: right"><strong>$0.46</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus †</td>
+      <td style="text-align: right">18,512</td>
+      <td style="text-align: right">8,560</td>
+      <td style="text-align: right">24,027</td>
+      <td style="text-align: right">8,758</td>
+      <td style="text-align: right">24,097</td>
+      <td style="text-align: right">3,478</td>
+      <td style="text-align: right">9,930</td>
+      <td style="text-align: right">2,878</td>
+      <td style="text-align: right">18,712</td>
+      <td style="text-align: right">11,300</td>
+      <td style="text-align: right"><strong>130,252</strong></td>
+      <td style="text-align: right"><strong>$8.49</strong></td>
+    </tr>
+  </tbody>
+</table>
+<p>† ejected on D5P2; D5P2 cost includes the final wrong attempt.</p>
+<hr />
+<h2 id="run-1-vs-run-2">Run 1 vs Run 2</h2>
+<table><thead><tr><th></th><th>Run 1</th><th>Run 2</th></tr></thead><tbody>
+<tr><td>Timeout per attempt</td><td>3 min</td><td>5 min</td></tr>
+<tr><td>Overflow warning in prompt</td><td>✗</td><td>✓</td></tr>
+<tr><td>Full completers</td><td>1 (<code>claude-haiku-4-5</code>)</td><td>2 (<code>claude-opus-4-6</code>, <code>kimi-coding/k2p5</code>)</td></tr>
+<tr><td><code>claude-opus-4-6</code> on D5P2</td><td>✗ overflow</td><td>✓</td></tr>
+<tr><td><code>kimi-coding/k2p5</code> overall</td><td>ejected D1P2</td><td>all 10 parts ✓</td></tr>
+<tr><td>Session cost data</td><td>partial (Day 5 only for finalists)</td><td>complete</td></tr>
+</tbody></table>
+<p>The overflow warning made a real difference for <code>opus</code>. The longer timeout saved <code>k2p5</code>.
+But six models out of ten still couldn't produce correct answers even with those helps.
+The bottleneck wasn't overflow — it was the language itself.</p>
+<hr />
+<h1 id="run-3-rescript-system-prompt">Run 3 — ReScript system prompt</h1>
+<p>Run 2 left an obvious question: if the problem is unfamiliarity with ReScript, what
+happens when you <em>teach</em> the model the language?</p>
+<p>For run 3 I wrote a concise ReScript system prompt — roughly 150 lines covering project
+setup, syntax essentials, the type system (including the fact that <code>int</code> is 32-bit and
+<code>bigint</code> exists), common stdlib functions, and file I/O patterns.</p>
+<h3 id="how-it-was-injected">How it was injected</h3>
+<p>The agent harness (<a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a>)
+supports <code>--append-system-prompt</code>, which adds content to the default system prompt
+without replacing it. Each model was launched with:</p>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="shellscript"><span class="giallo-l"><span style="color: #DCDCAA;">pi</span><span style="color: #569CD6;"> --model</span><span> &lt;</span><span style="color: #CE9178;">mode</span><span>l&gt;</span><span style="color: #569CD6;"> --thinking</span><span style="color: #CE9178;"> off</span><span style="color: #D7BA7D;"> \</span></span>
+<span class="giallo-l"><span style="color: #569CD6;">   --append-system-prompt</span><span style="color: #CE9178;"> rescript-system-prompt.md</span><span style="color: #D7BA7D;"> \</span></span>
+<span class="giallo-l"><span style="color: #569CD6;">   --session-dir</span><span style="color: #CE9178;"> .</span><span style="color: #D7BA7D;"> \</span></span>
+<span class="giallo-l"><span style="color: #CE9178;">   &#39;&lt;puzzle prompt&gt;&#39;</span></span></code></pre>
+<p>This means every model saw pi's standard coding-agent instructions <em>plus</em> the ReScript
+reference below, before receiving the puzzle. No other hints — no overflow warning, no
+llms.txt documentation files.</p>
+<h3 id="the-system-prompt">The system prompt</h3>
+<details>
+<summary>Click to expand the full system prompt (rescript-system-prompt.md)</summary>
+<pre class="giallo" style="color: #D4D4D4; background-color: #1E1E1E;"><code data-lang="markdown"><span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">## ReScript v12</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>ReScript is a typed functional language that compiles to JavaScript.</span></span>
+<span class="giallo-l"><span>Think of it as </span><span style="color: #569CD6;font-weight: bold;">**functional TypeScript**</span><span> — if you can solve a problem in TypeScript,</span></span>
+<span class="giallo-l"><span>you can solve it in ReScript using the same logic, just with different syntax.</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Project setup</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**package.json**</span><span>:</span></span>
+<span class="giallo-l"><span>```json</span></span>
+<span class="giallo-l"><span>{</span><span style="color: #9CDCFE;"> &quot;name&quot;</span><span>:</span><span style="color: #CE9178;"> &quot;my-project&quot;</span><span>,</span><span style="color: #9CDCFE;"> &quot;dependencies&quot;</span><span>: {</span><span style="color: #9CDCFE;"> &quot;rescript&quot;</span><span>:</span><span style="color: #CE9178;"> &quot;^12.1.0&quot;</span><span> } }</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">**rescript.json**</span><span> (NOT bsconfig.json):</span></span>
+<span class="giallo-l"><span>```json</span></span>
+<span class="giallo-l"><span>{</span></span>
+<span class="giallo-l"><span style="color: #9CDCFE;">  &quot;name&quot;</span><span>:</span><span style="color: #CE9178;"> &quot;my-project&quot;</span><span>,</span></span>
+<span class="giallo-l"><span style="color: #9CDCFE;">  &quot;sources&quot;</span><span>: [{</span><span style="color: #9CDCFE;"> &quot;dir&quot;</span><span>:</span><span style="color: #CE9178;"> &quot;src&quot;</span><span>,</span><span style="color: #9CDCFE;"> &quot;subdirs&quot;</span><span>:</span><span style="color: #569CD6;"> true</span><span> }],</span></span>
+<span class="giallo-l"><span style="color: #9CDCFE;">  &quot;package-specs&quot;</span><span>: [{</span><span style="color: #9CDCFE;"> &quot;module&quot;</span><span>:</span><span style="color: #CE9178;"> &quot;esmodule&quot;</span><span>,</span><span style="color: #9CDCFE;"> &quot;in-source&quot;</span><span>:</span><span style="color: #569CD6;"> true</span><span> }],</span></span>
+<span class="giallo-l"><span style="color: #9CDCFE;">  &quot;suffix&quot;</span><span>:</span><span style="color: #CE9178;"> &quot;.res.js&quot;</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>Then: </span><span style="color: #CE9178;">`npm install &amp;&amp; npx rescript &amp;&amp; node src/MyModule.res.js`</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Syntax essentials</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```rescript</span></span>
+<span class="giallo-l"><span>// Pipe operator (not |&gt;)</span></span>
+<span class="giallo-l"><span>[1, 2, 3]-&gt;Array.map(x =&gt; x * 2)-&gt;Array.filter(x =&gt; x &gt; 2)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Let bindings, no semicolons needed</span></span>
+<span class="giallo-l"><span>let x = 42</span></span>
+<span class="giallo-l"><span>let greet = (name) =&gt; &quot;Hello &quot; ++ name  // ++ for string concat</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Pattern matching</span></span>
+<span class="giallo-l"><span>switch myValue {</span></span>
+<span class="giallo-l"><span>| Some(x) =&gt; Console.log(x)</span></span>
+<span class="giallo-l"><span>| None =&gt; Console.log(&quot;nothing&quot;)</span></span>
+<span class="giallo-l"><span>}</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// String operations</span></span>
+<span class="giallo-l"><span>let lines = text-&gt;String.split(&quot;\n&quot;)</span></span>
+<span class="giallo-l"><span>let trimmed = line-&gt;String.trim</span></span>
+<span class="giallo-l"><span>let parts = line-&gt;String.split(&quot;,&quot;)</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Type system</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```rescript</span></span>
+<span class="giallo-l"><span>// Primitive types</span></span>
+<span class="giallo-l"><span>let n: int = 42              // 32-bit signed integer</span></span>
+<span class="giallo-l"><span>let f: float = 3.14          // 64-bit IEEE 754</span></span>
+<span class="giallo-l"><span>let b: bigint = 99999999999n // arbitrary precision</span></span>
+<span class="giallo-l"><span>let s: string = &quot;hello&quot;      // UTF-8 string</span></span>
+<span class="giallo-l"><span>let c: char = &#39;a&#39;            // single byte, no Unicode — prefer string</span></span>
+<span class="giallo-l"><span>let ok: bool = true</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Float arithmetic uses distinct operators</span></span>
+<span class="giallo-l"><span>let sum = 1.0 +. 2.5         // +.  -.  *.  /.</span></span>
+<span class="giallo-l"><span>let converted = Int.toFloat(n)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Modulo is a function call, not an infix operator</span></span>
+<span class="giallo-l"><span>mod(7, 3)             // int modulo — NOT 7 mod 3, NOT 7 % 3</span></span>
+<span class="giallo-l"><span>Float.mod(7.0, 3.0)  // float modulo</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Mutable values use ref</span></span>
+<span class="giallo-l"><span>let counter = ref(0)</span></span>
+<span class="giallo-l"><span>counter := counter.contents + 1  // := to set, .contents to read</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Records</span></span>
+<span class="giallo-l"><span>type point = { x: float, y: float }</span></span>
+<span class="giallo-l"><span>let p = { x: 1.0, y: 2.0 }</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Variants</span></span>
+<span class="giallo-l"><span>type shape = Circle(float) | Rect(float, float)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Option and Result</span></span>
+<span class="giallo-l"><span>let found: option&lt;int&gt; = Some(42)</span></span>
+<span class="giallo-l"><span>let parsed: result&lt;int, string&gt; = Ok(42)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Arrays — main ordered data structure (like JS arrays)</span></span>
+<span class="giallo-l"><span>let a = [&quot;hello&quot;, &quot;world&quot;]</span></span>
+<span class="giallo-l"><span>let first = a[0]              // Some(&quot;hello&quot;) — access returns option!</span></span>
+<span class="giallo-l"><span>a[0] = &quot;hey&quot;                  // mutation</span></span>
+<span class="giallo-l"><span>let b = [1, 2, ...a]          // spread</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// List — immutable singly linked list</span></span>
+<span class="giallo-l"><span>let l = list{1, 2, 3}</span></span>
+<span class="giallo-l"><span>let l2 = list{0, ...l}        // prepend</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### File I/O (Node.js bindings)</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```rescript</span></span>
+<span class="giallo-l"><span>@module(&quot;fs&quot;) external readFileSync: (string, string) =&gt; string = &quot;readFileSync&quot;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>let content = readFileSync(&quot;input.txt&quot;, &quot;utf8&quot;)</span></span>
+<span class="giallo-l"><span>```</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span style="color: #569CD6;font-weight: bold;">### Common stdlib</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>```rescript</span></span>
+<span class="giallo-l"><span>// String</span></span>
+<span class="giallo-l"><span>String.length: string =&gt; int</span></span>
+<span class="giallo-l"><span>String.get: (string, int) =&gt; option&lt;string&gt;    // None if out of bounds</span></span>
+<span class="giallo-l"><span>String.charAt: (string, int) =&gt; string        // &quot;&quot; if out of bounds</span></span>
+<span class="giallo-l"><span>String.slice: (string, ~start: int, ~end: int=?) =&gt; string</span></span>
+<span class="giallo-l"><span>String.split: (string, string) =&gt; array&lt;string&gt;</span></span>
+<span class="giallo-l"><span>String.trim: string =&gt; string</span></span>
+<span class="giallo-l"><span>String.includes: (string, string) =&gt; bool</span></span>
+<span class="giallo-l"><span>String.startsWith: (string, string) =&gt; bool</span></span>
+<span class="giallo-l"><span>String.replaceAll: (string, string, string) =&gt; string</span></span>
+<span class="giallo-l"><span>String.make: &#39;a =&gt; string               // convert anything to string</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Array</span></span>
+<span class="giallo-l"><span>Array.map: (array&lt;&#39;a&gt;, &#39;a =&gt; &#39;b) =&gt; array&lt;&#39;b&gt;</span></span>
+<span class="giallo-l"><span>Array.filter: (array&lt;&#39;a&gt;, &#39;a =&gt; bool) =&gt; array&lt;&#39;a&gt;</span></span>
+<span class="giallo-l"><span>Array.reduce: (array&lt;&#39;a&gt;, &#39;b, (&#39;b, &#39;a) =&gt; &#39;b) =&gt; &#39;b</span></span>
+<span class="giallo-l"><span>Array.forEach: (array&lt;&#39;a&gt;, &#39;a =&gt; unit) =&gt; unit</span></span>
+<span class="giallo-l"><span>Array.length: array&lt;&#39;a&gt; =&gt; int</span></span>
+<span class="giallo-l"><span>Array.get: (array&lt;&#39;a&gt;, int) =&gt; option&lt;&#39;a&gt;</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Option — use getOrThrow, NOT getExn (deprecated)</span></span>
+<span class="giallo-l"><span>Option.getOrThrow: (option&lt;&#39;a&gt;, ~message: string=?) =&gt; &#39;a  // throws if None</span></span>
+<span class="giallo-l"><span>Option.getOr: (option&lt;&#39;a&gt;, &#39;a) =&gt; &#39;a           // default if None</span></span>
+<span class="giallo-l"><span>Option.map: (option&lt;&#39;a&gt;, &#39;a =&gt; &#39;b) =&gt; option&lt;&#39;b&gt;</span></span>
+<span class="giallo-l"><span>Option.flatMap: (option&lt;&#39;a&gt;, &#39;a =&gt; option&lt;&#39;b&gt;) =&gt; option&lt;&#39;b&gt;</span></span>
+<span class="giallo-l"><span>Option.isSome: option&lt;&#39;a&gt; =&gt; bool</span></span>
+<span class="giallo-l"><span>Option.isNone: option&lt;&#39;a&gt; =&gt; bool</span></span>
+<span class="giallo-l"><span>Option.forEach: (option&lt;&#39;a&gt;, &#39;a =&gt; unit) =&gt; unit</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Result — use getOrThrow, NOT getExn (deprecated)</span></span>
+<span class="giallo-l"><span>Result.getOrThrow: (result&lt;&#39;a, &#39;b&gt;, ~message: string=?) =&gt; &#39;a  // throws if Error</span></span>
+<span class="giallo-l"><span>Result.getOr: (result&lt;&#39;a, &#39;b&gt;, &#39;a) =&gt; &#39;a</span></span>
+<span class="giallo-l"><span>Result.map: (result&lt;&#39;a, &#39;c&gt;, &#39;a =&gt; &#39;b) =&gt; result&lt;&#39;b, &#39;c&gt;</span></span>
+<span class="giallo-l"><span>Result.isOk: result&lt;&#39;a, &#39;b&gt; =&gt; bool</span></span>
+<span class="giallo-l"><span>Result.isError: result&lt;&#39;a, &#39;b&gt; =&gt; bool</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Conversions</span></span>
+<span class="giallo-l"><span>Int.fromString: (string, ~radix: int=?) =&gt; option&lt;int&gt;</span></span>
+<span class="giallo-l"><span>Int.toString: (int, ~radix: int=?) =&gt; string</span></span>
+<span class="giallo-l"><span>Int.toFloat: int =&gt; float</span></span>
+<span class="giallo-l"><span>Float.fromString: string =&gt; option&lt;float&gt;</span></span>
+<span class="giallo-l"><span>Float.toString: (float, ~radix: int=?) =&gt; string</span></span>
+<span class="giallo-l"></span>
+<span class="giallo-l"><span>// Output</span></span>
+<span class="giallo-l"><span>Console.log: &#39;a =&gt; unit</span></span>
+<span class="giallo-l"><span>Console.log2: (&#39;a, &#39;b) =&gt; unit</span></span>
+<span class="giallo-l"><span>```</span></span></code></pre></details>
+<h2 id="the-rules-run-3">The rules (Run 3)</h2>
+<p>Same retry logic as run 2 (up to 3 attempts on wrong answers), but:</p>
+<ul>
+<li><strong>No overflow warning</strong> in the puzzle prompt — the system prompt documents <code>int</code> as
+32-bit and <code>bigint</code> as arbitrary precision; models have to connect those dots themselves.</li>
+<li><strong>No llms.txt escalation</strong> — models either know enough from the system prompt or they
+don't.</li>
+<li><strong>15-minute timeout</strong> per part (increased from the polling window, not per-attempt).</li>
+</ul>
+<hr />
+<h2 id="ejections-run-3">Ejections (Run 3)</h2>
+<table><thead><tr><th>Model</th><th>Ejected at</th><th>Reason</th></tr></thead><tbody>
+<tr><td><code>mistral/devstral-2512</code></td><td>D1P2</td><td>Wrong answer on all 3 attempts</td></tr>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>D2P1</td><td>Brain-dead — echoed prompts as "DONE" without working</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>D5P1</td><td>Brain-dead — froze mid-sentence after dumping the input file</td></tr>
+</tbody></table>
+<p><strong>Seven models completed all 10 parts.</strong></p>
+<hr />
+<h2 id="results-run-3">Results (Run 3)</h2>
+<h3 id="day-1-part-1-dial-rotation-counting-1">Day 1 Part 1 — Dial rotation counting</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>49s</td><td>1,350</td><td>$0.02</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>59s</td><td>2,256</td><td>$0.03</td></tr>
+<tr><td><code>mistral/devstral-2512</code></td><td>59s</td><td>1,488</td><td>$0.03</td></tr>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>62s</td><td>899</td><td>$0.04</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>68s</td><td>1,915</td><td>$0.08</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>69s</td><td>1,722</td><td>$0.13</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>73s</td><td>1,118</td><td>$0.03</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>120s</td><td>2,728</td><td>$0.06</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>122s</td><td>3,905</td><td>$0.22</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>133s</td><td>1,515</td><td>$0.04</td></tr>
+</tbody></table>
+<p><strong>10/10 correct on first attempt.</strong> In run 2, two models were ejected here (<code>devstral</code>
+for filling its context window, <code>codex</code> for going brain-dead). The system prompt got
+them through.</p>
+<br>
+<h3 id="day-1-part-2-counting-zero-crossings-during-dial-rotation-1">Day 1 Part 2 — Counting zero-crossings during dial rotation</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>26s</td><td>752</td><td>$0.02</td><td>✓</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>39s</td><td>1,559</td><td>$0.05</td><td>✓</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>46s</td><td>1,809</td><td>$0.09</td><td>✓</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>65s</td><td>1,244</td><td>$0.03</td><td>✓</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>90s</td><td>9,100</td><td>$0.04</td><td>✓</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>327s</td><td>11,607</td><td>$0.13</td><td>✓ (2nd try)</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>330s</td><td>9,936</td><td>$0.29</td><td>✓ (2nd try)</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>335s</td><td>2,078</td><td>$0.05</td><td>✓ (2nd try)</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>615s</td><td>19,746</td><td>$0.22</td><td>✓ (2nd try)</td></tr>
+<tr><td><code>mistral/devstral-2512</code></td><td>—</td><td>24,404</td><td>$0.58</td><td>✗ wrong 3/3 → <strong>EJECTED</strong></td></tr>
+</tbody></table>
+<p><strong>9/10 survived.</strong> In run 2, this puzzle ejected four models (<code>sonnet</code>, <code>haiku</code>, <code>glm-5</code>,
+<code>minimax</code>). With the system prompt, all four completed it. Only <code>devstral</code> couldn't
+solve it — it gave three different wrong answers across three
+attempts, each algorithmically different but each wrong.</p>
+<br>
+<h3 id="day-2-part-1-summing-repeated-digit-ids-in-ranges-1">Day 2 Part 1 — Summing repeated-digit IDs in ranges</h3>
+<p>The puzzle answer is an 11-digit number — the first real overflow test.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>50s</td><td>4,585</td><td>$0.05</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>65s</td><td>2,201</td><td>$0.01</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>70s</td><td>2,680</td><td>$0.16</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>71s</td><td>3,349</td><td>$0.12</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>210s</td><td>5,421</td><td>$0.06</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>226s</td><td>9,925</td><td>$0.38</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>580s</td><td>11,880</td><td>$0.17</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>840s</td><td>29,837</td><td>$1.06</td></tr>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>—</td><td>1,987</td><td>$0.11</td></tr>
+</tbody></table>
+<p><strong>8/8 surviving models correct on first try.</strong> <code>codex</code> compiled a solution but it timed
+out on even the example input. After two dirty-stop retries it went brain-dead — echoing
+nudges and saying "DONE" without doing any work.</p>
+<br>
+<h3 id="day-2-part-2-repeated-pattern-ids-any-repeat-count-1">Day 2 Part 2 — Repeated-pattern IDs (any repeat count)</h3>
+<p>Another 11-digit answer.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>18s</td><td>1,104</td><td>$0.02</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>54s</td><td>2,935</td><td>$0.08</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>54s</td><td>2,713</td><td>$0.12</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>68s</td><td>1,109</td><td>$0.01</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>75s</td><td>2,912</td><td>$0.04</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>338s</td><td>6,442</td><td>$0.14</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>365s</td><td>13,194</td><td>$0.51</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>394s</td><td>15,365</td><td>$1.20</td></tr>
+</tbody></table>
+<p>All 8 correct. <code>haiku</code> was fastest at 18 seconds.</p>
+<br>
+<h3 id="day-3-part-1-maximizing-2-digit-joltage-from-battery-banks-1">Day 3 Part 1 — Maximizing 2-digit joltage from battery banks</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>39s</td><td>1,370</td><td>$0.06</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>50s</td><td>2,648</td><td>$0.03</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>57s</td><td>1,697</td><td>$0.12</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>62s</td><td>5,251</td><td>$0.06</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>127s</td><td>3,704</td><td>$0.05</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>158s</td><td>5,835</td><td>$0.40</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>291s</td><td>5,600</td><td>$0.11</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>299s</td><td>1,865</td><td>$0.03</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-3-part-2-maximizing-12-digit-joltage-from-battery-banks-1">Day 3 Part 2 — Maximizing 12-digit joltage from battery banks</h3>
+<p>The answer is a 15-digit number.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>kimi-coding/k2p5</code></td><td>31s</td><td>937</td><td>$0.01</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>34s</td><td>1,252</td><td>$0.07</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>44s</td><td>2,013</td><td>$0.08</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>106s</td><td>1,978</td><td>$0.06</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>110s</td><td>3,173</td><td>$0.09</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>144s</td><td>14,461</td><td>$0.17</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>248s</td><td>4,409</td><td>$0.47</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>265s</td><td>10,304</td><td>$0.23</td></tr>
+</tbody></table>
+<p>All 8 correct. All handled the 15-digit answer — no overflow.</p>
+<br>
+<h3 id="day-4-part-1-grid-neighbour-counting-accessible-paper-rolls-1">Day 4 Part 1 — Grid neighbour counting (accessible paper rolls)</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>33s</td><td>1,307</td><td>$0.05</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>33s</td><td>974</td><td>$0.01</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>44s</td><td>3,673</td><td>$0.05</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>44s</td><td>1,409</td><td>$0.11</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>89s</td><td>2,759</td><td>$0.03</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>147s</td><td>6,383</td><td>$0.11</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>162s</td><td>2,968</td><td>$0.04</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>769s</td><td>19,731</td><td>$0.73</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-4-part-2-iterative-grid-removal-simulation-1">Day 4 Part 2 — Iterative grid removal simulation</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>22s</td><td>1,320</td><td>$0.08</td></tr>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>24s</td><td>1,243</td><td>$0.04</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>25s</td><td>2,423</td><td>$0.03</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>28s</td><td>1,340</td><td>$0.02</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>65s</td><td>3,829</td><td>$0.12</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>213s</td><td>4,696</td><td>$0.29</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>221s</td><td>3,976</td><td>$0.09</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>237s</td><td>7,399</td><td>$0.12</td></tr>
+</tbody></table>
+<br>
+<h3 id="day-5-part-1-range-membership-checking-1">Day 5 Part 1 — Range membership checking</h3>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>67s</td><td>2,632</td><td>$0.10</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>74s</td><td>3,287</td><td>$0.03</td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>82s</td><td>7,079</td><td>$0.09</td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>84s</td><td>3,399</td><td>$0.22</td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>172s</td><td>8,297</td><td>$0.09</td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>293s</td><td>8,600</td><td>$0.27</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>361s</td><td>6,021</td><td>$0.23</td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>—</td><td>160</td><td>$0.01</td></tr>
+</tbody></table>
+<p><code>qwen3-coder-next</code> read the real input file, dumped it into the context, started writing
+"I understand the problem now. The task is to: 1. Parse Ingredi—" and froze mid-sentence.
+No recovery.</p>
+<br>
+<h3 id="day-5-part-2-counting-total-fresh-ids-from-overlapping-ranges-1">Day 5 Part 2 — Counting total fresh IDs from overlapping ranges</h3>
+<p>The answer is a 15-digit number — the final overflow test.</p>
+<table><thead><tr><th>Model</th><th>Time</th><th>Output tokens</th><th>Cost</th><th>Result</th></tr></thead><tbody>
+<tr><td><code>anthropic/claude-sonnet-4-6</code></td><td>25s</td><td>1,360</td><td>$0.06</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>anthropic/claude-opus-4-6</code></td><td>31s</td><td>1,269</td><td>$0.10</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>73s</td><td>4,663</td><td>$0.04</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>anthropic/claude-haiku-4-5</code></td><td>76s</td><td>7,877</td><td>$0.11</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>zai/glm-5</code></td><td>171s</td><td>3,382</td><td>$0.15</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>211s</td><td>6,854</td><td>$0.34</td><td>✓ <strong>COMPLETE</strong></td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>551s</td><td>15,764</td><td>$0.60</td><td>✓ <strong>COMPLETE</strong></td></tr>
+</tbody></table>
+<p><strong>Seven out of seven.</strong> In run 2, <code>qwen3.5-plus</code> overflowed this exact puzzle. With
+the system prompt documenting that <code>int</code> is 32-bit and <code>bigint</code> exists, it used <code>bigint</code>
+from the start and answered correctly. No explicit warning needed.</p>
+<hr />
+<div style="height:480px"><canvas id="speed-accuracy-run3"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+{
+const models = [
+  { name: 'sonnet',     t:  464, s: 10, cost: 0.72 },
+  { name: 'opus',       t:  511, s: 10, cost: 1.20 },
+  { name: 'haiku',      t:  887, s: 10, cost: 0.74 },
+  { name: 'k2p5',       t: 1079, s: 10, cost: 0.24 },
+  { name: 'MiniMax',    t: 2087, s: 10, cost: 1.28 },
+  { name: 'glm-5',      t: 2428, s: 10, cost: 1.06 },
+  { name: 'qwen3.5+',   t: 2623, s: 10, cost: 3.50 },
+  { name: 'coder-next', t: 2431, s:  8, cost: 3.30 },
+  { name: 'devstral',   t:   59, s:  1, cost: 0.61 },
+  { name: 'codex',      t:   88, s:  2, cost: 0.17 },
+];
+new Chart(document.getElementById('speed-accuracy-run3'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.t/m.s).toFixed(1), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Seconds per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.t}s total, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+<div style="height:480px"><canvas id="token-efficiency-run3"></canvas></div>
+<script>
+{
+const models = [
+  { name: 'opus',       tok: 19270,  s: 10, cost: 1.20 },
+  { name: 'sonnet',     tok: 19683,  s: 10, cost: 0.72 },
+  { name: 'k2p5',       tok: 19572,  s: 10, cost: 0.24 },
+  { name: 'haiku',      tok: 60316,  s: 10, cost: 0.74 },
+  { name: 'glm-5',      tok: 45006,  s: 10, cost: 1.06 },
+  { name: 'MiniMax',    tok: 63296,  s: 10, cost: 1.28 },
+  { name: 'qwen3.5+',   tok: 102877, s: 10, cost: 3.50 },
+  { name: 'coder-next', tok: 71791,  s:  8, cost: 3.30 },
+  { name: 'devstral',   tok: 25892,  s:  1, cost: 0.61 },
+  { name: 'codex',      tok: 3638,   s:  2, cost: 0.17 },
+];
+new Chart(document.getElementById('token-efficiency-run3'), {
+  type: 'bubble',
+  data: { datasets: models.map(m => ({ label: m.name, data: [{ x: +(m.tok/m.s).toFixed(0), y: m.s, r: 3+Math.sqrt(m.cost)*4 }] })) },
+  options: {
+    maintainAspectRatio: false,
+    scales: { x: { title: { display: true, text: 'Tokens per passed part — lower is better' }}, y: { title: { display: true, text: 'Parts passed (/10)' }, min: 0, max: 11 } },
+    plugins: {
+      datalabels: { anchor: 'end', align: 'end', offset: 1, font: { size: 11 }, formatter: (_, ctx) => models[ctx.datasetIndex].name },
+      tooltip: { callbacks: { label: (ctx) => { const m = models[ctx.datasetIndex]; return `${m.name}: ${m.s}/10, ${m.tok} tokens, $${m.cost}`; } } }
+    }
+  }
+});
+}
+</script>
+<h2 id="full-summary-run-3-all-10-models">Full summary (Run 3) — all 10 models</h2>
+<p>Wall-clock seconds. <code>✗</code> = ejected at that part.</p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">D1P1</th>
+      <th style="text-align: right">D1P2</th>
+      <th style="text-align: right">D2P1</th>
+      <th style="text-align: right">D2P2</th>
+      <th style="text-align: right">D3P1</th>
+      <th style="text-align: right">D3P2</th>
+      <th style="text-align: right">D4P1</th>
+      <th style="text-align: right">D4P2</th>
+      <th style="text-align: right">D5P1</th>
+      <th style="text-align: right">D5P2</th>
+      <th style="text-align: right">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>claude-sonnet-4-6</td>
+      <td style="text-align: right">68</td>
+      <td style="text-align: right">39</td>
+      <td style="text-align: right">71</td>
+      <td style="text-align: right">54</td>
+      <td style="text-align: right">39</td>
+      <td style="text-align: right">44</td>
+      <td style="text-align: right">33</td>
+      <td style="text-align: right">24</td>
+      <td style="text-align: right">67</td>
+      <td style="text-align: right">25</td>
+      <td style="text-align: right"><strong>464s</strong></td>
+    </tr>
+    <tr>
+      <td>claude-opus-4-6</td>
+      <td style="text-align: right">69</td>
+      <td style="text-align: right">46</td>
+      <td style="text-align: right">70</td>
+      <td style="text-align: right">54</td>
+      <td style="text-align: right">57</td>
+      <td style="text-align: right">34</td>
+      <td style="text-align: right">44</td>
+      <td style="text-align: right">22</td>
+      <td style="text-align: right">84</td>
+      <td style="text-align: right">31</td>
+      <td style="text-align: right"><strong>511s</strong></td>
+    </tr>
+    <tr>
+      <td>claude-haiku-4-5</td>
+      <td style="text-align: right">59</td>
+      <td style="text-align: right">327</td>
+      <td style="text-align: right">50</td>
+      <td style="text-align: right">18</td>
+      <td style="text-align: right">62</td>
+      <td style="text-align: right">144</td>
+      <td style="text-align: right">44</td>
+      <td style="text-align: right">25</td>
+      <td style="text-align: right">82</td>
+      <td style="text-align: right">76</td>
+      <td style="text-align: right"><strong>887s</strong></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">73</td>
+      <td style="text-align: right">335</td>
+      <td style="text-align: right">65</td>
+      <td style="text-align: right">68</td>
+      <td style="text-align: right">299</td>
+      <td style="text-align: right">31</td>
+      <td style="text-align: right">33</td>
+      <td style="text-align: right">28</td>
+      <td style="text-align: right">74</td>
+      <td style="text-align: right">73</td>
+      <td style="text-align: right"><strong>1,079s</strong></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right">120</td>
+      <td style="text-align: right">615</td>
+      <td style="text-align: right">210</td>
+      <td style="text-align: right">75</td>
+      <td style="text-align: right">127</td>
+      <td style="text-align: right">110</td>
+      <td style="text-align: right">89</td>
+      <td style="text-align: right">237</td>
+      <td style="text-align: right">293</td>
+      <td style="text-align: right">211</td>
+      <td style="text-align: right"><strong>2,087s</strong></td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">133</td>
+      <td style="text-align: right">65</td>
+      <td style="text-align: right">580</td>
+      <td style="text-align: right">338</td>
+      <td style="text-align: right">291</td>
+      <td style="text-align: right">106</td>
+      <td style="text-align: right">162</td>
+      <td style="text-align: right">221</td>
+      <td style="text-align: right">361</td>
+      <td style="text-align: right">171</td>
+      <td style="text-align: right"><strong>2,428s</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right">49</td>
+      <td style="text-align: right">90</td>
+      <td style="text-align: right">840</td>
+      <td style="text-align: right">394</td>
+      <td style="text-align: right">50</td>
+      <td style="text-align: right">265</td>
+      <td style="text-align: right">147</td>
+      <td style="text-align: right">65</td>
+      <td style="text-align: right">172</td>
+      <td style="text-align: right">551</td>
+      <td style="text-align: right"><strong>2,623s</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next</td>
+      <td style="text-align: right">122</td>
+      <td style="text-align: right">330</td>
+      <td style="text-align: right">226</td>
+      <td style="text-align: right">365</td>
+      <td style="text-align: right">158</td>
+      <td style="text-align: right">248</td>
+      <td style="text-align: right">769</td>
+      <td style="text-align: right">213</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512</td>
+      <td style="text-align: right">59</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex</td>
+      <td style="text-align: right">62</td>
+      <td style="text-align: right">26</td>
+      <td style="text-align: right">✗</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right">—</td>
+      <td style="text-align: right"><strong>DNF</strong></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<p>Token and cost breakdown for all models. <em>Costs are rough approximations based on
+published per-token pricing. I use subscription plans, so my actual spending is capped
+regardless.</em></p>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">Total tokens</th>
+      <th style="text-align: right">Total cost</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>alibaba/qwen3.5-plus</td>
+      <td style="text-align: right"><strong>102,877</strong></td>
+      <td style="text-align: right"><strong>$3.50</strong></td>
+    </tr>
+    <tr>
+      <td>minimax/MiniMax-M2.5</td>
+      <td style="text-align: right"><strong>63,296</strong></td>
+      <td style="text-align: right"><strong>$1.28</strong></td>
+    </tr>
+    <tr>
+      <td>claude-opus-4-6</td>
+      <td style="text-align: right"><strong>19,270</strong></td>
+      <td style="text-align: right"><strong>$1.20</strong></td>
+    </tr>
+    <tr>
+      <td>zai/glm-5</td>
+      <td style="text-align: right"><strong>45,006</strong></td>
+      <td style="text-align: right"><strong>$1.06</strong></td>
+    </tr>
+    <tr>
+      <td>claude-haiku-4-5</td>
+      <td style="text-align: right"><strong>60,316</strong></td>
+      <td style="text-align: right"><strong>$0.74</strong></td>
+    </tr>
+    <tr>
+      <td>claude-sonnet-4-6</td>
+      <td style="text-align: right"><strong>19,683</strong></td>
+      <td style="text-align: right"><strong>$0.72</strong></td>
+    </tr>
+    <tr>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right"><strong>19,572</strong></td>
+      <td style="text-align: right"><strong>$0.24</strong></td>
+    </tr>
+    <tr>
+      <td>alibaba/qwen3-coder-next †</td>
+      <td style="text-align: right"><strong>71,791</strong></td>
+      <td style="text-align: right"><strong>$3.30</strong></td>
+    </tr>
+    <tr>
+      <td>mistral/devstral-2512 †</td>
+      <td style="text-align: right"><strong>25,892</strong></td>
+      <td style="text-align: right"><strong>$0.61</strong></td>
+    </tr>
+    <tr>
+      <td>openai-codex/gpt-5.3-codex †</td>
+      <td style="text-align: right"><strong>3,638</strong></td>
+      <td style="text-align: right"><strong>$0.17</strong></td>
+    </tr>
+  </tbody>
+</table>
+<p>† ejected before completing all parts.</p>
+<hr />
+<h2 id="across-all-three-runs">Across all three runs</h2>
+<table><thead><tr><th></th><th>Run 1</th><th>Run 2</th><th>Run 3</th></tr></thead><tbody>
+<tr><td>Intervention</td><td>none</td><td>overflow warning</td><td>system prompt</td></tr>
+<tr><td>Timeout</td><td>3 min</td><td>5 min</td><td>15 min</td></tr>
+<tr><td>Full completers</td><td>1/10</td><td>2/10</td><td><strong>7/10</strong></td></tr>
+<tr><td>D1P1 first-try pass rate</td><td>7/10</td><td>8/10</td><td><strong>10/10</strong></td></tr>
+<tr><td>D1P2 survivors</td><td>3/10</td><td>4/10</td><td><strong>9/10</strong></td></tr>
+<tr><td><code>claude-opus-4-6</code></td><td>ejected D5P2</td><td>✓ all 10</td><td>✓ all 10</td></tr>
+<tr><td><code>claude-sonnet-4-6</code></td><td>ejected D1P2</td><td>ejected D1P2</td><td><strong>✓ fastest (464s)</strong></td></tr>
+<tr><td><code>claude-haiku-4-5</code></td><td>✓ sole completer</td><td>ejected D1P2</td><td><strong>✓ all 10</strong></td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td>ejected D1P2</td><td>✓ all 10</td><td>✓ all 10</td></tr>
+<tr><td><code>zai/glm-5</code></td><td>ejected D1P2</td><td>ejected D1P2</td><td><strong>✓ all 10</strong></td></tr>
+<tr><td><code>minimax/MiniMax-M2.5</code></td><td>ejected D1P2</td><td>ejected D1P2</td><td><strong>✓ all 10</strong></td></tr>
+<tr><td><code>alibaba/qwen3.5-plus</code></td><td>ejected D2P1</td><td>ejected D5P2</td><td><strong>✓ all 10</strong></td></tr>
+<tr><td><code>alibaba/qwen3-coder-next</code></td><td>ejected D1P2</td><td>ejected D2P1</td><td>ejected D5P1</td></tr>
+<tr><td><code>mistral/devstral-2512</code></td><td>ejected D1P1</td><td>ejected D1P1</td><td>ejected D1P2</td></tr>
+<tr><td><code>openai-codex/gpt-5.3-codex</code></td><td>ejected D1P1</td><td>ejected D1P1</td><td>ejected D2P1</td></tr>
+</tbody></table>
+<hr />
+<h2 id="observations">Observations</h2>
+<p><strong>Teaching the language was the biggest lever.</strong> The system prompt — 150 lines of
+syntax, types, and stdlib — took the completion rate from 2/10 to 7/10. The overflow
+warning in run 2 helped exactly one model (<code>opus</code>). The system prompt helped <em>five
+more</em> (<code>sonnet</code>, <code>haiku</code>, <code>glm-5</code>, <code>minimax</code>, <code>qwen3.5-plus</code>).</p>
+<p><strong>The overflow problem was a documentation problem.</strong> In run 2, <code>qwen3.5-plus</code>
+overflowed on Day 5 Part 2 despite an explicit overflow warning. In run 3, it used
+<code>bigint</code> from the start and answered correctly — because the system prompt documented
+<code>int</code> as 32-bit and <code>bigint</code> as arbitrary precision. Models don't need warnings; they
+need language specs.</p>
+<p><strong><code>claude-sonnet-4-6</code> went from run 2's Day 1 Part 2 casualty to run 3's fastest
+completer (464s).</strong> In run 2 it gave a wrong answer on the boundary-condition puzzle
+and was ejected. In run 3 it completed all 10 parts and beat <code>opus</code> on total time. The
+system prompt didn't just help with overflow — it helped models write correct algorithms
+in an unfamiliar language.</p>
+<p><strong><code>kimi-coding/k2p5</code> remains the value champion: $0.24 for all 10 parts.</strong> Down from
+$0.46 in run 2. The system prompt cut its token usage almost in half — fewer compile
+errors, fewer false starts.</p>
+<p><strong>Three models remain unreachable.</strong> <code>devstral</code> got further (past D1P1) but still
+couldn't solve D1P2. <code>gpt-5.3-codex</code> got further (past D1) but went brain-dead on
+D2P1. <code>qwen3-coder-next</code> got the furthest (8 parts) but froze mid-thought on D5P1.
+The system prompt can't fix models that go catatonic.</p>
+<p><strong>The llms.txt files were never needed.</strong> In run 2, no model proactively consulted
+them. In run 3, they weren't even offered. A concise system prompt covering the
+essentials was more effective than 14,000 lines of API reference sitting in the
+working directory.</p>
+<hr />
+<p><em>Benchmarked on 2026-02-26 (run 2) and 2026-02-27 (run 3) using <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a> as the agent harness.</em></p>
+<hr />
+<p><em>This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>

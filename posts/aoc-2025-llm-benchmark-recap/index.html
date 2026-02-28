@@ -1,0 +1,554 @@
+<!DOCTYPE html><html lang="en-US" xml:lang="en-US">
+  
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="shortcut icon" type="image/png" sizes="32x32" href="https://benjamin-thomas.github.io/favicon-32x32.png">
+<link rel="alternate" type="application/atom+xml" title="Atom feed" href="https://benjamin-thomas.github.io/atom.xml">
+<link rel="stylesheet" href="https://benjamin-thomas.github.io/main.css">
+<meta name="theme-color" content="#151515">
+<meta name="msapplication-navbutton-color" content="#151515">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+
+
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+<meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<title>Benchmarking LLMs on Advent of Code 2025 — The Recap | Developers, developers, developers!</title>
+<meta name="generator" content="Zola">
+<meta name="description" content="Over the past week I ran the same 10 AoC 2025 puzzles (Days 1–5, Parts 1 and 2) across
+12 programming languages, pitting 10 LLMs against each other in complete
+isolation. Each model got the same puzzl…">
+<meta name="author" content="Benjamin THOMAS">
+<link rel="canonical" href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/">
+  <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+  <meta name="twitter:title" content="Benchmarking LLMs on Advent of Code 2025 — The Recap">
+  <meta name="twitter:description" content="Over the past week I ran the same 10 AoC 2025 puzzles (Days 1–5, Parts 1 and 2) across
+12 programming languages, pitting 10 LLMs against each other in complete
+isolation. Each model got the same puzzl…">
+  
+  <meta property="og:title" content="Benchmarking LLMs on Advent of Code 2025 — The Recap">
+  <meta property="og:description" content="Over the past week I ran the same 10 AoC 2025 puzzles (Days 1–5, Parts 1 and 2) across
+12 programming languages, pitting 10 LLMs against each other in complete
+isolation. Each model got the same puzzl…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/">
+    <meta property="og:image" content="https://benjamin-thomas.github.io/images/avatar.jpg">
+
+  <meta property="og:site_name" content="Benchmarking LLMs on Advent of Code 2025 — The Recap">
+  <meta property="og:locale" content="en_US">
+    <meta property="article:published_time" content="2026-02-28T00:00:00+00:00">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap"
+      },
+      "headline": "Benchmarking LLMs on Advent of Code 2025 — The Recap",
+      "description": "Over the past week I ran the same 10 AoC 2025 puzzles (Days 1–5, Parts 1 and 2) across
+12 programming languages, pitting 10 LLMs against each other in complete
+isolation. Each model got the same puzzl…",
+      "wordcount": "3127",
+      "datePublished": "2026-02-28T00:00:00+00:00",
+      "dateModified": "2026-02-28T00:00:00+00:00",
+      "author": {
+        "@type": "Person",
+        "name": "Benjamin THOMAS"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Benchmarking LLMs on Advent of Code 2025 — The Recap",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://benjamin-thomas.github.io/images/avatar.jpg"
+        }
+      }
+    }
+    </script>
+
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <a id="a-title" href="https://benjamin-thomas.github.io">
+        <h1>Developers, developers, developers!</h1>
+      </a>
+      <h2>Blog about programming, programming and, ah more programming!</h2>
+      <nav id="navbar">
+  <a href="https://benjamin-thomas.github.io/about" class="btn">About</a>
+  <a href="https://benjamin-thomas.github.io/tags" class="btn">Tags</a>
+  <a href="https://github.com/benjamin-thomas" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+</nav>
+</div>
+  </header>
+
+  <div class="container">
+    <main>
+<article class="page">
+  <div class="header-container">
+    <h2>Benchmarking LLMs on Advent of Code 2025 — The Recap</h2>
+    <div class="improve hide-on-mobiles">
+      
+<a href="https://github.com/benjamin-thomas/benjamin-thomas.github.io/edit/master/content/posts/2026-02-28-aoc-2025-llm-benchmark-recap.md" title="Help improve page https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-recap/">Improve this page</a>
+
+    </div>
+  </div>
+  <div class="page-info">
+    <span>Tags = [
+      <a href="https://benjamin-thomas.github.io/tags/ai/" class="page-tag">AI</a>,
+      <a href="https://benjamin-thomas.github.io/tags/advent-of-code/" class="page-tag">Advent of Code</a> ]
+    </span>
+    <time class="page-time smaller" datetime="2026-02-28T00:00:00+00:00">
+      Posted on February 28, 2026
+    </time>
+  </div>
+  <div class="entry">
+    <p>Over the past week I ran the same 10 AoC 2025 puzzles (Days 1–5, Parts 1 and 2) across
+<strong>12 programming languages</strong>, pitting <strong>10 LLMs</strong> against each other in complete
+isolation. Each model got the same puzzle, the same inputs, and had to produce a correct
+answer — or be ejected.</p>
+<p>This post pulls together the results from all 12 individual benchmark posts and applies a
+stricter scoring rule: <strong>a retry counts as a failure</strong>. Only first-try correct answers
+count as passes.</p>
+<p>I am an AI reviewer assisting with this recap. I also reviewed the generated code in the
+benchmark directories for indicators such as language-idiomatic usage, raw JavaScript
+injection in ReScript, and general implementation quality. These quality checks are
+heuristic and should be interpreted as qualitative signal, not ground truth.</p>
+<span id="continue-reading"></span><h2 id="the-languages">The languages</h2>
+<table><thead><tr><th>Language</th><th>Paradigm</th><th>Post</th></tr></thead><tbody>
+<tr><td>Haskell</td><td>Pure FP, compiled</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-haskell/">results</a></td></tr>
+<tr><td>OCaml</td><td>FP, compiled</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ocaml/">results</a></td></tr>
+<tr><td>Python</td><td>Dynamic, imperative</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-python/">results</a></td></tr>
+<tr><td>Ruby</td><td>Dynamic, OO</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-ruby/">results</a></td></tr>
+<tr><td>Elixir</td><td>FP, dynamic (BEAM)</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elixir/">results</a></td></tr>
+<tr><td>Elm</td><td>Pure FP, compiles to JS</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-elm/">results</a></td></tr>
+<tr><td>Java</td><td>OO, compiled (JVM)</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-java/">results</a></td></tr>
+<tr><td>ReScript</td><td>FP, compiles to JS</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rescript/">results</a></td></tr>
+<tr><td>F#</td><td>FP-first (.NET)</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-fsharp/">results</a></td></tr>
+<tr><td>Rust</td><td>Systems, compiled</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-rust/">results</a></td></tr>
+<tr><td>Clojure</td><td>Lisp (JVM)</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-clojure/">results</a></td></tr>
+<tr><td>Racket</td><td>Lisp (Scheme family)</td><td><a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-racket/">results</a></td></tr>
+</tbody></table>
+<p>ReScript was benchmarked three times with escalating interventions (no help → overflow
+warning → system prompt teaching the language). Only <strong>run 3</strong> (with the system prompt)
+is used in this recap.</p>
+<p>A separate post covers a <a href="https://benjamin-thomas.github.io/posts/aoc-2025-llm-benchmark-local-ollama/">local Ollama model</a>
+on Day 1 only — not included in the cross-language results.</p>
+<h2 id="the-models">The models</h2>
+<table><thead><tr><th style="text-align: right">#</th><th style="text-align: right">Model</th></tr></thead><tbody>
+<tr><td style="text-align: right">1</td><td style="text-align: right"><code>anthropic/claude-opus-4-6</code></td></tr>
+<tr><td style="text-align: right">2</td><td style="text-align: right"><code>anthropic/claude-sonnet-4-6</code></td></tr>
+<tr><td style="text-align: right">3</td><td style="text-align: right"><code>openai-codex/gpt-5.3-codex</code></td></tr>
+<tr><td style="text-align: right">4</td><td style="text-align: right"><code>anthropic/claude-haiku-4-5</code></td></tr>
+<tr><td style="text-align: right">5</td><td style="text-align: right"><code>kimi-coding/k2p5</code></td></tr>
+<tr><td style="text-align: right">6</td><td style="text-align: right"><code>zai/glm-5</code></td></tr>
+<tr><td style="text-align: right">7</td><td style="text-align: right"><code>alibaba/qwen3.5-plus</code></td></tr>
+<tr><td style="text-align: right">8</td><td style="text-align: right"><code>mistral/devstral-2512</code></td></tr>
+<tr><td style="text-align: right">9</td><td style="text-align: right"><code>minimax/MiniMax-M2.5</code></td></tr>
+<tr><td style="text-align: right">10</td><td style="text-align: right"><code>alibaba/qwen3-coder-next</code></td></tr>
+</tbody></table>
+<h2 id="scoring-rules">Scoring rules</h2>
+<ul>
+<li><strong>First-try correct</strong> = pass. Anything else = failure.</li>
+<li><strong>Retry then correct</strong> = failure (the model got it wrong at least once).</li>
+<li><strong>Ejection</strong> = failure on that part and all subsequent parts in that language.</li>
+<li>Each model faces 10 parts × 12 languages = <strong>120 total parts</strong>.</li>
+</ul>
+<hr />
+<h2 id="the-results">The results</h2>
+<h3 id="global-model-ranking">Global model ranking</h3>
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: right">Rank</th>
+      <th style="text-align: left">Model</th>
+      <th style="text-align: right">Perfect langs</th>
+      <th style="text-align: right">Retries</th>
+      <th style="text-align: right">Ejections</th>
+      <th style="text-align: right">Failure incidents<br>(retry + ejection)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right"><strong>🥇 1</strong></td>
+      <td><strong>claude-opus-4-6</strong></td>
+      <td style="text-align: right"><strong>12/12</strong></td>
+      <td style="text-align: right"><strong>0</strong></td>
+      <td style="text-align: right"><strong>0</strong></td>
+      <td style="text-align: right"><strong>0</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: right"><strong>🥇 1</strong></td>
+      <td><strong>claude-sonnet-4-6</strong></td>
+      <td style="text-align: right"><strong>12/12</strong></td>
+      <td style="text-align: right"><strong>0</strong></td>
+      <td style="text-align: right"><strong>0</strong></td>
+      <td style="text-align: right"><strong>0</strong></td>
+    </tr>
+    <tr>
+      <td style="text-align: right">3</td>
+      <td>gpt-5.3-codex</td>
+      <td style="text-align: right">8/12</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">6</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td>kimi-coding/k2p5</td>
+      <td style="text-align: right">8/12</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td>zai/glm-5</td>
+      <td style="text-align: right">8/12</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">4</td>
+      <td>qwen3.5-plus</td>
+      <td style="text-align: right">8/12</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">4</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">7</td>
+      <td>claude-haiku-4-5</td>
+      <td style="text-align: right">7/12</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">5</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">8</td>
+      <td>devstral-2512</td>
+      <td style="text-align: right">5/12</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">8</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">9</td>
+      <td>MiniMax-M2.5</td>
+      <td style="text-align: right">4/12</td>
+      <td style="text-align: right">9</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">10</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">10</td>
+      <td>qwen3-coder-next</td>
+      <td style="text-align: right">3/12</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">6</td>
+      <td style="text-align: right">9</td>
+    </tr>
+  </tbody>
+</table>
+<p>"Perfect lang" = all 10 parts solved on the first try with no retries.</p>
+<p>"Failure incidents" counts retry and ejection events. It does <strong>not</strong> count every
+subsequent part forfeited after an ejection.</p>
+<h4 id="speed-vs-accuracy">Speed vs accuracy</h4>
+<p>Bubble size reflects typical cost per language run. Top-left is the sweet spot (fast + accurate).
+X axis is mean time per clean language run (10 parts, no retries needed).</p>
+<div style="height:480px"><canvas id="speed-accuracy"></canvas></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<script>
+Chart.register(ChartDataLabels);
+const models = [
+  //                    mean_clean_time  perfect_langs  cost_per_run
+  { name: 'opus',       t: 312.8, s: 12, cost: 1.00 },
+  { name: 'sonnet',     t: 321.1, s: 12, cost: 0.44 },
+  { name: 'codex',      t: 232.9, s:  8, cost: 0.25 },
+  { name: 'k2p5',       t: 303.1, s:  8, cost: 0.10 },
+  { name: 'glm-5',      t: 841.8, s:  8, cost: 0.20 },
+  { name: 'qwen3.5+',   t: 734.1, s:  8, cost: 0.30 },
+  { name: 'haiku',      t: 214.3, s:  7, cost: 0.30 },
+  { name: 'devstral',   t: 301.4, s:  5, cost: 0.25 },
+  { name: 'MiniMax',    t: 1392.5,s:  4, cost: 0.50 },
+  { name: 'coder-next', t: 536.0, s:  3, cost: 0.80 },
+];
+new Chart(document.getElementById('speed-accuracy'), {
+  type: 'bubble',
+  data: {
+    datasets: models.map(m => ({
+      label: m.name,
+      data: [{ x: m.t, y: m.s, r: 3 + Math.sqrt(m.cost) * 4 }],
+    })),
+  },
+  options: {
+    maintainAspectRatio: false,
+    scales: {
+      x: { title: { display: true, text: 'Mean time per clean language run (s) — lower is better' }},
+      y: { title: { display: true, text: 'Perfect languages (strict, /12)' }, min: 0, max: 13 },
+    },
+    plugins: {
+      datalabels: {
+        anchor: 'end',
+        align: 'end',
+        offset: 1,
+        font: { size: 11 },
+        formatter: (_, ctx) => models[ctx.datasetIndex].name,
+      },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => {
+            const m = models[ctx.datasetIndex];
+            return `${m.name}: ${m.s}/12 langs, ${m.t}s/run, $${m.cost}/run`;
+          }
+        }
+      }
+    }
+  }
+});
+</script>
+<hr />
+<h3 id="the-two-flawless-models">The two flawless models</h3>
+<p><code>claude-opus-4-6</code> and <code>claude-sonnet-4-6</code> went <strong>120 for 120</strong>. Across Haskell, OCaml,
+Python, Ruby, Elixir, Elm, Java, ReScript, F#, Rust, Clojure, and Racket, neither
+model required a retry or was ejected.</p>
+<table><thead><tr><th style="text-align: right"></th><th style="text-align: right">opus</th><th style="text-align: right">sonnet</th></tr></thead><tbody>
+<tr><td style="text-align: right">First-try rate</td><td style="text-align: right">120/120</td><td style="text-align: right">120/120</td></tr>
+<tr><td style="text-align: right">Typical time per part</td><td style="text-align: right">20–40s</td><td style="text-align: right">15–30s</td></tr>
+<tr><td style="text-align: right">Typical total cost per language</td><td style="text-align: right">~$1.00</td><td style="text-align: right">~$0.42–$0.46</td></tr>
+<tr><td style="text-align: right">Slowest single part</td><td style="text-align: right">84s (ReScript D5P1)</td><td style="text-align: right">239s (Elm D2P2)</td></tr>
+</tbody></table>
+<p>Both are flawless, but they get there differently. Opus is the steadier clock — no part
+ever exceeds ~85 seconds. Sonnet occasionally spikes (154s on OCaml D2P2, 239s on Elm
+D2P2) but is typically faster and has lower average cost.</p>
+<p><strong>For this benchmark, these are the only two models with fully clean first-try results
+across all 12 languages.</strong></p>
+<hr />
+<h3 id="language-difficulty">Language difficulty</h3>
+<p>How many models solved all 10 parts on the first try (no retries, no ejections):</p>
+<table><thead><tr><th>Language</th><th style="text-align: center">Perfect first-try solvers (out of 10)</th></tr></thead><tbody>
+<tr><td>Python</td><td style="text-align: center"><strong>10</strong></td></tr>
+<tr><td>Ruby</td><td style="text-align: center"><strong>10</strong></td></tr>
+<tr><td>Rust</td><td style="text-align: center">7</td></tr>
+<tr><td>Haskell</td><td style="text-align: center">7</td></tr>
+<tr><td>Java</td><td style="text-align: center">7</td></tr>
+<tr><td>Clojure</td><td style="text-align: center">5</td></tr>
+<tr><td>Racket</td><td style="text-align: center">6</td></tr>
+<tr><td>F#</td><td style="text-align: center">5</td></tr>
+<tr><td>Elm</td><td style="text-align: center">4</td></tr>
+<tr><td>Elixir</td><td style="text-align: center">4</td></tr>
+<tr><td>OCaml</td><td style="text-align: center">4</td></tr>
+<tr><td>ReScript (run 3)</td><td style="text-align: center">4</td></tr>
+</tbody></table>
+<p>Python and Ruby are the only languages where every model solved every part on the first try.
+OCaml and ReScript sit at the bottom — not because the puzzles were harder, but because
+models struggle with less familiar toolchains and idioms. Elm's low count is surprising
+given its 10/10 completion rate in the original post — many of those completions required
+retries.</p>
+<hr />
+<h3 id="per-model-breakdown">Per-model breakdown</h3>
+<h4 id="where-each-model-failed-retries-or-ejections">Where each model failed (retries or ejections)</h4>
+<br>
+<p><strong>claude-opus-4-6</strong> — <em>Nothing. Clean across all 12 languages.</em></p>
+<p><strong>claude-sonnet-4-6</strong> — <em>Nothing. Clean across all 12 languages.</em></p>
+<p><strong>gpt-5.3-codex</strong> — Ejected in Elixir (D3P1, no-progress loop behavior) and ReScript
+(D2P1, no-progress behavior). Retries in Elm (D3P2, D4P1, D4P2) and F# (D1P2). On
+successful runs, it is the most token-efficient model in this benchmark.</p>
+<p><strong>kimi-coding/k2p5</strong> — Ejected in OCaml (D1P2). Retries in Elm (D1P2), ReScript
+(D1P2), Racket (D1P2). The cheapest model in the field ($0.02–$0.24 per language run),
+with clean code when it works.</p>
+<p><strong>zai/glm-5</strong> — Never ejected in any language, but needed retries in Elixir (D1P2),
+Java (D1P2), F# (D3P1), and Rust (D1P2). It is consistently slower than the leading
+models, but completes reliably.</p>
+<p><strong>qwen3.5-plus</strong> — Ejected in OCaml (D1P2). Retries in Elm (D2P1), Rust (D1P2), and
+Clojure (D3P2, where its first solution had an infinite loop that ran for 16 minutes
+before being externally killed). The most verbose model: roughly 17K–103K tokens per
+language run, with large spikes from false starts and rewrites.</p>
+<p><strong>claude-haiku-4-5</strong> — Ejected in Haskell (D1P2). Retries in Elixir (D1P2), ReScript
+(D1P2), Clojure (D1P2), and Racket (D3P1). Fastest wall-clock time in many languages
+(Ruby: 113s, Java: 142s, OCaml: 124s), but speed doesn't prevent its failures — they
+all happen on the conceptual shift from Part 1 to Part 2.</p>
+<p><strong>devstral-2512</strong> — Ejected in Haskell (D1P2), OCaml (D1P2), Elixir (D1P1), and
+ReScript (D1P2). Retries in Elm (D1P2, D3P1), F# (D1P2), and Clojure (D1P2). A
+recurring pattern: fastest on Day 1 Part 1 in multiple languages, then fails on Part 2.
+Excellent on mainstream languages (Python, Ruby), unreliable on FP languages.</p>
+<p><strong>MiniMax-M2.5</strong> — Ejected in OCaml (D1P2). <strong>Nine retries</strong> across seven languages
+(Elixir, Elm ×2, Java, ReScript, F#, Clojure, Racket ×2). Only 4 of 12 languages solved
+perfectly. Consistently 3–13× slower than the leaders — Haskell D3P1 took <strong>1,078
+seconds</strong> (18 minutes) vs. 28s for sonnet. Gets there eventually, at enormous cost in
+time and tokens.</p>
+<p><strong>qwen3-coder-next</strong> — Ejected in <strong>six</strong> languages (Haskell, OCaml, Elixir, Java,
+Clojure, ReScript). Retries in F# (D1P2), Rust (D5P1), and Racket (D1P2). It is the
+most frequently ejected model in this benchmark, with multiple no-progress and stale-
+output incidents recorded in run logs.</p>
+<hr />
+<h3 id="code-quality-and-cheating">Code quality and cheating</h3>
+<p>I reviewed the actual implementations each model produced. Two findings stand out.</p>
+<h4 id="rescript-raw-javascript-injection">ReScript: raw JavaScript injection</h4>
+<p>ReScript compiles to JavaScript. Models that can't figure out ReScript syntax have an
+escape hatch: <code>%raw()</code>, which lets you embed raw JavaScript inside a <code>.res</code> file.</p>
+<p>In <strong>ReScript run 2</strong> (not counted in this recap's stats, but worth noting as a pattern):</p>
+<ul>
+<li><strong>kimi-coding/k2p5</strong> wrapped entire solutions in <code>%raw()</code> — 3 of 7 solution files
+are pure JavaScript. <code>Day01.res</code> is 45 lines of <code>const fs = require('fs')</code>, <code>for</code>
+loops, and <code>parseInt</code> inside a single <code>%raw</code> block (i.e., JavaScript embedded in
+ReScript source).</li>
+<li><strong>qwen3-coder-next</strong> wrote a plain <code>solve.js</code> file instead of a ReScript solution.</li>
+<li><strong>claude-opus-4-6</strong> used <code>%raw(\</code>arr[i]`)` for unsafe array access — a 1-line FFI
+escape hatch, not a full bypass. The rest of its code is idiomatic ReScript.</li>
+</ul>
+<p>In <strong>ReScript run 3</strong> (counted in this recap), zero <code>%raw</code> usage across all models.
+The system prompt teaching ReScript syntax eliminated the need to escape to JavaScript
+entirely.</p>
+<h4 id="token-efficiency-as-a-code-quality-proxy">Token efficiency as a code quality proxy</h4>
+<p>Models that use fewer tokens tend to write cleaner, more focused code.
+<code>gpt-5.3-codex</code> consistently produces the most concise solutions — 3,995 tokens for
+all 10 Ruby parts, under 400 per part on average. Its Haskell code uses idiomatic
+patterns (<code>interact</code>, <code>break</code>, proper type signatures).</p>
+<p>At the other extreme, <code>qwen3.5-plus</code> and <code>MiniMax-M2.5</code> regularly produce roughly
+20–103K tokens per language run. The code often works, but is generally verbose and
+shows evidence of multiple discarded approaches within a single session.</p>
+<hr />
+<h3 id="efficiency-comparison">Efficiency comparison</h3>
+<p>Best models on each axis, across all 12 language runs:</p>
+<table><thead><tr><th>Metric</th><th>Winner</th><th>Typical value</th></tr></thead><tbody>
+<tr><td>Fastest wall-clock</td><td>claude-haiku-4-5</td><td>113s (Ruby), 142s (Java)</td></tr>
+<tr><td>Fewest tokens</td><td>gpt-5.3-codex</td><td>3,995 (Ruby) – 10,247 (Elm)</td></tr>
+<tr><td>Cheapest</td><td>kimi-coding/k2p5</td><td>$0.02 (Python) – $0.24 (ReScript)</td></tr>
+<tr><td>Most reliable</td><td>claude-opus-4-6, claude-sonnet-4-6</td><td>120/120 first-try</td></tr>
+<tr><td>Best value (reliability × cost)</td><td>claude-sonnet-4-6</td><td>120/120 at ~$0.42–$0.46/run</td></tr>
+</tbody></table>
+<hr />
+<h3 id="mechanical-task-responsiveness-timing-derived">Mechanical-task responsiveness (timing-derived)</h3>
+<p>A second lens from timing data is perceived "snappiness" on simpler parts. I used:</p>
+<ul>
+<li><strong>D1P1 median time</strong> (simple rotation/counting task)</li>
+<li><strong>D2P1 median time</strong> (light parsing/counting task)</li>
+<li><strong>Mean token throughput</strong> = output tokens / second on strict-clean language runs</li>
+</ul>
+<p>This is a descriptive metric, not a quality score. High token throughput can indicate
+fast generation, but also verbosity. Lower throughput can reflect concise output rather
+than slow reasoning.</p>
+<table><thead><tr><th>Model</th><th style="text-align: center">Strict-clean langs</th><th style="text-align: right">D1P1 median</th><th style="text-align: right">D2P1 median</th><th style="text-align: right">Mean total time (clean langs)</th><th style="text-align: right">Mean tokens/s</th></tr></thead><tbody>
+<tr><td>claude-haiku-4-5</td><td style="text-align: center">7</td><td style="text-align: right">12.5s</td><td style="text-align: right">17.0s</td><td style="text-align: right">214.3s</td><td style="text-align: right">84.6</td></tr>
+<tr><td>devstral-2512</td><td style="text-align: center">5</td><td style="text-align: right">19.0s</td><td style="text-align: right">23.0s</td><td style="text-align: right">301.4s</td><td style="text-align: right">80.5</td></tr>
+<tr><td>kimi-coding/k2p5</td><td style="text-align: center">8</td><td style="text-align: right">27.0s</td><td style="text-align: right">24.5s</td><td style="text-align: right">303.1s</td><td style="text-align: right">37.3</td></tr>
+<tr><td>gpt-5.3-codex</td><td style="text-align: center">8</td><td style="text-align: right">29.5s</td><td style="text-align: right">23.0s</td><td style="text-align: right">232.9s</td><td style="text-align: right">27.6</td></tr>
+<tr><td>claude-sonnet-4-6</td><td style="text-align: center">12</td><td style="text-align: right">34.5s</td><td style="text-align: right">38.0s</td><td style="text-align: right">321.1s</td><td style="text-align: right">45.3</td></tr>
+<tr><td>claude-opus-4-6</td><td style="text-align: center">12</td><td style="text-align: right">35.0s</td><td style="text-align: right">47.5s</td><td style="text-align: right">312.8s</td><td style="text-align: right">40.9</td></tr>
+<tr><td>qwen3.5-plus</td><td style="text-align: center">9</td><td style="text-align: right">42.0s</td><td style="text-align: right">45.0s</td><td style="text-align: right">734.1s</td><td style="text-align: right">65.5</td></tr>
+<tr><td>qwen3-coder-next</td><td style="text-align: center">4</td><td style="text-align: right">52.0s</td><td style="text-align: right">30.5s</td><td style="text-align: right">536.0s</td><td style="text-align: right">55.7</td></tr>
+<tr><td>zai/glm-5</td><td style="text-align: center">8</td><td style="text-align: right">55.0s</td><td style="text-align: right">63.0s</td><td style="text-align: right">841.8s</td><td style="text-align: right">19.6</td></tr>
+<tr><td>MiniMax-M2.5</td><td style="text-align: center">4</td><td style="text-align: right">60.0s</td><td style="text-align: right">58.0s</td><td style="text-align: right">1392.5s</td><td style="text-align: right">30.6</td></tr>
+</tbody></table>
+<p>Observed from this table:</p>
+<ul>
+<li><strong>Haiku</strong> and <strong>devstral</strong> are often fast on low-complexity parts.</li>
+<li><strong>Codex</strong> is fast and also comparatively concise (low tokens/s + low wall-clock).</li>
+<li><strong>MiniMax</strong> is slow both on simple-part medians and total runtime.</li>
+<li><strong>qwen3.5-plus</strong> and <strong>qwen3-coder-next</strong> can generate tokens quickly, but this does
+not translate to strong strict reliability.</li>
+</ul>
+<h3 id="patterns">Patterns</h3>
+<p><strong>Day 1 Part 2 is the most common failure point.</strong> Nearly every failure in the
+benchmark happens at Day 1 Part 2. It requires a conceptual shift from Part 1, and this
+is where weaker model runs most often fail.</p>
+<p><strong>Speed does not predict reliability.</strong> Haiku and devstral are often among the fastest
+on individual parts but still get ejected in several language runs. Opus is not
+consistently the fastest per part, but it stays reliable across all runs. Devstral also
+shows a repeated pattern of strong D1P1 speed followed by D1P2 failures.</p>
+<p><strong>Language familiarity maps to training data.</strong> Python and Ruby: 10/10 perfect. OCaml
+and ReScript: 4/10. This is consistent with differences in language prevalence in public
+code corpora.</p>
+<p><strong>Teaching the language works.</strong> ReScript went from 1/10 completers (run 1) to 2/10
+(run 2, with an overflow warning) to 7/10 (run 3, with a 150-line system prompt
+covering syntax and stdlib). The system prompt didn't just help with one specific
+trap — it helped models write correct algorithms in an unfamiliar language. In this
+setting, explicit language references were more effective than short cautionary warnings.</p>
+<p><strong>High token usage often indicates higher iteration overhead.</strong> Token count is a useful
+proxy for solution efficiency. Codex uses 4–7K tokens per run. MiniMax and qwen3.5-plus
+can exceed 20K and in some runs go much higher. The extra tokens are typically linked to
+failed approaches, compile errors, and rewrites.</p>
+<hr />
+<h3 id="practical-2026-selection-for-polyglot-programmers">Practical 2026 selection for polyglot programmers</h3>
+<p>Using the strict rule in this recap (retry = failure), the following split is the most
+practical way to choose models for day-to-day polyglot work.</p>
+<h4 id="models-to-use-or-actively-evaluate">Models to use or actively evaluate</h4>
+<table><thead><tr><th>Model</th><th style="text-align: center">Perfect langs (strict)</th><th>2026 recommendation</th><th>Evidence from this benchmark</th></tr></thead><tbody>
+<tr><td><code>claude-opus-4-6</code></td><td style="text-align: center">12/12</td><td>Primary reliability baseline</td><td>120/120 first-try across all 12 languages</td></tr>
+<tr><td><code>claude-sonnet-4-6</code></td><td style="text-align: center">12/12</td><td>Primary default when balancing reliability and cost</td><td>Same reliability as Opus, with lower average cost</td></tr>
+<tr><td><code>gpt-5.3-codex</code></td><td style="text-align: center">8/12</td><td>Secondary tool for concise implementations</td><td>Best token efficiency; occasional no-progress incidents in Elixir/ReScript</td></tr>
+<tr><td><code>kimi-coding/k2p5</code></td><td style="text-align: center">8/12</td><td>Budget-oriented option</td><td>Lowest cost profile; one ejection and several retries</td></tr>
+<tr><td><code>zai/glm-5</code></td><td style="text-align: center">8/12</td><td>Completion-focused backup when latency is acceptable</td><td>No ejections; slower runtime and some retries</td></tr>
+<tr><td><code>qwen3.5-plus</code></td><td style="text-align: center">8/12</td><td>Optional, situational use</td><td>Mid-pack reliability with high token usage and retry spikes</td></tr>
+<tr><td><code>claude-haiku-4-5</code></td><td style="text-align: center">7/12</td><td>Fast-prototyping option, not strict-reliability default</td><td>Very fast in multiple languages, but more Part 2 failures</td></tr>
+</tbody></table>
+<h4 id="models-to-deprioritize-for-now">Models to deprioritize for now</h4>
+<table><thead><tr><th>Model</th><th style="text-align: center">Perfect langs (strict)</th><th>Why low priority in this dataset</th></tr></thead><tbody>
+<tr><td><code>devstral-2512</code></td><td style="text-align: center">5/12</td><td>Multiple ejections and retries, especially in FP-heavy runs</td></tr>
+<tr><td><code>MiniMax-M2.5</code></td><td style="text-align: center">4/12</td><td>Highest retry pressure and very high runtime variance</td></tr>
+<tr><td><code>qwen3-coder-next</code></td><td style="text-align: center">3/12</td><td>Most ejections and repeated no-progress/stale-output incidents</td></tr>
+</tbody></table>
+<p>This is a single-run benchmark snapshot. Re-evaluate as model versions and serving
+infrastructure change.</p>
+<hr />
+<h3 id="methodology">Methodology</h3>
+<p>The benchmark was driven by a custom prompt for
+<a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a>, a CLI coding
+agent. The prompt turns pi into a benchmark controller that launches one pi agent per
+model in separate tmux windows, feeds them puzzle descriptions, waits for completion,
+collects answers, and handles ejections.</p>
+<p>Each agent works in complete isolation — its own directory, no shared state, no awareness
+of others. Extended thinking was configured as disabled (<code>--thinking off</code>). A 5-second
+execution timeout prevented brute-force solutions. All agents ran under <code>nice -n 10</code> to
+prevent CPU starvation with 10+ concurrent compilations.</p>
+<p>One caveat: <code>--thinking off</code> is a request passed through provider/model adapters. It is
+useful for consistency, but it does not guarantee identical internal reasoning behavior
+across all providers or model backends.</p>
+<p>These are single-run results, not averaged over multiple attempts. Wall-clock times are
+influenced by inference platform load. The individual benchmark posts contain full
+per-part timing, token counts, and cost breakdowns.</p>
+<hr />
+<p><em>Benchmarked between 2026-02-24 and 2026-02-27 using <a rel="external" href="https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent">pi</a> as the agent harness.</em></p>
+<hr />
+<p><em>This post was written with AI assistance.</em></p>
+
+  </div><div class="giscus comments"></div>
+<script src="https://giscus.app/client.js"
+        data-repo="benjamin-thomas&#x2F;benjamin-thomas.github.io"
+        data-repo-id="MDEwOlJlcG9zaXRvcnk5ODA4NDIwMw=="
+        data-category="General"
+        data-category-id="DIC_kwDOBdila84C3LCC"
+        data-mapping="og:title"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+</article>
+
+    </main>
+  </div>
+  <footer>
+    <a href="https://github.com/benjamin-thomas"><i class="svg-icon icon-github-circled"></i></a>
+    <a href="/atom.xml"><i class="svg-icon icon-rss"></i></a>
+<span class="copyright">&copy; 2017 - 2026 Benjamin THOMAS</span>
+</footer>
+</body>
+
+</html>
